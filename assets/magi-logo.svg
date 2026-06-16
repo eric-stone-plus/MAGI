@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" style="background:#050508">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0d080"/>
+      <stop offset="0.5" stop-color="#f0a030"/>
+      <stop offset="1" stop-color="#d08020"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="400" height="400" fill="#050508"/>
+
+  <!-- MAGI -->
+  <text x="200" y="200" text-anchor="middle" fill="url(#g)"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="120" font-weight="900" letter-spacing="18">MAGI</text>
+
+  <!-- Subtitle -->
+  <text x="200" y="250" text-anchor="middle" fill="#707088"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="12" letter-spacing="6">MULTI-AGENT ADVERSARIAL GROUNDED INQUIRY</text>
+
+  <!-- Japanese -->
+  <text x="200" y="300" text-anchor="middle" fill="#505068"
+        font-family="'Times New Roman',Georgia,serif"
+        font-size="15" letter-spacing="3">三博士の贈り物</text>
+</svg>
