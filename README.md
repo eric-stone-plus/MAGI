@@ -11,7 +11,7 @@ Single-model AI hits a confidence ceiling. MAGI breaks through — three apostle
 ---
 
 [![DeepSeek](https://img.shields.io/badge/DeepSeek-v4--pro-4B6BFB?style=flat)](https://deepseek.com)
-[![Protocol](https://img.shields.io/badge/protocol-v1.1-blue?style=flat)](specs/PROTOCOL.md)
+[![Protocol](https://img.shields.io/badge/protocol-v1.2-blue?style=flat)](specs/PROTOCOL.md)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
 </div>
