@@ -1,0 +1,1149 @@
+{
+  "Adang Bay": {
+    "total": 40,
+    "coa": [
+      {
+        "year": 2023.0,
+        "month": 5.0,
+        "vessel": "HE DA",
+        "shipowner": "恒达",
+        "freight": 7.51,
+        "cargo_qty": 68200.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2023.0,
+        "month": 6.0,
+        "vessel": "DE YUAN",
+        "shipowner": "恒达",
+        "freight": 5.91,
+        "cargo_qty": 66100.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2023.0,
+        "month": 7.0,
+        "vessel": "ASIA SPRING",
+        "shipowner": "恒达",
+        "freight": 6.6,
+        "cargo_qty": 68500.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2023.0,
+        "month": 8.0,
+        "vessel": "ALPHA AFOVOS",
+        "shipowner": "恒达",
+        "freight": 5.39,
+        "cargo_qty": 66840.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2023.0,
+        "month": 9.0,
+        "vessel": "YONG FA MEN",
+        "shipowner": "恒达",
+        "freight": 6.28,
+        "cargo_qty": 68400.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 1.0,
+        "vessel": "HOANH SON JUPITER",
+        "shipowner": "海昌",
+        "freight": 7.85,
+        "cargo_qty": 67930.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 2.0,
+        "vessel": "KAI RUI",
+        "shipowner": "中远海",
+        "freight": 6.48,
+        "cargo_qty": 67040.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 3.0,
+        "vessel": "HENG TAI YANG",
+        "shipowner": "中远海",
+        "freight": 8.0,
+        "cargo_qty": 66450.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 5.0,
+        "vessel": "GRACE MILD",
+        "shipowner": "中远海",
+        "freight": 8.14,
+        "cargo_qty": 70700.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 6.0,
+        "vessel": "BANGOR",
+        "shipowner": "中远海",
+        "freight": 8.48,
+        "cargo_qty": 67900.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 7.0,
+        "vessel": "XIN TAI YUAN",
+        "shipowner": "中远海",
+        "freight": 7.17,
+        "cargo_qty": 70100.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 10.0,
+        "vessel": "XIN TAI YUAN",
+        "shipowner": "中远海",
+        "freight": 7.23,
+        "cargo_qty": 70300.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 11.0,
+        "vessel": "MEHMET AKSOY",
+        "shipowner": "中远海",
+        "freight": 6.91,
+        "cargo_qty": 72400.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 12.0,
+        "vessel": "PS FRAMURA",
+        "shipowner": "中远海",
+        "freight": 6.64,
+        "cargo_qty": 67580.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 2.0,
+        "vessel": "JIAN XIANG",
+        "shipowner": "中远海（长协）",
+        "freight": 4.13,
+        "cargo_qty": 68350.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 2.0,
+        "vessel": "GRACE MILD",
+        "shipowner": "中远海（长协）",
+        "freight": 3.96,
+        "cargo_qty": 70650.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 3.0,
+        "vessel": "CL MONA",
+        "shipowner": "中远海（长协）",
+        "freight": 5.22,
+        "cargo_qty": 72000.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 4.0,
+        "vessel": "SHEN HUA 811",
+        "shipowner": "中远海（长协）",
+        "freight": 6.18,
+        "cargo_qty": 69018.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 4.0,
+        "vessel": "DONG JIANG HE",
+        "shipowner": "中远海（长协）",
+        "freight": 6.09,
+        "cargo_qty": 68950.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 5.0,
+        "vessel": "ZEN MERIT",
+        "shipowner": "中远海（长协）",
+        "freight": 5.78,
+        "cargo_qty": 67100.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 6.0,
+        "vessel": "JING JIN HAI",
+        "shipowner": "中远海（长协）",
+        "freight": 5.44,
+        "cargo_qty": 69460.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 7.0,
+        "vessel": "HONG YU",
+        "shipowner": "中远海（长协）",
+        "freight": 6.2,
+        "cargo_qty": 69135.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 7.0,
+        "vessel": "JING LU HAI",
+        "shipowner": "中远海（长协）",
+        "freight": 6.5,
+        "cargo_qty": 69611.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 8.0,
+        "vessel": "HARMONY",
+        "shipowner": "中远海（长协）",
+        "freight": 7.44,
+        "cargo_qty": 68197.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 8.0,
+        "vessel": "YU XIAO FENG",
+        "shipowner": "中远海（长协）",
+        "freight": 6.89,
+        "cargo_qty": 69252.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 9.0,
+        "vessel": "DA TANG 712",
+        "shipowner": "中远海（长协）",
+        "freight": 7.03,
+        "cargo_qty": 67980.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 10.0,
+        "vessel": "DA TANG 712",
+        "shipowner": "中远海（长协）",
+        "freight": 6.89,
+        "cargo_qty": 70400.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 10.0,
+        "vessel": "HONG YU",
+        "shipowner": "中远海（长协）",
+        "freight": 7.06,
+        "cargo_qty": 71800.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 11.0,
+        "vessel": "JIA XI",
+        "shipowner": "中远海（长协）",
+        "freight": 7.72,
+        "cargo_qty": 70460.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 12.0,
+        "vessel": "JIA XI",
+        "shipowner": "中远海（长协）",
+        "freight": 8.03,
+        "cargo_qty": 67567.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 12.0,
+        "vessel": "YUN MI FENG",
+        "shipowner": "中远海（长协）",
+        "freight": 8.08,
+        "cargo_qty": 69350.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 1.0,
+        "vessel": "ROSCO LEMON",
+        "shipowner": "德运",
+        "freight": 4.98,
+        "cargo_qty": 70168.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 2.0,
+        "vessel": "CHANG HE SHENG",
+        "shipowner": "时代",
+        "freight": 5.86,
+        "cargo_qty": 77000.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 3.0,
+        "vessel": "CHANG YANG JIN LONG",
+        "shipowner": "中远海（长协）",
+        "freight": 6.49,
+        "cargo_qty": 70850.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 4.0,
+        "vessel": "YONG FA MEN",
+        "shipowner": "中远海（长协）",
+        "freight": 10.6,
+        "cargo_qty": 68665.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 6.0,
+        "vessel": "KAMARAIS",
+        "shipowner": "中远海（长协）",
+        "freight": 12.11,
+        "cargo_qty": 67600.0,
+        "cargo_type": "长协"
+      }
+    ],
+    "spot": [
+      {
+        "year": 2022.0,
+        "month": 3.0,
+        "vessel": "FLYING LOONG",
+        "shipowner": "恒达",
+        "freight": 10.78,
+        "cargo_qty": 64345.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 4.0,
+        "vessel": "NINGBO INNOVATION",
+        "shipowner": "中远海",
+        "freight": 8.139999999999999,
+        "cargo_qty": 71102.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 11.0,
+        "vessel": "BLUE BOSPORUS",
+        "shipowner": "中远海",
+        "freight": 6.88,
+        "cargo_qty": 69129.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 8.0,
+        "vessel": "ZEN MERIT",
+        "shipowner": "通利",
+        "freight": 7.27,
+        "cargo_qty": 69750.0,
+        "cargo_type": "现货"
+      }
+    ],
+    "other": []
+  },
+  "Newcastle": {
+    "total": 62,
+    "coa": [
+      {
+        "year": 2024.0,
+        "month": 2.0,
+        "vessel": "OCEAN SCALLION",
+        "shipowner": "国能远海",
+        "freight": 14.6,
+        "cargo_qty": 73380.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 4.0,
+        "vessel": "SHI DAI 11",
+        "shipowner": "通利",
+        "freight": 18.98,
+        "cargo_qty": 68956.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 4.0,
+        "vessel": "PS CADIZ",
+        "shipowner": "通利",
+        "freight": 16.33,
+        "cargo_qty": 73936.0,
+        "cargo_type": "小长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 6.0,
+        "vessel": "PAN CERES",
+        "shipowner": "通利",
+        "freight": 17.99,
+        "cargo_qty": 73722.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 7.0,
+        "vessel": "BRYANT",
+        "shipowner": "通利",
+        "freight": 17.18,
+        "cargo_qty": 70484.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 7.0,
+        "vessel": "ALPHA LOYALTY",
+        "shipowner": "嘉吉",
+        "freight": 15.83,
+        "cargo_qty": 68934.0,
+        "cargo_type": "小长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 8.0,
+        "vessel": "SHEN HUA 801",
+        "shipowner": "通利",
+        "freight": 15.37,
+        "cargo_qty": 69101.0,
+        "cargo_type": "小长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 9.0,
+        "vessel": "MAGIC PLUTO",
+        "shipowner": "通利",
+        "freight": 15.07,
+        "cargo_qty": 66605.0,
+        "cargo_type": "小长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 10.0,
+        "vessel": "SPRING PROGRESS",
+        "shipowner": "时代",
+        "freight": 15.8,
+        "cargo_qty": 71712.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 11.0,
+        "vessel": "MEDI KAZAHAYA",
+        "shipowner": "通利",
+        "freight": 15.57,
+        "cargo_qty": 72987.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 12.0,
+        "vessel": "BRYANT",
+        "shipowner": "通利",
+        "freight": 14.53,
+        "cargo_qty": 70801.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 1.0,
+        "vessel": "BRYANT",
+        "shipowner": "通利",
+        "freight": 10.69,
+        "cargo_qty": 70780.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 1.0,
+        "vessel": "SHEN HUA 803",
+        "shipowner": "通利",
+        "freight": 10.37,
+        "cargo_qty": 69029.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 2.0,
+        "vessel": "GOLDEN FAITH",
+        "shipowner": "德义诚",
+        "freight": 10.68,
+        "cargo_qty": 77000.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 2.0,
+        "vessel": "GOLDEN LION",
+        "shipowner": "德义诚",
+        "freight": 10.59,
+        "cargo_qty": 77000.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 3.0,
+        "vessel": "SEA MARATHON",
+        "shipowner": "德义诚",
+        "freight": 12.58,
+        "cargo_qty": 72253.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 4.0,
+        "vessel": "SHI DAI 2",
+        "shipowner": "时代",
+        "freight": 13.18,
+        "cargo_qty": 69625.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 5.0,
+        "vessel": "GOLDEN STAR",
+        "shipowner": "德义诚",
+        "freight": 12.58,
+        "cargo_qty": 77000.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 5.0,
+        "vessel": "KELLY",
+        "shipowner": "德义诚",
+        "freight": 12.57,
+        "cargo_qty": 71750.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 7.0,
+        "vessel": "SOPHOCLES GRAECIA",
+        "shipowner": "时代",
+        "freight": 13.81,
+        "cargo_qty": 72381.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 8.0,
+        "vessel": "TRANSCENDEN WISDOM",
+        "shipowner": "通利",
+        "freight": 14.43,
+        "cargo_qty": 72528.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 9.0,
+        "vessel": "CYMONA PROGRESS",
+        "shipowner": "德义诚",
+        "freight": 13.65,
+        "cargo_qty": 76104.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 9.0,
+        "vessel": "DIAMOND TRADER",
+        "shipowner": "德义诚",
+        "freight": 13.65,
+        "cargo_qty": 76223.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 10.0,
+        "vessel": "ATLANTIC AFFINITY",
+        "shipowner": "德义诚",
+        "freight": 13.69,
+        "cargo_qty": 75503.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 10.0,
+        "vessel": "RG RHEA",
+        "shipowner": "瑞通",
+        "freight": 14.95,
+        "cargo_qty": 71934.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 11.0,
+        "vessel": "LIGHT VENTURE",
+        "shipowner": "德义诚",
+        "freight": 15.98,
+        "cargo_qty": 74470.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 12.0,
+        "vessel": "HAOYUE",
+        "shipowner": "北港航运",
+        "freight": 15.8,
+        "cargo_qty": 72557.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 1.0,
+        "vessel": "GUO YUAN 16",
+        "shipowner": "瑞通",
+        "freight": 11.9,
+        "cargo_qty": 68862.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 2.0,
+        "vessel": "SHI DAI 8",
+        "shipowner": "发航（时代）",
+        "freight": 12.57,
+        "cargo_qty": 71697.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 3.0,
+        "vessel": "NEW HARMONY 8",
+        "shipowner": "发航（瑞通）",
+        "freight": 14.39,
+        "cargo_qty": 77000.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 5.0,
+        "vessel": "BBG INTEGRITY",
+        "shipowner": "通利",
+        "freight": 19.93,
+        "cargo_qty": 75955.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 5.0,
+        "vessel": "HC BEAUTY",
+        "shipowner": "海明",
+        "freight": 20.3,
+        "cargo_qty": 75185.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 6.0,
+        "vessel": "AGIOS MAKARIOS",
+        "shipowner": "德义诚",
+        "freight": 20.38,
+        "cargo_qty": 75689.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 6.0,
+        "vessel": "ASL MERCURY",
+        "shipowner": "国能远海",
+        "freight": 0,
+        "cargo_qty": 0,
+        "cargo_type": "长协"
+      }
+    ],
+    "spot": [
+      {
+        "year": 2023.0,
+        "month": 3.0,
+        "vessel": "TAI KINSHIP",
+        "shipowner": "海昌",
+        "freight": 13.75,
+        "cargo_qty": 77000.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 3.0,
+        "vessel": "CCS ORCHID",
+        "shipowner": "通利",
+        "freight": 16.05,
+        "cargo_qty": 72230.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 3.0,
+        "vessel": "JR SUMMER",
+        "shipowner": "中远海",
+        "freight": 15.69,
+        "cargo_qty": 77000.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 4.0,
+        "vessel": "BALLARD",
+        "shipowner": "通利",
+        "freight": 15.3,
+        "cargo_qty": 70902.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 4.0,
+        "vessel": "XING HUAN HAI",
+        "shipowner": "海昌",
+        "freight": 16.0,
+        "cargo_qty": 77000.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 5.0,
+        "vessel": "BAFFIN",
+        "shipowner": "国能远海",
+        "freight": 15.4,
+        "cargo_qty": 69410.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 5.0,
+        "vessel": "GNG CONCORD 2",
+        "shipowner": "中远海",
+        "freight": 15.68,
+        "cargo_qty": 68532.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 9.0,
+        "vessel": "LEGATO II",
+        "shipowner": "福建海运",
+        "freight": 14.2,
+        "cargo_qty": 70851.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 9.0,
+        "vessel": "EIRINI P",
+        "shipowner": "通利",
+        "freight": 14.79,
+        "cargo_qty": 71161.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 11.0,
+        "vessel": "URSULA MANX",
+        "shipowner": "海昌",
+        "freight": 16.77,
+        "cargo_qty": 73465.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 11.0,
+        "vessel": "SHAIL AL RAYAN",
+        "shipowner": "福建海运",
+        "freight": 15.75,
+        "cargo_qty": 70500.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 12.0,
+        "vessel": "COFCO 1",
+        "shipowner": "海昌",
+        "freight": 17.17,
+        "cargo_qty": 72709.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2023.0,
+        "month": 12.0,
+        "vessel": "ASL MOON",
+        "shipowner": "通利",
+        "freight": 17.55,
+        "cargo_qty": 72900.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 10.0,
+        "vessel": "EVER SHINING",
+        "shipowner": "通利",
+        "freight": 15.53,
+        "cargo_qty": 73208.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 10.0,
+        "vessel": "ZHEN XIANG 6",
+        "shipowner": "时代",
+        "freight": 15.14,
+        "cargo_qty": 72656.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 10.0,
+        "vessel": "HONG HING",
+        "shipowner": "中远海",
+        "freight": 15.29,
+        "cargo_qty": 69342.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 10.0,
+        "vessel": "GUO YUAN 20",
+        "shipowner": "通利",
+        "freight": 16.13,
+        "cargo_qty": 68900.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 11.0,
+        "vessel": "ADMIRAL JIMMU",
+        "shipowner": "通利",
+        "freight": 14.03,
+        "cargo_qty": 72719.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 1.0,
+        "vessel": "CL MONA",
+        "shipowner": "通利",
+        "freight": 10.37,
+        "cargo_qty": 72400.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 3.0,
+        "vessel": "RAPALLO",
+        "shipowner": "国能远海",
+        "freight": 12.61,
+        "cargo_qty": 68468.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 3.0,
+        "vessel": "CHOLA ETERNITY",
+        "shipowner": "国能远海",
+        "freight": 10.95,
+        "cargo_qty": 77000.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 3.0,
+        "vessel": "GRIZZLY",
+        "shipowner": "国能远海",
+        "freight": 10.95,
+        "cargo_qty": 72001.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 4.0,
+        "vessel": "SEA PLUTO",
+        "shipowner": "德义诚",
+        "freight": 14.98,
+        "cargo_qty": 72150.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 4.0,
+        "vessel": "HONG HING",
+        "shipowner": "中远海",
+        "freight": 14.9,
+        "cargo_qty": 69418.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 4.0,
+        "vessel": "TAI KINGDOM",
+        "shipowner": "德义诚",
+        "freight": 12.4,
+        "cargo_qty": 79270.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 8.0,
+        "vessel": "JY RIVER",
+        "shipowner": "德义诚",
+        "freight": 13.65,
+        "cargo_qty": 75250.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 12.0,
+        "vessel": "GRIZZLY",
+        "shipowner": "德义诚",
+        "freight": 15.8,
+        "cargo_qty": 72077.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2026.0,
+        "month": 2.0,
+        "vessel": "KM MT.JADE",
+        "shipowner": "发航（通利）",
+        "freight": 15.34,
+        "cargo_qty": 76128.0,
+        "cargo_type": "现货"
+      }
+    ],
+    "other": []
+  },
+  "Taboneo": {
+    "total": 19,
+    "coa": [
+      {
+        "year": 2023.0,
+        "month": 11.0,
+        "vessel": "WU ZHOU 6",
+        "shipowner": "通利",
+        "freight": 7.83,
+        "cargo_qty": 68800.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2023.0,
+        "month": 12.0,
+        "vessel": "OCEAN PRINCE",
+        "shipowner": "通利",
+        "freight": 10.55,
+        "cargo_qty": 71370.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 8.0,
+        "vessel": "ROSCO SANDALWOOD",
+        "shipowner": "通利",
+        "freight": 7.63,
+        "cargo_qty": 70300.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 4.0,
+        "vessel": "DA TANG 712",
+        "shipowner": "海昌（长协）",
+        "freight": 8.03,
+        "cargo_qty": 69000.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 7.0,
+        "vessel": "XIN DONG GUAN 11",
+        "shipowner": "海昌（长协）",
+        "freight": 7.23,
+        "cargo_qty": 71950.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 8.0,
+        "vessel": "HC SUNSHINE",
+        "shipowner": "海昌（长协）",
+        "freight": 7.82,
+        "cargo_qty": 73000.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 9.0,
+        "vessel": "HC ENERGY",
+        "shipowner": "海昌（长协）",
+        "freight": 7.58,
+        "cargo_qty": 67750.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 10.0,
+        "vessel": "HC SUNSHINE",
+        "shipowner": "海昌（长协）",
+        "freight": 7.97,
+        "cargo_qty": 73237.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2025.0,
+        "month": 12.0,
+        "vessel": "HC ENERGY",
+        "shipowner": "海昌（长协）",
+        "freight": 9.19,
+        "cargo_qty": 67950.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 1.0,
+        "vessel": "DOLPHIN 77",
+        "shipowner": "海成",
+        "freight": 5.5,
+        "cargo_qty": 68300.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 2.0,
+        "vessel": "SPITHA",
+        "shipowner": "时代",
+        "freight": 5.86,
+        "cargo_qty": 69270.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 3.0,
+        "vessel": "KAMARES",
+        "shipowner": "国远海",
+        "freight": 6.8,
+        "cargo_qty": 67780.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 5.0,
+        "vessel": "CAPTAIN P. EGGLEZOS",
+        "shipowner": "时代",
+        "freight": 11.0,
+        "cargo_qty": 71784.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2026.0,
+        "month": 5.0,
+        "vessel": "GIORGAKIS",
+        "shipowner": "通利",
+        "freight": 11.7,
+        "cargo_qty": 70505.0,
+        "cargo_type": "长协"
+      }
+    ],
+    "spot": [
+      {
+        "year": 2024.0,
+        "month": 6.0,
+        "vessel": "YANGTZE SELINDA",
+        "shipowner": "福建海运",
+        "freight": 9.18,
+        "cargo_qty": 67570.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 8.0,
+        "vessel": "PEACE GEM",
+        "shipowner": "通利",
+        "freight": 8.25,
+        "cargo_qty": 67500.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 10.0,
+        "vessel": "GALIO",
+        "shipowner": "国能远海",
+        "freight": 8.6,
+        "cargo_qty": 71730.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2024.0,
+        "month": 12.0,
+        "vessel": "BASIC SUN",
+        "shipowner": "海昌",
+        "freight": 6.94,
+        "cargo_qty": 72300.0,
+        "cargo_type": "现货"
+      },
+      {
+        "year": 2025.0,
+        "month": 11.0,
+        "vessel": "NINGBO INNOVATION",
+        "shipowner": "通利",
+        "freight": 9.65,
+        "cargo_qty": 69000.0,
+        "cargo_type": "现货"
+      }
+    ],
+    "other": []
+  },
+  "Kaliorang": {
+    "total": 3,
+    "coa": [
+      {
+        "year": 2024.0,
+        "month": 5.0,
+        "vessel": "IVESTOS II",
+        "shipowner": "通利",
+        "freight": 8.35,
+        "cargo_qty": 71435.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 7.0,
+        "vessel": "GUAN LAN HU",
+        "shipowner": "海昌",
+        "freight": 7.51,
+        "cargo_qty": 70600.0,
+        "cargo_type": "长协"
+      },
+      {
+        "year": 2024.0,
+        "month": 12.0,
+        "vessel": "DOLPHIN 79",
+        "shipowner": "通利",
+        "freight": 5.87,
+        "cargo_qty": 70600.0,
+        "cargo_type": "长协"
+      }
+    ],
+    "spot": [],
+    "other": []
+  }
+}

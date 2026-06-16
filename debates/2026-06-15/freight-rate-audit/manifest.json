@@ -1,0 +1,32 @@
+{
+  "topic": "freight-rate-report-audit",
+  "date": "2026-06-15",
+  "protocol": "MAGI v1.1",
+  "mode": "hm-solo (degraded)",
+  "degradation_reason": "delegate_task 401 — mimo credential pool path mismatch",
+  "convergence_score": 0.94,
+  "convergence_status": "CONVERGED (≥0.7)",
+  "phases": {
+    "phase0_star": "evidence_package",
+    "phase1_gold": "verification — 22 claims, 68% REFUTED",
+    "phase1_frankincense": "synthesis — 3 error types, 5 insights",
+    "phase1_myrrh": "risk — 8 risks, highest CRITICAL",
+    "phase2_cycle1_cross": "spiral cross-review",
+    "phase3_manger": "convergence 0.94",
+    "phase4_revelation": "final verdict — BLOCKED"
+  },
+  "cross_protocol": {
+    "quinte_r1": "4/4 BLOCKED",
+    "quinte_r2": "5-way cross + MAGI injection — consistent",
+    "quinte_r3": "2/2 BLOCKED (hm + auditor B)",
+    "cross_consistency": "100% — no substantive disagreement"
+  },
+  "key_findings": [
+    "All freight rate numbers truncated (tens digit stripped)",
+    "COA/spot classification wrong for 3/4 routes",
+    "KALIORANG spot data fabricated (0 spot in ledger)",
+    "NEWCASTLE COA mean > spot mean (undermines core thesis)",
+    "CW located cause: report only counted 中远海长协+恒达 = 25 voyages"
+  ],
+  "verdict": "BLOCKED — report must be rewritten from raw ledger data"
+}

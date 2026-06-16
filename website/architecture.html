@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAGI — Architecture</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">MAGI <span>マギ</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="architecture.html" class="active">Architecture</a>
+    <a href="gifts.html">Gifts</a>
+    <a href="philosophy.html">Philosophy</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <h1>Architecture</h1>
+  <div class="subtitle">Dialectical Spiral Protocol</div>
+</header>
+
+<!-- ═══ FIVE PHASES ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">THE PROTOCOL</div>
+    <h2 class="reveal">Five phases of<br><em>convergent inquiry</em></h2>
+    <p class="reveal" style="max-width:600px;font-size:1rem;color:var(--text);line-height:1.8;margin-bottom:3rem;">
+      Each phase serves a distinct purpose in the journey from raw question to grounded verdict. The phases follow the Magi's journey — from the star that guides them, through the road that tests them, to the manger where they converge.
+    </p>
+
+    <div class="phase-timeline">
+      <div class="phase-item reveal">
+        <div class="phase-number">PHASE 0</div>
+        <h3>The Star <span class="serif gold">星</span></h3>
+        <div class="phase-jp">星の導き</div>
+        <p style="color:var(--text);line-height:1.8;">The Magi followed a star. hm follows the evidence — decomposing the problem, gathering data, and assigning each Gift to the agent best suited to carry it. The only interactive phase: if the problem is ambiguous, hm clarifies before proceeding.</p>
+      </div>
+
+      <div class="phase-item reveal">
+        <div class="phase-number">PHASE 1</div>
+        <h3>The Offering <span class="serif gold">獻禮</span></h3>
+        <div class="phase-jp">三博士の獻禮</div>
+        <p style="color:var(--text);line-height:1.8;">Three parallel analyses, each through a distinct epistemological lens. Gold verifies facts, Frankincense synthesizes meaning, Myrrh maps risks. All three run concurrently — independent perspectives on the same evidence.</p>
+      </div>
+
+      <div class="phase-item reveal">
+        <div class="phase-number">PHASE 2</div>
+        <h3>The Journey <span class="serif gold">旅路</span></h3>
+        <div class="phase-jp">辯證の旅路</div>
+        <p style="color:var(--text);line-height:1.8;">The dialectical spiral. Each Gift reviews the <em>previous</em> Gift's output through its own lens — Gold verifies Myrrh's risks, Frankincense synthesizes Gold's facts, Myrrh stress-tests Frankincense's patterns. Directed, not random. O(n), not O(n²).</p>
+      </div>
+
+      <div class="phase-item reveal">
+        <div class="phase-number">PHASE 3</div>
+        <h3>The Manger <span class="serif gold">馬槽</span></h3>
+        <div class="phase-jp">収束の馬槽</div>
+        <p style="color:var(--text);line-height:1.8;">Have the Magi converged? hm evaluates three dimensions — factual agreement (0.4), interpretive consensus (0.3), and risk resolution (0.3). Score ≥0.7 → proceed. Below → targeted restart on the weakest dimension.</p>
+      </div>
+
+      <div class="phase-item reveal">
+        <div class="phase-number">PHASE 4</div>
+        <h3>The Revelation <span class="serif gold">啟示</span></h3>
+        <div class="phase-jp">最終の啟示</div>
+        <p style="color:var(--text);line-height:1.8;">The final synthesis. Not a binary verdict, but a <strong>confidence topology</strong> — a map of what we know, how well we know it, and where the knowledge breaks down. Known unknowns explicitly documented. Dissent preserved, not suppressed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SPIRAL DIAGRAM ═══ -->
+<section class="section" id="spiral">
+  <div class="container">
+    <div class="section-label reveal">DIALECTICAL SPIRAL</div>
+    <h2 class="reveal">Not cross-review.<br><em>Spiral review.</em></h2>
+    <p class="reveal" style="max-width:600px;font-size:1rem;color:var(--text);line-height:1.8;margin-bottom:2rem;">
+      QUINTE's cross-review: every agent reviews everyone — O(n²), flat, undifferentiated.
+      MAGI's spiral: each Gift reviews the previous — O(n), directed, narrative arc.
+    </p>
+
+    <div class="spiral-diagram reveal">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--dim);letter-spacing:0.2em;margin-bottom:2rem;">PHASE 2 · THE JOURNEY · CYCLE 1</div>
+      <div class="spiral-flow">
+        <span class="spiral-node gold-node">GOLD reviews MYRRH</span>
+        <span class="spiral-arrow">→</span>
+        <span class="spiral-node frankincense-node">FRANKINCENSE reviews GOLD</span>
+        <span class="spiral-arrow">→</span>
+        <span class="spiral-node myrrh-node">MYRRH reviews FRANKINCENSE</span>
+      </div>
+      <div style="margin-top:2rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--dimmer);letter-spacing:0.15em;">MAX 3 CYCLES · 9 TOTAL REVIEWS</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;">
+      <div class="card reveal">
+        <div class="section-label" style="margin-bottom:0.5rem;">QUINTE · Cross-Review</div>
+        <div style="font-size:0.9rem;color:var(--text);line-height:1.7;">
+          Every agent reviews every other agent's output.<br>
+          O(n²) comparisons. Flat. Undifferentiated.<br>
+          <span style="color:var(--dim);">Strength: catches shared blind spots through redundancy.</span>
+        </div>
+      </div>
+      <div class="card reveal" style="border-color:var(--gold-lo);">
+        <div class="section-label" style="margin-bottom:0.5rem;">MAGI · Spiral Review</div>
+        <div style="font-size:0.9rem;color:var(--text);line-height:1.7;">
+          Each Gift reviews the previous Gift through its own lens.<br>
+          O(n) comparisons. Directed. Narrative arc.<br>
+          <span style="color:var(--gold);">Strength: dialectical tension drives deeper analysis.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONVERGENCE ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">THE MANGER</div>
+    <h2 class="reveal">Explicit convergence,<br><em>not vote counting</em></h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2rem;">
+      <div class="card reveal">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--gold-lo);letter-spacing:0.2em;margin-bottom:0.5rem;">FACTUAL</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--gold);">0.4</div>
+        <div style="font-size:0.85rem;color:var(--dim);margin-top:0.5rem;">All Gifts agree on verified facts. No unresolved factual disputes.</div>
+      </div>
+      <div class="card reveal">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--gold-lo);letter-spacing:0.2em;margin-bottom:0.5rem;">INTERPRETIVE</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--gold);">0.3</div>
+        <div style="font-size:0.85rem;color:var(--dim);margin-top:0.5rem;">Frankincense's synthesis is uncontested by Gold and Myrrh.</div>
+      </div>
+      <div class="card reveal">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--gold-lo);letter-spacing:0.2em;margin-bottom:0.5rem;">RISK</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--gold);">0.3</div>
+        <div style="font-size:0.85rem;color:var(--dim);margin-top:0.5rem;">Myrrh's risk map has been addressed — mitigated or accepted.</div>
+      </div>
+    </div>
+
+    <div class="convergence-bar reveal" style="margin-top:2rem;">
+      <div class="convergence-label">CONVERGENCE THRESHOLD</div>
+      <div class="convergence-track">
+        <div class="convergence-fill" style="width:0%;" data-width="81%"></div>
+        <div class="convergence-threshold"></div>
+      </div>
+      <div class="convergence-score">≥ 0.7 = CONVERGED</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ANTI-DRIFT ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">STRUCTURAL ANTI-DRIFT</div>
+    <h2 class="reveal">Drift caught by <em>form</em>,<br>not just by content</h2>
+    <p class="reveal" style="max-width:600px;font-size:1rem;color:var(--text);line-height:1.8;margin-bottom:2rem;">
+      Each Gift has a unique output format. If Gold produces a risk map instead of verified facts, the structural mismatch immediately flags role confusion — no content-level detection needed.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;">
+      <div class="card reveal" style="border-top:2px solid var(--gold);">
+        <div class="section-label">GOLD OUTPUT</div>
+        <div style="font-size:0.85rem;color:var(--dim);line-height:1.7;font-family:'JetBrains Mono',monospace;">
+          ## Verified Facts<br>
+          ## Key Claims<br>
+          ## Confidence Level<br>
+          ## What I Cannot Determine
+        </div>
+      </div>
+      <div class="card reveal" style="border-top:2px solid var(--frankincense);">
+        <div class="section-label">FRANKINCENSE OUTPUT</div>
+        <div style="font-size:0.85rem;color:var(--dim);line-height:1.7;font-family:'JetBrains Mono',monospace;">
+          ## Contextual Synthesis<br>
+          ## Patterns Identified<br>
+          ## Cross-Domain Connections<br>
+          ## Narrative
+        </div>
+      </div>
+      <div class="card reveal" style="border-top:2px solid var(--myrrh-hi);">
+        <div class="section-label">MYRRH OUTPUT</div>
+        <div style="font-size:0.85rem;color:var(--dim);line-height:1.7;font-family:'JetBrains Mono',monospace;">
+          ## Risk Map<br>
+          ## Fragility Points<br>
+          ## Blind Spots Detected<br>
+          ## Failure Conditions
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">MAGI</div>
+  <p>
+    <a href="https://github.com/eric-stone-plus/MAGI">GitHub</a> ·
+    <a href="https://github.com/eric-stone-plus/QUINTE">QUINTE</a>
+    <br>MIT License · 2026
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
