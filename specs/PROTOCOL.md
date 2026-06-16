@@ -58,7 +58,7 @@ but they report back to the commission (hm's convergence gate).
 
 ```
          ╔═══════════════════════════════════════╗
-         ║         MAGI Protocol v1.0            ║
+         ║         MAGI Protocol v1.2            ║
          ║   Dialectical Spiral Architecture     ║
          ╚═══════════════════════════════════════╝
 
@@ -110,7 +110,7 @@ but they report back to the commission (hm's convergence gate).
 | Flow | Flat (parallel then cross) | Helical (each turn builds on the last) |
 | Roles | Undifferentiated | Differentiated (Gold/Frankincense/Myrrh) |
 | Convergence | Implicit (vote counting) | Explicit (Manger gate with criteria) |
-| Model | DeepSeek v4-pro | mimo-v2.5-pro |
+| Model | DeepSeek v4-pro | DeepSeek v4-pro |
 | Output | Binary verdict | Confidence topology |
 | Metaphor | Roman Republic | Bethlehem · Matthew 2 |
 | Gate system | 4 gates (雨門/鏡門/證門/閂門) | 1 gate (The Manger) + Star preparation |
@@ -251,7 +251,7 @@ All 4 phases. One mode only. Full protocol or nothing.
 
 **Invocation**: "magi [topic]"
 
-MAGI runs on mimo-v2.5-pro exclusively.
+MAGI is provider-agnostic; DeepSeek v4-pro recommended.
 
 ---
 
@@ -288,7 +288,7 @@ Apostles are dispatched via `delegate_task` with Gift-specific prompts.
 Each apostle receives the Gift definition, evidence package, and (in Phase 2)
 the previous Gift's output for review.
 
-**Model**: All apostles run mimo-v2.5-pro. No DeepSeek dependency.
+**Model**: All apostles are provider-agnostic; DeepSeek v4-pro recommended.
 
 ### §5.3 · Output Structure
 
@@ -366,7 +366,7 @@ Each MAGI topic uses an isolated output directory: `/tmp/magi-audit/<topic-slug>
 | **Metaphor** | Roman Republic | Bethlehem · Matthew 2 |
 | **Use when** | Push authorization, protocol changes | Investigation, analysis, evaluation |
 | **Strength** | Multiple independent perspectives | Structured dialectic with confidence maps |
-| **Model** | DeepSeek v4-pro | mimo-v2.5-pro |
+| **Model** | DeepSeek v4-pro | DeepSeek v4-pro |
 
 **Shared DNA**: Evidence-grounded analysis, explicit uncertainty, anti-drift.
 **Migration path**: MAGI investigates, QUINTE authorizes.
