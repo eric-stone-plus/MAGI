@@ -10,7 +10,7 @@ Single-model AI hits a confidence ceiling. MAGI breaks through — three apostle
 
 ---
 
-[![mimo](https://img.shields.io/badge/mimo-v2.5--pro-4B6BFB?style=flat)](https://xiaomi.com)
+[![DeepSeek](https://img.shields.io/badge/DeepSeek-v4--pro-4B6BFB?style=flat)](https://deepseek.com)
 [![Protocol](https://img.shields.io/badge/protocol-v1.1-blue?style=flat)](spec/PROTOCOL.md)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
@@ -22,7 +22,7 @@ Single-model AI hits a confidence ceiling. MAGI breaks through — three apostle
 
 MAGI is a **protocol** for multi-agent adversarial grounded inquiry, named for the Three Magi who followed the star to Bethlehem (Matthew 2:1-12). It defines:
 
-- **3 agents** (hm + 2 apostles, all mimo-v2.5-pro)
+- **3 agents** (hm + 2 apostles, all DeepSeek v4-pro)
 - **5 phases** (Star → Offering → Journey → Manger → Revelation)
 - **3 epistemological gifts** (Gold = verification, Frankincense = synthesis, Myrrh = risk)
 
@@ -89,7 +89,7 @@ python3 lib/magi.py "your question here"
 | | QUINTE | MAGI |
 |-|--------|------|
 | Metaphor | Roman Republic | Bethlehem · Matthew 2 |
-| Agents | 5 (DeepSeek v4-pro) | 3 (mimo-v2.5-pro) |
+| Agents | 5 (DeepSeek v4-pro) | 3 (DeepSeek v4-pro) |
 | Output | Binary verdict | Confidence topology |
 
 MAGI investigates, QUINTE authorizes.
