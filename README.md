@@ -11,7 +11,7 @@ Single-model AI hits a confidence ceiling. MAGI breaks through — three apostle
 ---
 
 [![DeepSeek](https://img.shields.io/badge/DeepSeek-v4--pro-4B6BFB?style=flat)](https://deepseek.com)
-[![Protocol](https://img.shields.io/badge/protocol-v1.1-blue?style=flat)](spec/PROTOCOL.md)
+[![Protocol](https://img.shields.io/badge/protocol-v1.1-blue?style=flat)](specs/PROTOCOL.md)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
 </div>
@@ -26,7 +26,7 @@ MAGI is a **protocol** for multi-agent adversarial grounded inquiry, named for t
 - **5 phases** (Star → Offering → Journey → Manger → Revelation)
 - **3 epistemological gifts** (Gold = verification, Frankincense = synthesis, Myrrh = risk)
 
-> 📖 **Read the spec**: [spec/PROTOCOL.md](spec/PROTOCOL.md)
+> 📖 **Read the spec**: [specs/PROTOCOL.md](specs/PROTOCOL.md)
 
 ### Design Philosophy
 
@@ -69,7 +69,7 @@ git clone https://github.com/eric-stone-plus/MAGI.git
 cd MAGI
 
 # Read the protocol
-cat spec/PROTOCOL.md
+cat specs/PROTOCOL.md
 
 # Run the engine (from a Hermes session)
 python3 lib/magi.py "your question here"
@@ -79,7 +79,7 @@ python3 lib/magi.py "your question here"
 
 | Path | What |
 |------|------|
-| [spec/PROTOCOL.md](spec/PROTOCOL.md) | Canonical protocol specification |
+| [specs/PROTOCOL.md](specs/PROTOCOL.md) | Canonical protocol specification |
 | [lib/magi.py](lib/magi.py) | Reference orchestrator engine |
 | [prompts/](prompts/) | Gift prompt templates (Gold, Frankincense, Myrrh) |
 | [concepts/CONCEPTS.md](concepts/CONCEPTS.md) | Theological and philosophical foundations |
