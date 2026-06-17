@@ -36,44 +36,44 @@ The Magi were three wise men from different lands, following one star, bearing t
 
 ```
             ╔═══════════════════════════════════════════════╗
-            ║              MAGI Protocol v2.0              ║
-            ║       Gold-Dominant OCR Verification         ║
-            ║   「われら東にてその星を見たれば」              ║
+            ║              MAGI Protocol v2.0               ║
+            ║       Gold-Dominant OCR Verification          ║
+            ║          「われら東にてその星を見たれば」             ║
             ╚═══════════════════════════════════════════════╝
 
     ┌─────────────────────────────────────────────────────────┐
-    │  PHASE 0 · THE STAR (星)                                 │
-    │  "We have seen his star in the east" — Matthew 2:2       │
+    │  PHASE 0 · THE STAR (星)                                │
+    │  "We have seen his star in the east" — Matthew 2:2      │
     │                                                         │
-    │  Evidence assembly:                                      │
-    │  · Original image (PDF page / PNG / JPEG)                │
-    │  · Tesseract OCR raw text + word-level confidence        │
-    │  · Segment map (text lines, tables, fields)              │
-    │  · Tesseract-v2 cross-check baseline                     │
+    │  Evidence assembly:                                     │
+    │  · Original image (PDF page / PNG / JPEG)               │
+    │  · Tesseract OCR raw text + word-level confidence       │
+    │  · Segment map (text lines, tables, fields)             │
+    │  · Tesseract-v2 cross-check baseline                    │
     └────────────────────────┬────────────────────────────────┘
                              ▼
     ┌─────────────────────────────────────────────────────────┐
     │  PHASE 1 · THE OFFERING (獻禮)                           │
-    │  "They opened their treasures" — Matthew 2:11            │
+    │  "They opened their treasures" — Matthew 2:11           │
     │                                                         │
-    │  GOLD (金) — Visual Verification                         │
-    │  · mimo-v2.5 primary, kimi batch fallback                  │
-    │  · Per-segment: image vs OCR → corrected text            │
-    │  · Error classification: CHAR / LAYOUT / OMISSION /      │
-    │    HALLUCINATION                                         │
-    │  · Per-segment confidence: 0.0–1.0 with rationale        │
-    │  · Tesseract-v2 cross-check on every correction          │
+    │  GOLD (金) — Visual Verification                        │
+    │  · mimo-v2.5 primary, kimi batch fallback               │
+    │  · Per-segment: image vs OCR → corrected text           │
+    │  · Error classification: CHAR / LAYOUT / OMISSION /     │
+    │    HALLUCINATION                                        │
+    │  · Per-segment confidence: 0.0–1.0 with rationale       │
+    │  · Tesseract-v2 cross-check on every correction         │
     └────────────────────────┬────────────────────────────────┘
                              ▼
               ┌──────────────┴──────────────┐
               ▼                             ▼
 ┌──────────────────────────┐    ┌──────────────────────────┐
-│ FRANKINCENSE (乳香)      │    │ MYRRH (沒藥)             │
+│ FRANKINCENSE (乳香)       │    │ MYRRH (沒藥)              │
 │ Semantic Classification  │    │ Adversarial Audit        │
 │                          │    │                          │
 │ "Does the error change   │    │ "If QUINTE reads this    │
 │  meaning?"               │    │  uncorrected, what       │
-│                          │    │  governance decision      │
+│                          │    │  governance decision     │
 │ Classifies Gold's        │    │  breaks?"                │
 │ errors:                  │    │                          │
 │ · COSMETIC               │    │ · Simulates downstream   │
@@ -90,21 +90,21 @@ The Magi were three wise men from different lands, following one star, bearing t
     │  PHASE 3 · THE MANGER (馬槽)                             │
     │  "They fell down, and worshipped him" — Matthew 2:11    │
     │                                                         │
-    │  « Convergence Gate »                                    │
+    │  « Convergence Gate »                                   │
     │                                                         │
-    │  Weighted evaluation:                                    │
-    │  · Visual (0.4): Gold confidence + cross-check           │
-    │  · Semantic (0.3): Frankincense classification           │
-    │  · Risk (0.3): Myrrh CRITICAL risks addressed            │
+    │  Weighted evaluation:                                   │
+    │  · Visual (0.4): Gold confidence + cross-check          │
+    │  · Semantic (0.3): Frankincense classification          │
+    │  · Risk (0.3): Myrrh CRITICAL risks addressed           │
     │                                                         │
     │  Score ≥0.7 ∧ no unresolved CRITICAL → CONVERGED        │
-    │  Score <0.7 ∨ CRITICAL unresolved → HUMAN REVIEW         │
+    │  Score <0.7 ∨ CRITICAL unresolved → HUMAN REVIEW        │
     └────────────────────────┬────────────────────────────────┘
                              ▼
     ┌─────────────────────────────────────────────────────────┐
     │                    → QUINTE ←                           │
-    │  Verified text + per-segment confidence topology         │
-    │  QUINTE agents weight claims by source confidence        │
+    │  Verified text + per-segment confidence topology        │
+    │  QUINTE agents weight claims by source confidence       │
     └─────────────────────────────────────────────────────────┘
 ```
 
