@@ -91,8 +91,8 @@ but they report back to the convergence gate.
     │  confidence + error classification)                     │
     └────────────────────────┬────────────────────────────────┘
                              ▼
-          ┌──────────────────┴──────────────────┐
-          ▼                                     ▼
+              ┌──────────────┴──────────────┐
+              ▼                             ▼
 ┌──────────────────────────┐    ┌──────────────────────────┐
 │ FRANKINCENSE (乳香)      │    │ MYRRH (沒藥)             │
 │ Semantic Classification  │    │ Adversarial Audit        │

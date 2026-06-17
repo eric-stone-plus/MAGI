@@ -65,8 +65,8 @@ The Magi were three wise men from different lands, following one star, bearing t
     │  · Tesseract-v2 cross-check on every correction          │
     └────────────────────────┬────────────────────────────────┘
                              ▼
-          ┌──────────────────┴──────────────────┐
-          ▼                                     ▼
+              ┌──────────────┴──────────────┐
+              ▼                             ▼
 ┌──────────────────────────┐    ┌──────────────────────────┐
 │ FRANKINCENSE (乳香)      │    │ MYRRH (沒藥)             │
 │ Semantic Classification  │    │ Adversarial Audit        │
