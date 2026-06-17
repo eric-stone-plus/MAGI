@@ -13,7 +13,7 @@ Single-model OCR hits a confidence ceiling. No amount of prompt engineering fixe
 ---
 
 [![Protocol](https://img.shields.io/badge/protocol-v2.0-blue?style=flat)](specs/PROTOCOL.md)
-[![Models](https://img.shields.io/badge/models-mimo%20%7C%20kimi%20%7C%20DS%20v4–pro-8A2BE2?style=flat)](#mac-deployment-2026-06-18--田忌赛马)
+[![Models](https://img.shields.io/badge/models-mimo%20%7C%20kimi%20%7C%20deepseek-8A2BE2?style=flat)](#mac-deployment-2026-06-18--田忌赛马)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
 </div>
