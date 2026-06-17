@@ -65,7 +65,7 @@ but they report back to the convergence gate.
 
 ## §1 · Architecture — 3-Phase Gold-Dominant Pipeline
 
-<div align="center"><pre>
+```
             ╔═══════════════════════════════════════════════╗
             ║              MAGI Protocol v2.0              ║
             ║       Gold-Dominant OCR Verification         ║
@@ -118,7 +118,7 @@ but they report back to the convergence gate.
     │                    → QUINTE ←                           │
     │  Verified text + per-segment confidence topology         │
     └─────────────────────────────────────────────────────────┘
-</pre></div>
+```
 
 **Why Gold-dominant, not spiral?** OCR verification has a fundamental
 asymmetry: only the multimodal delegate can see the image. The text-only
@@ -257,9 +257,9 @@ single verified text.
 
 ## §4 · MAGI→QUINTE Handoff
 
-<div align="center"><pre>
+```
 Tesseract OCR → MAGI verification → Confidence Topology → QUINTE governance debate
-</pre></div>
+```
 
 MAGI outputs verified text with per-segment confidence topology. QUINTE agents
 weight claims by source segment confidence — it is metadata, never a binary

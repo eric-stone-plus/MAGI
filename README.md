@@ -34,7 +34,7 @@ The Magi were three wise men from different lands, following one star, bearing t
 
 ## Architecture
 
-<div align="center"><pre>
+```
             ╔═══════════════════════════════════════════════╗
             ║              MAGI Protocol v2.0              ║
             ║       Gold-Dominant OCR Verification         ║
@@ -106,7 +106,7 @@ The Magi were three wise men from different lands, following one star, bearing t
     │  Verified text + per-segment confidence topology         │
     │  QUINTE agents weight claims by source confidence        │
     └─────────────────────────────────────────────────────────┘
-</pre></div>
+```
 
 ## The Pipeline
 
