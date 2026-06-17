@@ -1,9 +1,9 @@
-# MAGI — Protocol Specification
+# MAGI v2.0 — Protocol Specification
 
-> **M**ulti-agent **A**dversarial **G**rounded **I**nquiry
+> **OCR Verification Protocol · QUINTE's Visual Input Layer**
 >
-> "Where is he that is born King of the Jews? for we have seen his star
-> in the east, and are come to worship him." — Matthew 2:2
+> *"Where is he that is born King of the Jews? for we have seen his star
+> in the east, and are come to worship him."* — Matthew 2:2
 
 ---
 
@@ -12,7 +12,11 @@
 **MAGI** (マギ / 東方三博士) — the Three Wise Men who followed the star
 to Bethlehem, bearing Gold, Frankincense, and Myrrh.
 
-The protocol is built on three layers of Christian typology:
+The protocol is built on three layers of Christian typology. These are not
+ornament — they are the structural grammar of the protocol. Each Gift is
+an epistemological stance; each phase follows the Magi's journey from the
+star to the manger; each delegate is an apostle commissioned with a specific
+gift and sent forth.
 
 ### The Three Gifts (三博士の贈り物 · Matthew 2:11)
 
@@ -20,14 +24,19 @@ Each gift carries a meaning that maps to an epistemological stance:
 
 - **Gold** — for a King. The gift of **verified truth**, incorruptible.
   Gold does not tarnish. Facts verified by Gold are the foundation
-  upon which all other analysis rests.
+  upon which all other analysis rests. In MAGI v2.0, Gold is the *visual
+  verifier* — the only apostle with eyes, comparing image to text.
 - **Frankincense** — for a Priest. The gift of **sacred pattern**, the ability
   to see meaning beyond the material. Frankincense rises — it is the
-  synthesis that lifts raw data into understanding.
+  synthesis that lifts raw data into understanding. In MAGI v2.0,
+  Frankincense is the *semantic classifier* — determining whether OCR
+  errors change meaning.
 - **Myrrh** — for one who would suffer and die. The gift of **mortality and
   fragility**, the awareness that all flesh is grass, all structures fragile,
   all conclusions provisional. Myrrh preserves — it is the adversarial
   analysis that keeps truth from decaying into comfortable falsehood.
+  In MAGI v2.0, Myrrh is the *adversarial auditor* — asking "if QUINTE
+  reads this uncorrected text, what governance decisions break?"
 
 ### The Trinity (三位一体 · One God, Three Persons)
 
@@ -43,360 +52,258 @@ verdict that contains three perspectives.
 
 ### The Apostolic Commission (使徒の委任 · Matthew 28:19-20)
 
-"Go therefore and make disciples of all nations."
+*"Go therefore and make disciples of all nations."*
 
 The delegates are not mere tools — they are apostles, commissioned
 with a specific gift and sent forth. Each carries their gift into the
 world of evidence and returns with testimony. The apostolic metaphor
 is structural: delegates have authority within their domain (Gold
-has authority over facts, Frankincense over meaning, Myrrh over risk),
-but they report back to the commission (hm's convergence gate).
+has authority over visual truth, Frankincense over meaning, Myrrh over risk),
+but they report back to the convergence gate.
 
 ---
 
-## §1 · Architecture
+## §1 · Architecture — 3-Phase Gold-Dominant Pipeline
 
-```
-         ╔═══════════════════════════════════════╗
-         ║         MAGI Protocol v1.2            ║
-         ║   Dialectical Spiral Architecture     ║
-         ╚═══════════════════════════════════════╝
+<div align="center"><pre>
+            ╔═══════════════════════════════════════════════╗
+            ║              MAGI Protocol v2.0              ║
+            ║       Gold-Dominant OCR Verification         ║
+            ║   「われら東にてその星を見たれば」              ║
+            ╚═══════════════════════════════════════════════╝
 
-    ┌─────────────────────────────────────────────┐
-    │  PHASE 0 · THE STAR (星)                    │
-    │  "We have seen his star in the east"        │
-    │  hm follows the star — structures the       │
-    │  problem, gathers evidence, assigns Gifts   │
-    └──────────────────┬──────────────────────────┘
-                       ▼
-    ┌─────────────────────────────────────────────┐
-    │  PHASE 1 · THE OFFERING (獻禮)              │
-    │  "They opened their treasures"              │
-    │  Gold + Frankincense + Myrrh — PARALLEL     │
-    │  Three apostles, three gifts, one manger    │
-    └──────────────────┬──────────────────────────┘
-                       ▼
-    ┌─────────────────────────────────────────────┐
-    │  PHASE 2 · THE JOURNEY (旅路)               │
-    │  "They departed into their own country      │
-    │   another way" — Matthew 2:12               │
-    │  Each Gift reviews the previous through     │
-    │  its own lens — dialectical spiral          │
-    └──────────────────┬──────────────────────────┘
-                       ▼
-    ┌─────────────────────────────────────────────┐
-    │  PHASE 3 · THE MANGER (馬槽)                │
-    │  "They saw the young child with Mary        │
-    │   his mother, and fell down, and            │
-    │   worshipped him" — Matthew 2:11            │
-    │  hm evaluates: have the Magi converged?     │
-    │  YES → Phase 4 / NO → restart Phase 2      │
-    └──────────────────┬──────────────────────────┘
-                       ▼
-    ┌─────────────────────────────────────────────┐
-    │  PHASE 4 · THE REVELATION (啟示)            │
-    │  "The truth shall set you free"             │
-    │  hm synthesizes final verdict               │
-    │  Confidence topology + action items         │
-    └─────────────────────────────────────────────┘
-```
+    ┌─────────────────────────────────────────────────────────┐
+    │  PHASE 0 · THE STAR (星)                                 │
+    │  "We have seen his star in the east" — Matthew 2:2       │
+    │                                                         │
+    │  Input: image + OCR text + segment map                   │
+    │  Output: phase0_star bundle                              │
+    │  Tesseract-v2 cross-check baseline generated             │
+    └────────────────────────┬────────────────────────────────┘
+                             ▼
+    ┌─────────────────────────────────────────────────────────┐
+    │  PHASE 1 · THE OFFERING (獻禮)                           │
+    │  "They opened their treasures" — Matthew 2:11            │
+    │                                                         │
+    │  GOLD (金) — Visual Verification                         │
+    │  Sole visual authority (multimodal delegate)             │
+    │  Output: phase1_gold (corrected text + per-segment       │
+    │  confidence + error classification)                     │
+    └────────────────────────┬────────────────────────────────┘
+                             ▼
+          ┌──────────────────┴──────────────────┐
+          ▼                                     ▼
+┌──────────────────────────┐    ┌──────────────────────────┐
+│ FRANKINCENSE (乳香)      │    │ MYRRH (沒藥)             │
+│ Semantic Classification  │    │ Adversarial Audit        │
+│ (text-only delegate)     │    │ (text-only delegate)     │
+│                          │    │                          │
+│ Output: phase2_fr        │    │ Output: phase2_myrrh     │
+│ (semantic impact map)    │    │ (risk topology)          │
+└────────────┬─────────────┘    └────────────┬─────────────┘
+             └──────────────┬───────────────┘
+                            ▼
+    ┌─────────────────────────────────────────────────────────┐
+    │  PHASE 3 · THE MANGER (馬槽)                             │
+    │  "They fell down, and worshipped him" — Matthew 2:11    │
+    │                                                         │
+    │  « Convergence Gate »                                    │
+    │  Weighted: Visual(0.4) + Semantic(0.3) + Risk(0.3)      │
+    │                                                         │
+    │  Output: confidence topology → verified text             │
+    │  ≥0.7 → QUINTE    <0.7 → human review                   │
+    └────────────────────────┬────────────────────────────────┘
+                             ▼
+    ┌─────────────────────────────────────────────────────────┐
+    │                    → QUINTE ←                           │
+    │  Verified text + per-segment confidence topology         │
+    └─────────────────────────────────────────────────────────┘
+</pre></div>
 
-**vs QUINTE**:
+**Why Gold-dominant, not spiral?** OCR verification has a fundamental
+asymmetry: only the multimodal delegate can see the image. The text-only
+delegates operate on text descriptions — they cannot independently verify
+visual claims. The old 5-phase spiral assumed symmetric evidence access;
+v2.0 acknowledges the modal asymmetry by making Gold the sole visual
+authority, with Frankincense and Myrrh running in parallel on Gold's
+corrected text rather than chaining through sequential review.
 
-| Dimension | QUINTE | MAGI |
-|-----------|--------|------|
-| Agents | 5 (hm+cc+cw+omp+rx) | 3 (hm + 2 apostles) |
-| Rounds | R1 parallel → R2 cross → R3 verdict | P1 parallel → P2 spiral → P3 convergence → P4 revelation |
-| Flow | Flat (parallel then cross) | Helical (each turn builds on the last) |
-| Roles | Undifferentiated | Differentiated (Gold/Frankincense/Myrrh) |
-| Convergence | Implicit (vote counting) | Explicit (Manger gate with criteria) |
-| Model | DeepSeek v4-pro | DeepSeek v4-pro |
-| Output | Binary verdict | Confidence topology |
-| Metaphor | Roman Republic | Bethlehem · Matthew 2 |
-| Gate system | 4 gates (雨門/鏡門/證門/閂門) | 1 gate (The Manger) + Star preparation |
-| Anti-drift | Prompt engineering | Structural (Gift role differentiation) |
+### vs QUINTE
 
----
-
-## §2 · The Three Gifts
-
-Each Gift is an epistemological stance — not just a different prompt, but a different
-cognitive mode. The apostle assigned to each Gift filters ALL analysis through that lens.
-
-### §2.1 · Gold (金 · Caspar)
-
-**"Is this TRUE? Can I verify it?"**
-
-- Factual accuracy — every claim must trace to evidence
-- Numerical precision — no rounding without disclosure
-- Source verification — where did this data come from?
-- Deductive rigor — if A then B, no handwaving
-
-Gold is the epistemic foundation — without truth, there is nothing to build on.
-
-### §2.2 · Frankincense (乳香 · Melchior)
-
-**"What does this MEAN in context? What patterns emerge?"**
-
-- Contextual analysis — what is the broader picture?
-- Pattern recognition — what recurring structures exist?
-- Cross-domain synthesis — how does this relate to adjacent fields?
-- Narrative coherence — does the story hang together?
-
-Frankincense is the bridge between raw data and actionable understanding.
-
-### §2.3 · Myrrh (沒藥 · Balthasar)
-
-**"Where does this BREAK? What are we not seeing?"**
-
-- Adversarial probing — what could go wrong?
-- Fragility mapping — where is the conclusion weakest?
-- Blind spot detection — what did the other two miss?
-- Anti-fragility — how would the conclusion survive stress testing?
-
-Myrrh is the immune system — it attacks weak conclusions to strengthen the strong ones.
+| Dimension | QUINTE | MAGI v2.0 |
+|-----------|--------|-----------|
+| Agents | 5 (orchestrator + 4 participants) | 3 (Gold + Frankincense + Myrrh) |
+| Flow | R1 parallel → R2 cross → R3 dual verdict | P1 Gold → P2 Fr+Myrrh parallel → P3 convergence |
+| Roles | Undifferentiated | Differentiated (visual / semantic / adversarial) |
+| Convergence | Vote counting (≥3/5) | Weighted gate (≥0.7) |
+| Model | Provider-agnostic | Provider-agnostic (ideal: three distinct models) |
+| Output | PASS / BLOCKED verdict | Verified text + confidence topology |
+| Metaphor | Roman Republic — Senate in the Forum | Bethlehem — Three Magi at the Manger |
+| Role | Final governance gate | Pre-processing visual input layer |
 
 ---
 
-## §3 · Phases
+## §2 · The Three Gifts — Specification
 
-### §3.0 · Phase 0 — The Star (星)
+### §2.1 · Gold (金 · Visual Verification)
 
-*"We have seen his star in the east, and are come to worship him."* — Matthew 2:2
+**"Is this text in the image?"**
 
-The star was the sign that oriented the Magi's journey. Without it, they would
-have wandered. Phase 0 is the same: hm follows the evidence, structures the
-problem, and assigns each gift to the apostle best suited to carry it.
+Gold is the sole visual authority. It inspects the original image and compares
+OCR output against what the image actually shows. Gold does not guess — it
+cites pixels. Every correction must trace to a location in the source.
 
-hm performs:
-1. **Problem decomposition** — break the question into testable sub-claims
-2. **Evidence extraction** — gather relevant data (files, documents, code)
-3. **Gift assignment** — determine which apostle gets which Gift
-4. **Scoping** — define what is in/out of scope
+**Capabilities:**
+- Image inspection with per-segment visual comparison
+- Error classification: CHAR (character-level), LAYOUT (column/table corruption),
+  OMISSION (text in image missing from OCR), HALLUCINATION (text in OCR absent from image)
+- Confidence assignment: 0.0–1.0 per segment with explicit rationale
+- Tesseract-v2 cross-check integration
 
-**Star gate** (mandatory): If the problem is ambiguous, hm MUST clarify with
-the user before proceeding. The star does not give answers — it gives direction.
+**Limitations:**
+- Single visual authority — no second pair of eyes unless a second multimodal delegate is deployed
+- Cannot semantically interpret the corrected text (that is Frankincense's domain)
+- Legibility ceiling: heavily degraded images may produce low-confidence output
 
-### §3.1 · Phase 1 — The Offering (獻禮)
+**Per-segment operations:**
+1. Read the image segment
+2. Compare Tesseract OCR against visual ground truth
+3. Classify any discrepancy
+4. Produce corrected text
+5. Assign confidence with rationale
+6. Cross-check against Tesseract-v2
 
-*"And when they had opened their treasures, they presented unto him gifts;
-gold, and frankincense, and myrrh."* — Matthew 2:11
+**Output:** `{segment_id, raw_ocr, corrected_text, error_type, confidence, cross_check_status, rationale}`
 
-Three parallel analyses, each through a distinct lens. The apostles present
-their gifts at the same manger — independent perspectives on the same evidence.
+### §2.2 · Frankincense (乳香 · Semantic Classification)
 
-Each Gift produces a structured output with:
-- Main analysis (verification / synthesis / risk map)
-- Key claims with evidence
-- Confidence levels (high / medium / low)
-- Explicit blind spots
-- Guidance for the next Gift in the spiral
+**"Does the error change meaning?"**
 
-### §3.2 · Phase 2 — The Journey (旅路)
+Frankincense receives Gold's corrected text and classifies each error by its
+semantic impact. It is the bridge between raw corrections and actionable
+understanding — determining not just *what* was fixed, but *whether it matters*.
 
-*"And being warned of God in a dream that they should not return to Herod,
-they departed into their own country another way."* — Matthew 2:12
+**Capabilities:**
+- Semantic impact classification: COSMETIC, LEXICAL, SEMANTIC, STRUCTURAL, QUINTE_CRITICAL
+- Cross-segment pattern recognition — errors concentrated in specific document regions?
+- Domain-aware classification — shipping, legal, financial terminology
 
-The Magi's journey was not a straight line. They went first to Jerusalem,
-asked at the wrong court (Herod), were sent astray. Only after this detour
-did the star reappear and lead them to Bethlehem.
+**Limitations:**
+- Cannot verify visual claims — operates on Gold's output, not the original image
+- Classification is only as good as the corrected text it receives
+- May misclassify domain-specific terms without adequate context
 
-The dialectical spiral mirrors this journey:
+**Per-flagged-segment operations:**
+1. Receive Gold's error-flagged segments
+2. Classify each by semantic impact
+3. Identify cross-segment error patterns
+4. Flag QUINTE-critical segments with impact rationale
 
-```
-Gold reviews Myrrh → "Myrrh claims X is a risk. Is this factually grounded?"
-Frankincense reviews Gold → "Gold verified facts A, B, C. What pattern emerges?"
-Myrrh reviews Frankincense → "Frankincense sees pattern P. Where does it break?"
-```
+**Output:** `{segment_id, semantic_class, impact_summary, cross_segment_pattern, quinte_critical_reason}`
 
-**Spiral depth**: Default 1 full cycle (3 reviews). Max 3 cycles (9 reviews).
+### §2.3 · Myrrh (沒藥 · Adversarial Audit)
 
-### §3.3 · Phase 3 — The Manger (馬槽)
+**"If QUINTE reads this uncorrected, what governance decision breaks?"**
 
-*"They saw the young child with Mary his mother, and fell down, and
-worshipped him."* — Matthew 2:11
+Myrrh is the adversarial conscience. It does not verify Gold's visual claims
+(it cannot — it has no eyes). Instead, it asks the question no one wants to
+hear: what if we're wrong about being right? Myrrh simulates QUINTE's downstream
+processing to identify residual risks in the corrected text.
 
-The Magi arrived at the manger. Have they converged on the same truth?
+**Capabilities:**
+- QUINTE impact simulation — worst-case plausible misread per segment
+- Blind-spot identification — error types Gold is structurally unlikely to catch
+- Impact severity ranking: CRITICAL, MODERATE, COSMETIC
+- Correction priority ordering — which errors demand immediate attention
 
-hm evaluates convergence on three dimensions:
+**Limitations:**
+- Cannot verify visual claims — adversarial analysis is speculative, not confirmed
+- Incentivized to find risks — may produce false positives (mitigated by Frankincense plausibility review)
+- Dependent on Gold's accuracy — audits corrected text, not original image
 
-| Dimension | Criterion | Weight |
-|-----------|-----------|--------|
-| **Factual** | All Gifts agree on verified facts | 0.4 |
-| **Interpretive** | Frankincense's synthesis is uncontested | 0.3 |
-| **Risk** | Myrrh's risk map has been addressed | 0.3 |
+**Operations:**
+1. Receive Gold's corrected text + confidence topology
+2. Simulate downstream QUINTE processing on uncorrected text
+3. Identify blind-spot categories (dense numeric tables, low-contrast stamps)
+4. Rank impact severity per segment
+5. Produce correction priority ranking
 
-**Convergence score**: weighted sum. ≥0.7 → converged. <0.7 → restart Phase 2.
-Max 2 restarts. If still not converged, output with explicit divergence notes.
-
-### §3.4 · Phase 4 — The Revelation (啟示)
-
-*"And ye shall know the truth, and the truth shall make you free."* — John 8:32
-
-The final synthesis. Not a binary verdict, but a **confidence topology** —
-a map of what we know, how well we know it, and where the knowledge breaks down.
-
-The Revelation contains:
-- **判定 (Verdict)**: Clear, actionable conclusion
-- **確信トポロジー (Confidence Topology)**: Every claim rated by confidence
-- **既知の未知 (Known Unknowns)**: What we determined we cannot determine
-- **行動項目 (Action Items)**: Concrete next steps
-- **異議記録 (Dissent Record)**: Unresolved disagreements, preserved not suppressed
-
----
-
-## §4 · Invocation
-
-All 4 phases. One mode only. Full protocol or nothing.
-
-**Invocation**: "magi [topic]"
-
-MAGI is provider-agnostic; DeepSeek v4-pro recommended.
+**Output:** `{segment_id, worst_case_misread, quinte_impact, blind_spot_category, severity, priority_rank}`
 
 ---
 
-## §5 · Implementation
+## §3 · Convergence Gate (The Manger)
 
-### §5.1 · Engine
+The convergence gate evaluates whether the three Gifts have converged on a
+single verified text.
 
-`lib/magi.py` — the orchestrator. Key functions:
+| Dimension | Weight | Criterion |
+|-----------|--------|-----------|
+| Visual | 0.4 | Gold's per-segment confidence; Tesseract-v2 cross-check agreement |
+| Semantic | 0.3 | Frankincense's classification uncontested |
+| Risk | 0.3 | Myrrh's CRITICAL risks addressed or flagged |
 
-```python
-class MagiEngine:
-    def follow_star(self, topic: str) -> Problem:
-        """Phase 0: Decompose, extract evidence, assign Gifts."""
+**Convergence rules:**
+- Gold confidence ≥0.9 AND no CROSS_CHECK_CONFLICT → auto-accept
+- Gold confidence 0.7–0.9 → accept with flag (QUINTE receives confidence metadata)
+- Gold confidence <0.7 OR CROSS_CHECK_CONFLICT OR Frankincense flags QUINTE_CRITICAL
+  with Gold confidence <0.95 → route to human review
 
-    def offering(self, problem: Problem) -> ThreeGifts:
-        """Phase 1: Parallel analysis through three lenses."""
-
-    def journey(self, gifts: ThreeGifts) -> ThreeGifts:
-        """Phase 2: Dialectical spiral."""
-
-    def at_manger(self, gifts: ThreeGifts) -> ConvergenceResult:
-        """Phase 3: Evaluate convergence."""
-
-    def revelation(self, gifts: ThreeGifts) -> Verdict:
-        """Phase 4: Final synthesis."""
-
-    def run(self, topic: str) -> Verdict:
-        """Full protocol execution."""
-```
-
-### §5.2 · Apostolic Dispatch
-
-Apostles are dispatched via `delegate_task` with Gift-specific prompts.
-Each apostle receives the Gift definition, evidence package, and (in Phase 2)
-the previous Gift's output for review.
-
-**Model**: All apostles are provider-agnostic; DeepSeek v4-pro recommended.
-
-### §5.3 · Output Structure
-
-```
-/tmp/magi-audit/<topic-slug>/
-├── phase0_star.md
-├── phase1_gold.md
-├── phase1_frankincense.md
-├── phase1_myrrh.md
-├── phase2_cycle1_{gold,frankincense,myrrh}.md
-├── phase3_manger.md
-├── phase4_revelation.md
-└── manifest.json
-```
+**Overall threshold:**
+- Score ≥0.7 with no unresolved CRITICAL → converged → handoff to QUINTE
+- Score <0.7 or CRITICAL unresolved → human review or re-scan
 
 ---
 
-## §6 · Epistemological Commitments
+## §4 · MAGI→QUINTE Handoff
 
-### §6.1 · Testimony (証言)
+<div align="center"><pre>
+Tesseract OCR → MAGI verification → Confidence Topology → QUINTE governance debate
+</pre></div>
 
-Every claim must be grounded in evidence. "I believe X" is not a valid Gold
-output — "I verified X at [source]" is. Ungrounded assertions are routed
-through Myrrh's adversarial filter. This is the epistemological equivalent of
-requiring testimony before judgment — no conviction without witnesses.
-
-### §6.2 · Unity in Diversity (多様の中の統一)
-
-Convergence does not require unanimous agreement. The Manger gate measures
-alignment on facts, interpretation, and risk — not opinions. Two Gifts can
-disagree on interpretation as long as the factual basis is shared and the
-disagreement is documented. The Trinity is three persons, one substance —
-not three identical copies.
-
-### §6.3 · Revelation (啟示)
-
-The Revelation (Phase 4) explicitly maps what is known, what is uncertain,
-and what is unknowable. This tripartite distinction guides resource
-allocation: invest where confidence is medium (high ROI), not where it is
-already high (diminishing returns) or low (need different evidence).
-
-### §6.4 · Servant Leadership (僕の指導)
-
-hm is always one of the Three Gifts — never pure orchestration. "Whoever
-wishes to become great among you shall be your servant" (Mark 10:43).
-hm holds a Gift, produces output like any apostle, and submits that output
-to the same convergence gate. hm cannot exempt itself from the discipline
-it enforces on delegates.
+MAGI outputs verified text with per-segment confidence topology. QUINTE agents
+weight claims by source segment confidence — it is metadata, never a binary
+"verified / unverified" flag. A 95% confidence segment is not ground truth;
+a 60% confidence segment is not discarded — it enters QUINTE with its
+uncertainty intact.
 
 ---
 
-## §7 · Constraints
+## §5 · Pre-filter & Quality Gates
 
-### §7.1 · Token Budget
+Documents must meet minimum quality thresholds before the Three Gifts are
+dispatched:
 
-No artificial limits. MAGI is designed to USE tokens.
-
-### §7.2 · Hard Caps
-
-- Phase 2 spiral: max 3 cycles (9 total reviews)
-- Manger gate: max 2 restarts
-- Apostle timeout: 300s per apostle per phase
-- Total protocol timeout: 1800s (30 min)
-
-### §7.3 · Isolation
-
-Each MAGI topic uses an isolated output directory: `/tmp/magi-audit/<topic-slug>/`.
+| Condition | Action |
+|-----------|--------|
+| Text-layer PDF (zlib extraction successful) | Skip MAGI → route directly to QUINTE |
+| Tesseract mean word confidence <60% | Reject → re-scan (illegible document) |
+| Tesseract mean word confidence ≥60% | Proceed → dispatch Gold |
+| Handwritten or mixed-script document | Flag → route to specialized OCR service |
 
 ---
 
-## §8 · Relationship to QUINTE
+## §6 · Legacy Mode
 
-| | QUINTE | MAGI |
-|-|--------|------|
-| **Metaphor** | Roman Republic | Bethlehem · Matthew 2 |
-| **Use when** | Push authorization, protocol changes | Investigation, analysis, evaluation |
-| **Strength** | Multiple independent perspectives | Structured dialectic with confidence maps |
-| **Model** | DeepSeek v4-pro | DeepSeek v4-pro |
-
-**Shared DNA**: Evidence-grounded analysis, explicit uncertainty, anti-drift.
-**Migration path**: MAGI investigates, QUINTE authorizes.
+MAGI v1.x (5-phase dialectical spiral for general investigation) is accessible
+via explicit `MAGI/general` mode. The Apostolic Commission continues — v1.x
+delegates are not recalled, only redeployed.
 
 ---
 
-## §9 · Naming Convention
+## §7 · Implementation Notes
 
-- **MAGI** (マギ) — the protocol
-- **Gold** (金) / **Frankincense** (乳香) / **Myrrh** (沒藥) — the Three Gifts
-- **The Star** (星) — Phase 0
-- **The Offering** (獻禮) — Phase 1
-- **The Journey** (旅路) — Phase 2
-- **The Manger** (馬槽) — Phase 3
-- **The Revelation** (啟示) — Phase 4
+**Provider-agnostic.** This protocol does not mandate specific models.
+Implementors select delegates based on capability requirements:
+- Gold requires a multimodal delegate with visual inspection capability
+- Frankincense requires a text-only delegate with strong semantic classification
+- Myrrh requires a text-only delegate with strong adversarial reasoning
 
-English primary + CJK parenthetical.
-
----
-
-## §10 · Version History
-
-| Date | Version | Change |
-|------|---------|--------|
-| 2026-06-14 | 1.0 | Initial protocol |
-| 2026-06-14 | 1.1 | Christian typology restructure: Trinity, Apostolic Commission, Revelation |
+**Model diversity.** Using different model families for different Gifts
+maximizes viewpoint diversity — the three Magi came from different lands.
+The protocol is most robust with three distinct models but functions with
+fewer. Model routing is a deployment concern, not a protocol requirement.
 
 ---
 
-*"And when they were come into the house, they saw the young child with
-Mary his mother, and fell down, and worshipped him: and when they had
-opened their treasures, they presented unto him gifts; gold, and
-frankincense, and myrrh."* — Matthew 2:11
+*MAGI v2.0 — QUINTE R1-R3 ratified 2026-06-17.*
