@@ -12,8 +12,8 @@ Single-model OCR hits a confidence ceiling. No amount of prompt engineering fixe
 
 ---
 
-[![Provider-agnostic](https://img.shields.io/badge/protocol-provider--agnostic-4B6BFB?style=flat)](specs/PROTOCOL.md)
 [![Protocol](https://img.shields.io/badge/protocol-v2.0-blue?style=flat)](specs/PROTOCOL.md)
+[![Models](https://img.shields.io/badge/models-mimo%20%7C%20kimi%20%7C%20DS%20v4–pro-8A2BE2?style=flat)](#mac-deployment-2026-06-18--田忌赛马)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
 </div>
@@ -57,7 +57,7 @@ The Magi were three wise men from different lands, following one star, bearing t
     │  "They opened their treasures" — Matthew 2:11            │
     │                                                         │
     │  GOLD (金) — Visual Verification                         │
-    │  · Sole visual authority (multimodal delegate)           │
+    │  · mimo-v2.5 primary, kimi batch fallback                  │
     │  · Per-segment: image vs OCR → corrected text            │
     │  · Error classification: CHAR / LAYOUT / OMISSION /      │
     │    HALLUCINATION                                         │
@@ -82,7 +82,7 @@ The Magi were three wise men from different lands, following one star, bearing t
 │ · STRUCTURAL             │    │ · Ranked impact:         │
 │ · QUINTE_CRITICAL        │    │   CRITICAL / MODERATE /  │
 │                          │    │   COSMETIC               │
-│ (text-only delegate)     │    │ (text-only delegate)     │
+│ (mimo-v2.5-pro)          │    │ (DeepSeek v4-pro)        │
 └────────────┬─────────────┘    └────────────┬─────────────┘
              └──────────────┬───────────────┘
                             ▼
@@ -141,6 +141,44 @@ Below threshold or CRITICAL unresolved → human review or re-scan.
 | Role in pipeline | Final governance gate | Pre-processing visual input layer |
 
 MAGI sees. QUINTE judges. The star leads to the Senate.
+
+## Mac Deployment (2026-06-18 · 田忌赛马)
+
+Each Gift is assigned the model where it has **comparative advantage** — not the cheapest, not the most powerful, but the *right tool for the task*.
+
+| Gift | Model | Role | Why |
+|------|-------|------|-----|
+| **Gold** (金) | mimo-v2.5 → kimi fallback | Visual field extraction | mimo: structured forms, no thinking overhead. kimi: ambiguous regions only (handwriting, stamps) |
+| **Frankincense** (乳香) | mimo-v2.5-pro | Semantic classification | Text synthesis — strongest text reasoning in the Lite tier |
+| **Myrrh** (沒藥) | DeepSeek v4-pro | Adversarial audit | Strongest adversarial reasoning — the only role worth paying per-use |
+
+### Gold Tiered Pipeline
+
+```
+Document
+  │
+  ├─ Text layer? ─── YES → zlib extract → DS v4-pro verify → Fr+Myrrh → QUINTE
+  │
+  └─ NO (scanned)
+       │
+       ├─ OCR quality gate (DPI<150 / low contrast / skew>15°)
+       │     └─ FAIL → kimi full-doc (thinking=high)
+       │
+       └─ PASS → Tesseract OCR → mimo-v2.5 Gold
+              │
+              ├─ confidence ≥ calibrated → accept → Fr+Myrrh
+              │
+              └─ confidence < calibrated
+                   │
+                   ├─ text-only field → DS v4-pro (max reasoning)
+                   │
+                   └─ vision-required → batch composite kimi call (thinking=high)
+                        → merge → Fr+Myrrh → QUINTE
+```
+
+**Key principle**: kimi's `always_thinking` burns 80% of tokens on internal reasoning. For structured forms (90%+ of fields), this is pure waste — OCR field alignment needs precision, not deliberation. kimi enters only where ambiguity demands reasoning. Every model runs at maximum effort — no cost-driven downgrading.
+
+Circuit breaker: mimo API failure → auto-fallback to all-kimi + alert.
 
 ## Quick Start
 
