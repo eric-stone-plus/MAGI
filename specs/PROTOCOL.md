@@ -45,6 +45,13 @@
 45|| High | Answer directly |
 46|| Uncertain | MAGI (3 delegates → converge/diverge) |
 47|| Conclusion-grade | Direct QUINTE (bypass MAGI) |
+
+### 2.1a Dual-Mode Operation (v3.3+)
+
+MAGI operates in two mutually exclusive modes:
+
+- **Mode A — Standalone Pre-Verification**: hm uncertain → MAGI → ≥2/3 converge (answer) or diverge (escalate to QUINTE).
+- **Mode B — QUINTE R1 Participant**: During QUINTE v3.3+ execution, MAGI's three delegates enter R1 as independent voices. Convergence gate is BYPASSED — each delegate contributes 1 independent vote. Delegates do not participate in R2. Mode A and Mode B cannot both be active in the same session. See [QUINTE v3.3 spec](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md).
 48|
 49|### 2.2 Delegates
 50|
