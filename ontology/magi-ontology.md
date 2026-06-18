@@ -6,11 +6,11 @@
 
 ### Delegate (Three Models)
 
-| ID | Name | Model | Function |
+| ID | Name | Function |
 |----|------|-------|----------|
-| Au | Gold | mimo-v2.5 | Factual verification |
-| Fr | Frankincense | kimi (Andante) | Contextual reasoning |
-| My | Myrrh | DeepSeek v4-pro | Adversarial audit |
+| Au | Gold | Factual verification |
+| Fr | Frankincense | Contextual reasoning |
+| My | Myrrh | Adversarial audit |
 
 **Constraint**: No two delegates may use the same base model. Three different training distributions required.
 
