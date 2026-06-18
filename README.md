@@ -40,13 +40,11 @@ MAGI answers: *before I burn 5 agents on a full debate, can 3 heterogeneous mode
 
 Not three roles — three base models. Each brings a different training distribution, architecture, and inductive bias. Zhang et al. (2025) showed that model heterogeneity is the critical factor in multi-agent accuracy gains. MAGI implements this at the lowest level.
 
-| Delegate | Model | Cognitive Stance | Cost Profile |
-|----------|-------|-----------------|--------------|
-| **Gold** | mimo-v2.5 | Factual verification — *is this claim correct?* | Lite ¥39/月 |
-| **Frankincense** | kimi (Andante) | Contextual reasoning — *does this hold from another angle?* | ¥49/月 |
-| **Myrrh** | DeepSeek v4-pro | Adversarial audit — *what breaks if this is wrong?* | Pay-per-use |
-
-Three models, one question, parallel dispatch. Each answers independently. hm merges. Cost ordering reflects comparative advantage: kimi for deep contextual reasoning (most expensive, highest reasoning budget), mimo for fast factual checks, DS for adversarial edge cases.
+| Delegate | Cognitive Stance | Function |
+|----------|-----------------|----------|
+| **Gold** | Factual verification | *is this claim correct?* |
+| **Frankincense** | Contextual reasoning | *does this hold from another angle?* |
+| **Myrrh** | Adversarial audit | *what breaks if this is wrong?* |
 
 ## Convergence Gate
 
@@ -70,15 +68,9 @@ No weighting, no scoring, no "convergence score." Binary gate: enough agreement 
 
 QUINTE is the Senate. MAGI is the antechamber — three wise men asking *is this worth the Senate's time?*
 
-## Models
+## Model Routing
 
-All three models run at maximum reasoning effort. No cost-driven downgrading.
-
-| Model | Provider | Tier |
-|-------|----------|------|
-| DeepSeek v4-pro | DeepSeek | Pay-per-use |
-| mimo-v2.5 | Xiaomi | Lite ¥39/月 |
-| kimi Andante | Moonshot AI | ¥49/月 |
+Operational details (which model serves which delegate) live in the Hermes profile. The protocol is model-agnostic — any three heterogeneous base models satisfy the architecture.
 
 ## Implementation
 

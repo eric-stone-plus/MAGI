@@ -50,13 +50,13 @@
 50|
 51|Three heterogeneous base models. Not roles on the same model — **different models with different training distributions**.
 52|
-53|| Delegate | Model | Function |
-54||----------|-------|----------|
-55|| **Gold** | mimo-v2.5 | Factual verification |
-56|| **Frankincense** | kimi (Andante) | Contextual reasoning |
-57|| **Myrrh** | DeepSeek v4-pro | Adversarial audit |
-58|
-59|### 2.3 Dispatch
+| Delegate | Cognitive Stance | Function |
+|----------|-----------------|----------|
+| **Gold** | Factual verification | *is this claim correct?* |
+| **Frankincense** | Contextual reasoning | *does this hold from another angle?* |
+| **Myrrh** | Adversarial audit | *what breaks if this is wrong?*
+
+Three heterogeneous base models. Not roles on the same model — **different models with different training distributions**. Specific model-to-delegate assignments are operational details that live in the Hermes profile, not the protocol spec.
 60|
 61|All three delegates dispatched in parallel via `delegate_task`. Each receives the same question. Each answers independently in their own context. No delegate sees another's output.
 62|
