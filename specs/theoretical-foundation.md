@@ -1,126 +1,84 @@
 # MAGI Theoretical Foundation
 
-> **Domain**: OCR Verification Protocol — QUINTE's Visual Input Layer  
-> **Version**: 1.0 (2026-06-18)  
+> **Domain**: Lightweight heterogeneous pre-verification — hm's self-doubt resolution layer  
+> **Version**: 3.0 (2026-06-19) — Complete redesign: OCR removed, general-purpose ensemble  
 > **Parent audit**: QUINTE v3.2 theoretical foundation hardening
 
 ## Abstract
 
-MAGI is a multi-model OCR verification protocol that serves as QUINTE's visual input layer. It validates text extracted from scanned documents, images, and PDFs through a 3-phase Gold-dominant pipeline: Gold (visual verification by MIMO-v2.5), Frankincense (semantic classification), and Myrrh (adversarial audit). Its design is grounded in Consensus Entropy theory — the finding that correct OCR predictions converge in output space while errors diverge, enabling training-free quality verification through multi-model agreement.
+MAGI is a lightweight heterogeneous LLM ensemble that serves as hm's pre-QUINTE verification layer. Three base models (DeepSeek v4-pro, mimo-v2.5, kimi) answer the same question in parallel, each bringing a different training distribution and inductive bias. Binary convergence gate: ≥2/3 agree → answer adopted; otherwise → escalate to full QUINTE debate. The design draws on model routing cascades, heterogeneous ensemble theory, and the established finding that model diversity — not role diversity — drives multi-agent accuracy gains.
 
 ---
 
 ## 1. Core Theoretical Pillars
 
-### Pillar 1: Consensus Entropy for Multi-Model OCR Verification
+### Pillar 1: Model Heterogeneity as the Critical Factor
 
-**Source**: Zhang, Liang et al. (2025). *Consensus Entropy: Harnessing Multi-VLM Agreement for Self-Verifying and Self-Improving OCR*. CVPR 2026. arXiv:2504.11101.
+**Source**: Zhang, H. et al. (2025). *Stop Overvaluing Multi-Agent Debate*. arXiv:2502.08788.
 
-**Finding**: Consensus Entropy (CE) is a training-free, model-agnostic metric that estimates OCR output reliability by measuring inter-model agreement entropy. The core insight: **correct predictions converge in output space, while errors diverge.** CE-OCR, built on this principle, improves F1 scores by **42.1%** over VLM-as-Judge baselines. It outperforms self-consistency and single-model baselines at the same cost, requiring no training or supervision.
+**Finding**: Systematic evaluation of 5 MAD methods across 9 benchmarks shows that model heterogeneity is the "universal antidote" — consistently improving multi-agent performance where homogeneous setups fail to beat single-agent baselines.
 
-**MAGI instantiation**:
-- **Gold's visual verification** is conceptually inspired by CE's convergence principle: Gold compares OCR text against the source image, flagging divergence (visual comparison, not entropy measurement)
-- **Frankincense's semantic classification** extends CE beyond character-level to semantic-level: do OCR errors change meaning?
-- **Myrrh's adversarial audit** applies the inverse of CE: when models disagree, what governance decisions break?
-- The **3-phase pipeline** (Star → Gift → Convergence Gate) pursues the same goal as CE (multi-model agreement) but through a different mechanism (complementary roles vs. entropy voting)
-- **Tesseract + zlib text extraction** provides the baseline OCR that CE-OCR then verifies
-
-**Alignment**: MAGI's core design principle — "three models, three perspectives, one converged verdict" — is conceptually inspired by CE's insight that "correct predictions converge, errors diverge." However, MAGI does not implement CE's entropy-based mathematical framework. Its three models (Gold, Frankincense, Myrrh) perform complementary tasks (visual verification, semantic classification, adversarial audit) rather than voting on the same output. The connection is at the level of design philosophy, not algorithmic mechanism. Benchmarking MAGI against CE-OCR is listed as a P0 evidence requirement.
+**MAGI instantiation**: MAGI's three delegates use different base models (DS v4-pro, mimo-v2.5, kimi) — not the same model with different prompts. This implements heterogeneity at the architecture level. The convergence gate (≥2/3) applies Zhang et al.'s finding: agreement across heterogeneous models carries more weight than agreement across same-model instances.
 
 ---
 
-### Pillar 2: Confidence Calibration Through Multi-Agent Interaction
+### Pillar 2: Homogeneous Teams Share Correlated Blind Spots
 
-**Source**: *Confidence Calibration through Multi-Agent Interaction in VQA* (2025). arXiv:2511.11169.
+**Source**: *Do Mixed-Vendor Multi-Agent LLMs Improve Clinical Diagnosis?* (2026). EACL 2026 HeaLing Workshop. arXiv:2603.04421.
 
-**Finding**: Leading VQA models are often miscalibrated — they express high confidence even when wrong. Multi-agent interaction improves confidence calibration by surfacing disagreements that single models miss.
+**Finding**: Single-vendor multi-agent teams produce "correlated failure modes that reinforce shared biases." Mixed-vendor configurations consistently outperform because they "pool complementary inductive biases, surfacing correct diagnoses that homogeneous teams collectively miss."
 
-**MAGI instantiation**:
-- **Confidence topology** — MAGI's output includes per-segment confidence scores weighted by source quality
-- **Convergence Gate** — the phase where Gold, Frankincense, and Myrrh converge on a single verdict with calibrated confidence
-- **QUINTE downstream integration** — QUINTE agents weight claims by source segment confidence, preventing miscalibrated OCR from poisoning debate
-
-**Caveat**: The VQA calibration paper addresses visual question answering, not OCR specifically. The transfer to OCR confidence calibration is plausible but not directly tested.
+**MAGI instantiation**: The three-model design directly implements mixed-vendor architecture. When all three agree, the answer has passed through three different training distributions — substantially reducing shared-blind-spot risk compared to same-model self-consistency.
 
 ---
 
-### Pillar 3: Multi-Model Ensemble for Vision Tasks
+### Pillar 3: Cost-Aware Cascading from Light to Heavy Debate
 
-**Source**: Wang et al. (2022). *Self-Consistency Improves Chain of Thought Reasoning*. ICLR 2023. arXiv:2203.11171.
+**Source**: *CascadeDebate: Multi-Agent Deliberation for Cost-Aware LLM Cascades* (2026). arXiv:2604.12262.
 
-**Finding**: Multiple reasoning paths → marginalize → most consistent answer. Improves GSM8K by 17.9%.
+**Finding**: CascadeDebate demonstrates that multi-agent deliberation can route queries cost-effectively — lightweight models handle simple cases, escalating only hard cases to heavier debate. This preserves accuracy while reducing total inference cost.
 
-**MAGI instantiation**: Self-consistency's multi-path principle applies to OCR: multiple OCR engines/viewing angles/perspectives on the same image converge on the correct reading. MAGI extends this from single-model multi-path (temperature sampling) to multi-model multi-path (Gold+Frankincense+Myrrh with different models and roles).
-
-**Supporting**: *Effective Confidence Calibration and Ensembles in LLM-Powered Classification* (Amazon Science, 2025). Leveraging calibrated confidence scores, cost-aware cascading LLM ensemble policies achieve improved accuracy while reducing inference cost. This directly supports MAGI's Gold-dominant pipeline where Gold (MIMO) handles the majority of work, with Frankincense and Myrrh as escalation routes.
+**MAGI instantiation**: MAGI → QUINTE is a cascade. MAGI's 3-model parallel dispatch is the "lightweight" stage. Its binary convergence gate is the routing decision: converge → answer (cheap), diverge → QUINTE (expensive but thorough). This is the same architectural pattern CascadeDebate validates.
 
 ---
 
-## 2. Model Architecture
+### Pillar 4: Ensemble Theory for Language Models
 
-### Gold-Dominant Pipeline (Comparative Advantage)
+**Source**: Mienye, I.D. & Swart, T.G. (2025). *Ensemble Large Language Models: A Survey*. *Information*, 16(8), 688.
 
-| Gift | Model | Role | Cost Model |
-|------|-------|------|------------|
-| **Gold** | mimo-v2.5 (主力) → kimi (批量升级) + DS v4-pro (文本层) | Visual verification + bulk upgrade | Lite ¥39/月 |
-| **Frankincense** | mimo-v2.5-pro | Semantic classification | Pro tier |
-| **Myrrh** | DS v4-pro | Adversarial audit | Pay-per-use |
+**Finding**: Systematic categorization of LLM ensemble methods across domains. Heterogeneous ensembles (different models) consistently outperform homogeneous ensembles (same model, different prompts) for tasks requiring diverse reasoning paths.
 
-**Strategy**: Comparative advantage — deploy the model best suited for each role's specific task, reserving premium models for edge cases where their capabilities are needed.
-
-### Pipeline
-```
-Document → qpdf decrypt → zlib text layer → DS v4-pro text verification
-    │
-    └─(scan)─→ Tesseract 5.5.2 → OCR Gate → mimo-v2.5 Gold verification
-                    │                              │
-                    │                    ┌─────────┴──────────┐
-                    │               ≥95% confidence    <95% confidence
-                    │                    │                    │
-                    │               PASS              ┌──────┴──────┐
-                    │                                 │             │
-                    │                            kimi batch     Frankincense
-                    │                            upgrade        semantic
-                    │                                 │             │
-                    └─────────────┬───────────────────┴──────┬──────┘
-                                  │                          │
-                            Myrrh adversarial audit
-                                  │
-                            QUINTE debate
-```
+**MAGI instantiation**: MAGI is a heterogeneous ensemble with a binary voting gate. The survey validates this architecture as a well-established pattern in the literature, distinct from both single-model self-consistency and full multi-agent debate.
 
 ---
 
-## 3. Naming & Theological Framework
+## 2. Supporting Literature
 
-MAGI takes its name from the Three Wise Men (東方三博士) of Matthew 2:1-12, who followed the star to Bethlehem bearing Gold, Frankincense, and Myrrh. Each Gift maps to an epistemological stance:
+### Self-Consistency
+Wang, X. et al. (2022). *Self-Consistency Improves Chain of Thought Reasoning*. ICLR 2023. arXiv:2203.11171. Multiple reasoning paths from same model → marginalize → most consistent answer. MAGI extends this from within-model to across-model diversity.
 
-- **Gold** — for a King. Verified, incorruptible truth. The visual verifier.
-- **Frankincense** — for a Priest. Sacred pattern, synthesis. The semantic classifier.
-- **Myrrh** — for one who would die. Mortality, fragility, adversarial honesty.
-
-**Status**: Design narrative, not architectural constraint. The theological framework enriches the protocol's conceptual grammar but generates no testable predictions beyond what CE theory already provides. Classified as "design narrative" following the QUINTE v3.2 precedent on Polybius.
+### Multi-Agent Debate
+Du, Y. et al. (2023). *Multiagent Debate*. ICML 2024. arXiv:2305.14325. Foundational MAD paper. MAGI's parallel dispatch + convergence gate is a lightweight form of the debate pattern.
 
 ---
 
-## 4. Counter-Evidence
+## 3. Counter-Evidence
 
 | Paper | Finding | MAGI Response |
 |-------|---------|---------------|
-| **Adversarial OCR perturbations** | Small visual perturbations can cause systematic OCR errors across multiple engines | MAGI's confidence topology may fail if all models share vulnerability to the same perturbation class. Cross-engine diversity testing needed. |
-| **CE-OCR limitation** (Zhang et al., 2025) | Consensus Entropy requires ≥3 models for reliable agreement measurement | MAGI uses exactly 3 models — at the minimum threshold. Agreement among 2/3 could be insufficient for high-confidence verification. |
-| **MIMO rate-limiting** | User-reported: mimo-v2.5 has known rate-limiting issues | Gold's primary model is at risk. Alternative models listed in P3 requirement. |
+| **Zhang et al. 2025** (primary finding) | MAD frequently fails to outperform single-agent CoT baselines | MAGI uses heterogeneous models — the factor Zhang identifies as the "universal antidote" |
+| **Cemri et al. 2025** (MAST) | 14 failure modes in multi-agent systems | MAGI's binary gate and 3-model limit reduce attack surface compared to 5-agent QUINTE |
+| **Model availability risk** | If 2 of 3 models are unavailable, MAGI degrades to single-model | Invariant#6: hm answers directly with [UNCERTAIN] annotation |
 
 ---
 
-## 5. Current Limitations
+## 4. Current Limitations
 
-1. **Consensus Entropy not directly benchmarked against MAGI.** CE-OCR was tested on standard OCR benchmarks; MAGI's specific 3-model Gold-dominant pipeline has not been compared to CE-OCR.
-2. **Kimi batch upgrade is undocumented.** The mechanism by which kimi upgrades Gold's findings for entire document batches lacks formal specification.
-3. **Confidence topology is qualitative.** MAGI outputs "≥95% confidence" but the calibration of this threshold has no empirical basis.
-4. **MIMO dependency.** Gold's primary model (mimo-v2.5) has known rate-limiting issues. The user has flagged mimo as "deprecated due to rate limiting" — creating a single-model dependency risk.
-5. **Myrrh's adversarial scope is underspecified.** "What governance decisions break?" is an open-ended question — the specific failure modes Myrrh tests for are not enumerated.
-6. **No comparison against commercial OCR APIs.** Tesseract + zlib vs. Google Cloud Vision / AWS Textract baselines are absent.
+1. **No direct empirical validation.** MAGI's 3-model ensemble has not been benchmarked against single-model baselines or against direct QUINTE on the same questions.
+2. **Binary gate is crude.** ≥2/3 agreement discards nuance. A 1-point disagreement between essentially compatible answers triggers unnecessary QUINTE escalation.
+3. **Model availability is fragile.** Three-model dependency means two unavailable models → MAGI cannot operate. This is a real risk for a system that runs on cloud APIs.
+4. **Cost ordering is aspirational.** The "cheap → expensive" cascade depends on MAGI catching most questions. If divergence rate is high, MAGI + QUINTE is more expensive than QUINTE alone.
+5. **hm trigger logic is undefined.** The protocol says "hm decides when uncertain" but provides no operational definition of "uncertain."
 
 ---
 
@@ -128,26 +86,25 @@ MAGI takes its name from the Three Wise Men (東方三博士) of Matthew 2:1-12,
 
 | Priority | Requirement |
 |----------|------------|
-| P0 | Benchmark MAGI vs. CE-OCR on standard OCR dataset |
-| P0 | Calibrate confidence topology threshold (≥95%) from empirical data |
-| P1 | Formalize Kimi batch upgrade mechanism |
-| P1 | Compare MAGI pipeline vs. commercial OCR API baselines |
-| P2 | Enumerate Myrrh adversarial failure modes |
-| P2 | Measure end-to-end MAGI→QUINTE accuracy improvement vs. QUINTE with raw OCR |
-| P3 | Mitigate MIMO single-model dependency (alternative Gold models) |
+| P0 | Benchmark MAGI vs. single-model CoT on ≥1 QA benchmark |
+| P0 | Measure MAGI convergence rate in production (what % of hm's uncertainties converge?) |
+| P1 | Compare MAGI→QUINTE cascade cost vs. direct QUINTE |
+| P1 | Define operational hm uncertainty trigger criteria |
+| P2 | Test binary gate vs. weighted voting on calibration dataset |
+| P3 | Benchmark against CascadeDebate's reported results |
 
 ---
 
 ## References
 
-1. Zhang, Liang et al. (2025). Consensus Entropy. CVPR 2026. arXiv:2504.11101.
-2. *Confidence Calibration through Multi-Agent Interaction in VQA* (2025). arXiv:2511.11169.
-3. Wang et al. (2022). Self-Consistency. ICLR 2023. arXiv:2203.11171.
-4. *Effective Confidence Calibration and Ensembles in LLM-Powered Classification* (Amazon Science, 2025).
-5. Du et al. (2023). Multiagent Debate. ICML 2024. arXiv:2305.14325.
-6. Zhang et al. (2025). Stop Overvaluing MAD. arXiv:2502.08788.
-7. Tesseract OCR 5.5.2 (2025). https://github.com/tesseract-ocr/tesseract
+1. Zhang, H. et al. (2025). Stop Overvaluing Multi-Agent Debate. arXiv:2502.08788.
+2. Clinical Mixed-Vendor (2026). EACL 2026 HeaLing Workshop. arXiv:2603.04421.
+3. CascadeDebate: Multi-Agent Deliberation for Cost-Aware LLM Cascades (2026). arXiv:2604.12262.
+4. Mienye, I.D. & Swart, T.G. (2025). Ensemble Large Language Models: A Survey. *Information*, 16(8), 688.
+5. Wang, X. et al. (2022). Self-Consistency Improves Chain of Thought Reasoning. *ICLR 2023*. arXiv:2203.11171.
+6. Du, Y. et al. (2023). Multiagent Debate. *ICML 2024*. arXiv:2305.14325.
+7. Cemri, M. et al. (2025). Why Do Multi-Agent LLM Systems Fail? arXiv:2503.13657.
 
 ---
 
-*Version 1.0 — 2026-06-18*
+*Version 3.0 — 2026-06-19 — Complete redesign: general-purpose heterogeneous pre-verification*
