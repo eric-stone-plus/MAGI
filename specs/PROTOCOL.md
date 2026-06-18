@@ -58,7 +58,7 @@
 
 Three heterogeneous base models. Not roles on the same model — **different models with different training distributions**. Specific model-to-delegate assignments are operational details that live in the Hermes profile, not the protocol spec.
 60|
-61|All three delegates dispatched in parallel via `delegate_task`. Each receives the same question. Each answers independently in their own context. No delegate sees another's output.
+61|All three delegates dispatched in parallel via independent execution contexts (e.g., Hermes `terminal(background=true)` + native CLI). Each receives the same question. Each answers independently in their own context. No delegate sees another's output. The dispatch mechanism is operational — model-to-delegate assignments and CLI specifics live in the Hermes profile, not the protocol spec.
 62|
 63|### 2.4 Convergence Gate
 64|
