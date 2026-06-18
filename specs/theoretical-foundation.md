@@ -19,13 +19,13 @@ MAGI is a multi-model OCR verification protocol that serves as QUINTE's visual i
 **Finding**: Consensus Entropy (CE) is a training-free, model-agnostic metric that estimates OCR output reliability by measuring inter-model agreement entropy. The core insight: **correct predictions converge in output space, while errors diverge.** CE-OCR, built on this principle, improves F1 scores by **42.1%** over VLM-as-Judge baselines. It outperforms self-consistency and single-model baselines at the same cost, requiring no training or supervision.
 
 **MAGI instantiation**:
-- **Gold's visual verification** implements CE's "correct predictions converge" principle: Gold compares OCR text against the source image, flagging divergence
+- **Gold's visual verification** is conceptually inspired by CE's convergence principle: Gold compares OCR text against the source image, flagging divergence (visual comparison, not entropy measurement)
 - **Frankincense's semantic classification** extends CE beyond character-level to semantic-level: do OCR errors change meaning?
 - **Myrrh's adversarial audit** applies the inverse of CE: when models disagree, what governance decisions break?
-- The **3-phase pipeline** (Star → Gift → Convergence Gate) structures the same multi-model agreement that CE measures
+- The **3-phase pipeline** (Star → Gift → Convergence Gate) pursues the same goal as CE (multi-model agreement) but through a different mechanism (complementary roles vs. entropy voting)
 - **Tesseract + zlib text extraction** provides the baseline OCR that CE-OCR then verifies
 
-**Critical alignment**: MAGI's core design principle — "three models, three perspectives, one converged verdict" — is the architectural instantiation of CE's "correct predictions converge, errors diverge." This is not metaphorical. This is the same mathematical insight implemented as a protocol.
+**Alignment**: MAGI's core design principle — "three models, three perspectives, one converged verdict" — is conceptually inspired by CE's insight that "correct predictions converge, errors diverge." However, MAGI does not implement CE's entropy-based mathematical framework. Its three models (Gold, Frankincense, Myrrh) perform complementary tasks (visual verification, semantic classification, adversarial audit) rather than voting on the same output. The connection is at the level of design philosophy, not algorithmic mechanism. Benchmarking MAGI against CE-OCR is listed as a P0 evidence requirement.
 
 ---
 
@@ -103,7 +103,17 @@ MAGI takes its name from the Three Wise Men (東方三博士) of Matthew 2:1-12,
 
 ---
 
-## 4. Current Limitations
+## 4. Counter-Evidence
+
+| Paper | Finding | MAGI Response |
+|-------|---------|---------------|
+| **Adversarial OCR perturbations** | Small visual perturbations can cause systematic OCR errors across multiple engines | MAGI's confidence topology may fail if all models share vulnerability to the same perturbation class. Cross-engine diversity testing needed. |
+| **CE-OCR limitation** (Zhang et al., 2025) | Consensus Entropy requires ≥3 models for reliable agreement measurement | MAGI uses exactly 3 models — at the minimum threshold. Agreement among 2/3 could be insufficient for high-confidence verification. |
+| **MIMO rate-limiting** | User-reported: mimo-v2.5 has known rate-limiting issues | Gold's primary model is at risk. Alternative models listed in P3 requirement. |
+
+---
+
+## 5. Current Limitations
 
 1. **Consensus Entropy not directly benchmarked against MAGI.** CE-OCR was tested on standard OCR benchmarks; MAGI's specific 3-model Gold-dominant pipeline has not been compared to CE-OCR.
 2. **Kimi batch upgrade is undocumented.** The mechanism by which kimi upgrades Gold's findings for entire document batches lacks formal specification.
