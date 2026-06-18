@@ -4,9 +4,9 @@
 
 # MAGI (マギ) · Hermes Agent Protocol
 
-**Hermes Agent OCR verification protocol — QUINTE's visual input layer.**
+**Hermes Agent OCR verification protocol — QUINTE's visual input layer. macOS-only.**
 
-Single-model OCR hits a confidence ceiling. No amount of prompt engineering fixes modal blindness — a text-only model cannot see the image. MAGI breaks through: three delegates, dispatched by Hermes, bear distinct verification roles through a Gold-dominant pipeline, converging on a confidence topology that QUINTE can trust.
+Single-model OCR on macOS (Tesseract) hits a confidence ceiling. On Windows, PaddleOCR is accurate enough that multi-model verification is unnecessary overhead. MAGI exists for the gap: when Tesseract alone isn't enough, three delegates, dispatched by Hermes, bear distinct verification roles through a Gold-dominant pipeline, converging on a confidence topology that QUINTE can trust.
 
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
