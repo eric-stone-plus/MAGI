@@ -1,6 +1,6 @@
-# MAGI v2.0 — Protocol Specification
+# MAGI v2.0 — Protocol Specification · Hermes Agent
 
-> **OCR Verification Protocol · QUINTE's Visual Input Layer**
+> **Hermes Agent OCR Verification Protocol · QUINTE's Visual Input Layer**
 >
 > *"Where is he that is born King of the Jews? for we have seen his star
 > in the east, and are come to worship him."* — Matthew 2:2
