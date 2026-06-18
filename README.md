@@ -2,17 +2,17 @@
 
 <img src="assets/magi-cover.svg?v=5" alt="MAGI" width="100%">
 
-# MAGI (マギ) Protocol
+# MAGI (マギ) · Hermes Agent Protocol
 
-**OCR verification protocol — QUINTE's visual input layer.**
+**Hermes Agent OCR verification protocol — QUINTE's visual input layer.**
 
-Single-model OCR hits a confidence ceiling. No amount of prompt engineering fixes modal blindness — a text-only model cannot see the image. MAGI breaks through: three apostles bear distinct epistemological gifts through a Gold-dominant verification pipeline, converging on a confidence topology that QUINTE can trust.
+Single-model OCR hits a confidence ceiling. No amount of prompt engineering fixes modal blindness — a text-only model cannot see the image. MAGI breaks through: three delegates, dispatched by Hermes, bear distinct verification roles through a Gold-dominant pipeline, converging on a confidence topology that QUINTE can trust.
 
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
 ---
 
-[![Protocol](https://img.shields.io/badge/protocol-v2.0-blue?style=flat)](specs/PROTOCOL.md)
+[![Hermes Agent Protocol](https://img.shields.io/badge/Hermes_Agent-v2.0-blue?style=flat)](specs/PROTOCOL.md)
 [![Models](https://img.shields.io/badge/models-mimo%20%7C%20kimi%20%7C%20deepseek-8A2BE2?style=flat)](#deployment)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
@@ -190,14 +190,16 @@ cd MAGI
 cat specs/PROTOCOL.md
 ```
 
-## For Implementors
+## Implementation
+
+MAGI runs on [Hermes Agent](https://github.com/nousresearch/hermes-agent) as QUINTE's pre-processing layer. It depends on Hermes' terminal toolchain for Tesseract/qpdf/zlib execution and delegate_task for multi-model dispatch.
 
 | Path | What |
 |------|------|
-| [specs/PROTOCOL.md](specs/PROTOCOL.md) | Canonical v2.0 protocol specification |
+| [specs/PROTOCOL.md](specs/PROTOCOL.md) | Canonical protocol specification |
 | [specs/archive/](specs/archive/) | Historical v1.x specs |
 | [concepts/CONCEPTS.md](concepts/CONCEPTS.md) | Theological and philosophical foundations |
-| [prompts/](prompts/) | Gift prompt templates (Gold, Frankincense, Myrrh) |
+| [prompts/](prompts/) | Delegation prompt templates (Gold, Frankincense, Myrrh) |
 
 ## License
 
