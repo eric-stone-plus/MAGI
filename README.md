@@ -13,7 +13,7 @@ Single-model OCR hits a confidence ceiling. No amount of prompt engineering fixe
 ---
 
 [![Protocol](https://img.shields.io/badge/protocol-v2.0-blue?style=flat)](specs/PROTOCOL.md)
-[![Models](https://img.shields.io/badge/models-mimo%20%7C%20kimi%20%7C%20deepseek-8A2BE2?style=flat)](#mac-deployment-2026-06-18--田忌赛马)
+[![Models](https://img.shields.io/badge/models-mimo%20%7C%20kimi%20%7C%20deepseek-8A2BE2?style=flat)](#deployment)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
 </div>
@@ -142,7 +142,7 @@ Below threshold or CRITICAL unresolved → human review or re-scan.
 
 MAGI sees. QUINTE judges. The star leads to the Senate.
 
-## Mac Deployment (2026-06-18 · 田忌赛马)
+## Deployment
 
 Each Gift is assigned the model where it has **comparative advantage** — not the cheapest, not the most powerful, but the *right tool for the task*.
 
@@ -202,3 +202,14 @@ cat specs/PROTOCOL.md
 ## License
 
 MIT — the protocol and orchestration layer.
+
+## References
+
+1. Zhang, Liang et al. (2025). Consensus Entropy: Harnessing Multi-VLM Agreement for Self-Verifying and Self-Improving OCR. *CVPR 2026*. arXiv:2504.11101.
+2. Confidence Calibration through Multi-Agent Interaction in VQA (2025). arXiv:2511.11169.
+3. Wang, X. et al. (2022). Self-Consistency Improves Chain of Thought Reasoning. *ICLR 2023*. arXiv:2203.11171.
+4. Effective Confidence Calibration and Ensembles in LLM-Powered Classification (Amazon Science, 2025).
+5. Du, Y. et al. (2023). Multiagent Debate. *ICML 2024*. arXiv:2305.14325.
+6. Tesseract OCR 5.5.2 (2025). https://github.com/tesseract-ocr/tesseract
+
+Full theoretical foundation: [specs/theoretical-foundation.md](specs/theoretical-foundation.md)

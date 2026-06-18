@@ -58,7 +58,7 @@ MAGI is a multi-model OCR verification protocol that serves as QUINTE's visual i
 
 ## 2. Model Architecture
 
-### Gold-Dominant Pipeline (田忌赛马)
+### Gold-Dominant Pipeline (Comparative Advantage)
 
 | Gift | Model | Role | Cost Model |
 |------|-------|------|------------|
@@ -66,7 +66,7 @@ MAGI is a multi-model OCR verification protocol that serves as QUINTE's visual i
 | **Frankincense** | mimo-v2.5-pro | Semantic classification | Pro tier |
 | **Myrrh** | DS v4-pro | Adversarial audit | Pay-per-use |
 
-**Strategy**: 田忌赛马 (Tian Ji's horse race) — deploy strongest model for core task, reserve premium models for edge cases.
+**Strategy**: Comparative advantage — deploy the model best suited for each role's specific task, reserving premium models for edge cases where their capabilities are needed.
 
 ### Pipeline
 ```
