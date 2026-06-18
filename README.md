@@ -73,7 +73,7 @@ Operational details (which model serves which delegate) live in the Hermes profi
 
 ## Implementation
 
-MAGI runs on [Hermes Agent](https://github.com/nousresearch/hermes-agent). Three delegates dispatched via `delegate_task` in parallel. hm adjudicates convergence.
+MAGI runs on [Hermes Agent](https://github.com/nousresearch/hermes-agent). Three delegates dispatched in parallel via independent execution contexts. hm adjudicates convergence.
 
 | Path | What |
 |------|------|
