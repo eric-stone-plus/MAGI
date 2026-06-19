@@ -70,7 +70,7 @@ MAGI is an inseparable part of QUINTE v3.3. Not an external filter — a senator
 
 ## Model Routing
 
-Operational details (which model serves which delegate) live in the Hermes profile. The protocol is model-agnostic — any three heterogeneous base models satisfy the architecture.
+Operational details (which model serves which delegate) live in the Hermes profile. The protocol is model-agnostic — any three heterogeneous base models satisfy the architecture. The reference implementation maps Gold→mimo, Frankincense→kimi, Myrrh→DeepSeek (via hm-direct). See [QUINTE PROTOCOL §4.5](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md) for the canonical mapping.
 
 ## Implementation
 
