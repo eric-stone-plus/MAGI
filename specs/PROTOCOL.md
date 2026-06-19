@@ -24,11 +24,13 @@
 24|
 25|```
 26|RASHOMON (why) → QUINTE (how heavy) → KANSA (監査)
-27|                        ↑
-28|                  MAGI (how light) ↗
-29|```
-30|
-31|MAGI is the antechamber to QUINTE. It answers one question: *can three heterogeneous models resolve this quickly, or does it need a full 5-agent 3-round debate?*
+                       │
+                 ┌─────┴─────┐
+           MAGI (Mode A)   MAGI (Mode B)
+           antechamber     R1 5th element
+```
+
+MAGI is both the antechamber AND a senator. Mode A: three heterogeneous models answer *can this be resolved quickly?* Mode B (v3.3+): MAGI enters QUINTE R1 as an embedded collective element, internal convergence gate ACTIVE, one vote.
 32|
 33|---
 34|
@@ -51,7 +53,7 @@
 MAGI operates in two mutually exclusive modes:
 
 - **Mode A — Standalone Pre-Verification**: hm uncertain → MAGI → ≥2/3 converge (answer) or diverge (escalate to QUINTE).
-- **Mode B — QUINTE R1 Participant**: During QUINTE v3.3+ execution, MAGI's three delegates enter R1 as independent voices. Convergence gate is BYPASSED — each delegate contributes 1 independent vote. Delegates do not participate in R2. Mode A and Mode B cannot both be active in the same session. See [QUINTE v3.3 spec](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md).
+- **Mode B — QUINTE R1 Participant**: During QUINTE v3.3+ execution, MAGI enters R1 as one collective element. Internal convergence gate is ACTIVE — three delegates converge (≥2/3) into one output with one vote. Delegates do not participate in R2. Mode A and Mode B cannot both be active in the same session. See [QUINTE v3.3 spec](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md).
 48|
 49|### 2.2 Delegates
 50|

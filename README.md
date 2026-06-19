@@ -4,7 +4,7 @@
 
 # MAGI (マギ) · Hermes Agent Protocol
 
-**Lightweight heterogeneous pre-verification — hm's uncertainty resolver.**
+**QUINTE R1 element + standalone pre-verification — hm's uncertainty resolver.**
 
 When hm is uncertain, MAGI dispatches three base models in parallel. Each brings a different cognitive stance. Converge → answer. Diverge → escalate to QUINTE.
 
@@ -21,7 +21,7 @@ When hm is uncertain, MAGI dispatches three base models in parallel. Each brings
 
 ## What is MAGI?
 
-MAGI is hm's self-doubt mechanism. Not a user-facing tool — an internal escalation pathway.
+MAGI is hm's self-doubt mechanism and an inseparable part of QUINTE v3.3. Not merely a user-facing tool — both an internal escalation pathway (Mode A) and QUINTE R1's fifth element (Mode B).
 
 ```
 User asks hm
@@ -29,7 +29,7 @@ User asks hm
   ├─ hm is confident → answer directly
   ├─ hm is uncertain → MAGI dispatches 3 delegates
   │     ├─ converge → answer (with confidence annotation)
-  │     └─ diverge → escalate to QUINTE (5-agent full debate)
+  │     └─ diverge → escalate to QUINTE (5-element full debate)
   └─ conclusion-grade question → direct QUINTE
 ```
 
@@ -56,16 +56,17 @@ No weighting, no scoring, no "convergence score." Binary gate: enough agreement 
 
 ## Relationship to QUINTE
 
+MAGI is an inseparable part of QUINTE v3.3. Not an external filter — a senator with dual citizenship.
+
 | | QUINTE | MAGI |
 |-|--------|------|
-| Trigger | User requests, or hm's 證門 gate | hm's internal uncertainty |
-| Agents | 5 (specialized roles) | 3 (heterogeneous base models) |
+| Trigger | User or 證門 gate | hm's internal uncertainty |
+| R1 elements | 5 (cc+hm+cw+omp+MAGI as collective) | 3 delegates (Au+Fr+My) converge internally → 1 vote |
 | Rounds | 3 (R1→R2→R3) | 1 (parallel → converge/diverge) |
 | Cost | High | Low (3 API calls) |
-| Output | Verdict with evidence | Answer with confidence level |
-| Failure | Deadlock → human review | Diverge → escalate to QUINTE |
+| Failure | Deadlock → human review | Diverge → escalate to QUINTE R2+ |
 
-QUINTE is the Senate. MAGI is the antechamber — three wise men asking *is this worth the Senate's time?*
+**Dual citizenship:** Mode A — MAGI is the antechamber, filtering questions before the Senate convenes. Mode B (v3.3+) — MAGI enters QUINTE R1 as the fifth element, one collective with internal convergence, one vote. Bethlehem does not observe Rome from outside. Bethlehem has a seat in the Senate.
 
 ## Model Routing
 
