@@ -61,7 +61,7 @@ MAGI is an inseparable part of QUINTE v3.3. Not an external filter — a senator
 | | QUINTE | MAGI |
 |-|--------|------|
 | Trigger | User or 證門 gate | hm's internal uncertainty |
-| R1 elements | 5 (cc+hm+cw+omp+MAGI as collective) | 3 delegates (Au+Fr+My) converge internally → 1 vote |
+| R1 elements | 5 (cc+hm+cw+omp+MAGI as collective) | 3 delegates (Gold+Fr+Myrrh) converge internally → 1 vote |
 | Rounds | 3 (R1→R2→R3) | 1 (parallel → converge/diverge) |
 | Cost | High | Low (3 API calls) |
 | Failure | Deadlock → human review | Diverge → escalate to QUINTE R2+ |
@@ -70,7 +70,7 @@ MAGI is an inseparable part of QUINTE v3.3. Not an external filter — a senator
 
 ## Model Routing
 
-Operational details (which model serves which delegate) live in the Hermes profile. The protocol is model-agnostic — any three heterogeneous base models satisfy the architecture. The reference implementation maps Gold→mimo, Frankincense→kimi, Myrrh→DeepSeek (via hm-direct). See [QUINTE PROTOCOL §4.5](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md) for the canonical mapping.
+Operational details (which model serves which delegate) live in the Hermes profile. The protocol is model-agnostic — any three heterogeneous base models satisfy the architecture. The reference implementation maps Gold→grok-build, Frankincense→kimi K2.7, Myrrh→mimo-v2.5-pro. See [QUINTE PROTOCOL §4.5](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md) for the canonical mapping.
 
 ## Implementation
 

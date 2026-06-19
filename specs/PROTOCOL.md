@@ -2,7 +2,7 @@
 2|
 3|> **Lightweight heterogeneous pre-verification protocol. hm's self-doubt resolution layer.**
 4|>
-5|> **v3.0 (2026-06-19)**: Complete redesign. MAGI is no longer an OCR verification pipeline. It is now a general-purpose heterogeneous LLM ensemble for rapid pre-verification — three base models (DS/mimo/kimi) in parallel, converge-or-escalate to QUINTE.
+5|> **v3.0 (2026-06-19)**: Complete redesign. MAGI is no longer an OCR verification pipeline. It is now a general-purpose heterogeneous LLM ensemble for rapid pre-verification — three base models (grok/kimi/mimo) in parallel, converge-or-escalate to QUINTE.
 6|>
 7|> *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 8|
