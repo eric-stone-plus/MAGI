@@ -14,11 +14,13 @@ MAGI is a lightweight heterogeneous LLM ensemble that serves as hm's pre-QUINTE 
 
 ### Pillar 1: Model Heterogeneity as the Critical Factor
 
-**Source**: Zhang, H. et al. (2025). *Stop Overvaluing Multi-Agent Debate*. arXiv:2502.08788.
+**Source**: Zhang, H. et al. (2025). *Stop Overvaluing Multi-Agent Debate*. arXiv:2502.08788 [preprint, not peer-reviewed].
 
 **Finding**: Systematic evaluation of 5 MAD methods across 9 benchmarks shows that model heterogeneity is the "universal antidote" — consistently improving multi-agent performance where homogeneous setups fail to beat single-agent baselines.
 
 **MAGI instantiation**: MAGI's three delegates use different base models (DS v4-pro, mimo-v2.5, kimi) — not the same model with different prompts. This implements heterogeneity at the architecture level. The convergence gate (≥2/3) applies Zhang et al.'s finding: agreement across heterogeneous models carries more weight than agreement across same-model instances.
+
+**Caveat**: Most-cited paper in ecosystem (Zhang 2025) is a preprint [not peer-reviewed].
 
 ---
 
@@ -34,11 +36,13 @@ MAGI is a lightweight heterogeneous LLM ensemble that serves as hm's pre-QUINTE 
 
 ### Pillar 3: Cost-Aware Cascading from Light to Heavy Debate
 
-**Source**: *CascadeDebate: Multi-Agent Deliberation for Cost-Aware LLM Cascades* (2026). arXiv:2604.12262.
+**Source**: *CascadeDebate: Multi-Agent Deliberation for Cost-Aware LLM Cascades* (2026). arXiv:2604.12262 [preprint, not peer-reviewed].
 
 **Finding**: CascadeDebate demonstrates that multi-agent deliberation can route queries cost-effectively — lightweight models handle simple cases, escalating only hard cases to heavier debate. This preserves accuracy while reducing total inference cost.
 
 **MAGI instantiation**: MAGI → QUINTE is a cascade. MAGI's 3-model parallel dispatch is the "lightweight" stage. Its binary convergence gate is the routing decision: converge → answer (cheap), diverge → QUINTE (expensive but thorough). This is the same architectural pattern CascadeDebate validates.
+
+**Caveat**: Core pillar rests on CascadeDebate preprint [not peer-reviewed].
 
 ---
 
@@ -95,15 +99,22 @@ Du, Y. et al. (2023). *Multiagent Debate*. ICML 2024. arXiv:2305.14325. Foundati
 
 ---
 
+## Cross-Repository References
+
+- [QUINTE (escalation target)](../../QUINTE/specs/theoretical-foundation.md)
+- [RASHOMON (heterogeneity theory)](../../RASHOMON/specs/theoretical-foundation.md)
+
+---
+
 ## References
 
-1. Zhang, H. et al. (2025). Stop Overvaluing Multi-Agent Debate. arXiv:2502.08788.
-2. Clinical Mixed-Vendor (2026). EACL 2026 HeaLing Workshop. arXiv:2603.04421.
-3. CascadeDebate: Multi-Agent Deliberation for Cost-Aware LLM Cascades (2026). arXiv:2604.12262.
+1. Zhang, H. et al. (2025). Stop Overvaluing Multi-Agent Debate. arXiv:2502.08788 [preprint, not peer-reviewed].
+2. Clinical Mixed-Vendor (2026). EACL 2026 HeaLing Workshop (workshop). arXiv:2603.04421.
+3. CascadeDebate: Multi-Agent Deliberation for Cost-Aware LLM Cascades (2026). arXiv:2604.12262 [preprint, not peer-reviewed].
 4. Mienye, I.D. & Swart, T.G. (2025). Ensemble Large Language Models: A Survey. *Information*, 16(8), 688.
-5. Wang, X. et al. (2022). Self-Consistency Improves Chain of Thought Reasoning. *ICLR 2023*. arXiv:2203.11171.
-6. Du, Y. et al. (2023). Multiagent Debate. *ICML 2024*. arXiv:2305.14325.
-7. Cemri, M. et al. (2025). Why Do Multi-Agent LLM Systems Fail? arXiv:2503.13657.
+5. Wang, X. et al. (2022). Self-Consistency Improves Chain of Thought Reasoning. *ICLR 2023* (CORE A*). arXiv:2203.11171.
+6. Du, Y. et al. (2023). Multiagent Debate. *ICML 2024* (CORE A*). arXiv:2305.14325.
+7. Cemri, M. et al. (2025). Why Do Multi-Agent LLM Systems Fail? arXiv:2503.13657 [preprint, not peer-reviewed].
 
 ---
 
