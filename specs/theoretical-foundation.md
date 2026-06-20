@@ -2,11 +2,11 @@
 
 > **Domain**: Lightweight heterogeneous pre-verification — hm's self-doubt resolution layer  
 > **Version**: 3.0 (2026-06-19) — Complete redesign: OCR removed, general-purpose ensemble  
-> **Parent audit**: QUINTE v3.2 theoretical foundation hardening
+> **Parent audit**: QUINTE v3.3 theoretical foundation hardening
 
 ## Abstract
 
-MAGI is a lightweight heterogeneous LLM ensemble that serves as hm's pre-QUINTE verification layer. Three base models (DeepSeek v4-pro, mimo-v2.5, kimi) answer the same question in parallel, each bringing a different training distribution and inductive bias. Binary convergence gate: ≥2/3 agree → answer adopted; otherwise → escalate to full QUINTE debate. The design draws on model routing cascades, heterogeneous ensemble theory, and the established finding that model diversity — not role diversity — drives multi-agent accuracy gains.
+MAGI is a lightweight heterogeneous LLM ensemble that serves as hm's pre-QUINTE verification layer. Three heterogeneous base models — each delegated to a different cognitive stance (Gold for factual verification, Frankincense for contextual reasoning, Myrrh for adversarial audit) — answer the same question in parallel, each bringing a different training distribution and inductive bias. Binary convergence gate: ≥2/3 agree → answer adopted; otherwise → escalate to full QUINTE debate. The design draws on model routing cascades, heterogeneous ensemble theory, and the established finding that model diversity — not role diversity — drives multi-agent accuracy gains.
 
 ---
 
@@ -18,7 +18,7 @@ MAGI is a lightweight heterogeneous LLM ensemble that serves as hm's pre-QUINTE 
 
 **Finding**: Systematic evaluation of 5 MAD methods across 9 benchmarks shows that model heterogeneity is the "universal antidote" — consistently improving multi-agent performance where homogeneous setups fail to beat single-agent baselines.
 
-**MAGI instantiation**: MAGI's three delegates use different base models (DS v4-pro, mimo-v2.5, kimi) — not the same model with different prompts. This implements heterogeneity at the architecture level. The convergence gate (≥2/3) applies Zhang et al.'s finding: agreement across heterogeneous models carries more weight than agreement across same-model instances.
+**MAGI instantiation**: MAGI's three delegates each use a different base model — not the same model with different prompts — assigned by cognitive stance rather than by model name. This implements heterogeneity at the architecture level. The convergence gate (≥2/3) applies Zhang et al.'s finding: agreement across heterogeneous models carries more weight than agreement across same-model instances.
 
 **Caveat**: Most-cited paper in ecosystem (Zhang 2025) is a preprint [not peer-reviewed].
 

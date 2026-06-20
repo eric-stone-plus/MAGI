@@ -68,9 +68,9 @@ MAGI is an inseparable part of QUINTE v3.3. Not an external filter — a senator
 
 **Dual citizenship:** Mode A — MAGI is the antechamber, filtering questions before the Senate convenes. Mode B (v3.3+) — MAGI enters QUINTE R1 as the fifth element, one collective with internal convergence, one vote. Bethlehem does not observe Rome from outside. Bethlehem has a seat in the Senate.
 
-## Model Routing
+## Delegate Routing
 
-Operational details (which model serves which delegate) live in the Hermes profile. The protocol is model-agnostic — any three heterogeneous base models satisfy the architecture. The reference implementation maps Gold→grok-build, Frankincense→kimi K2.7, Myrrh→mimo-v2.5-pro. See [QUINTE PROTOCOL §4.5](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md) for the canonical mapping.
+Operational details (which model serves which delegate) live in the Hermes profile dispatch configuration. The protocol is model-agnostic — any three heterogeneous base models satisfy the architecture. See the [Hermes profile](https://github.com/eric-stone-plus/hermes-core-rules-mac-x86) for current dispatch mappings.
 
 ## Implementation
 

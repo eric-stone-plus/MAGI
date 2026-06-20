@@ -3,8 +3,8 @@
 MAGI — Multi-agent Adversarial Grounded Inquiry
 Orchestrator engine v1.0
 
-Drives the Three Gifts dialectical spiral through mimo-v2.5-pro delegates.
-Designed for Hermes Agent — uses delegate_task for parallel dispatch.
+Drives the Three Gifts dialectical spiral through three heterogeneous base models.
+Designed for Hermes Agent — uses terminal CLI for parallel dispatch.
 
 Usage (from Hermes session):
     python3 lib/magi.py "topic"
