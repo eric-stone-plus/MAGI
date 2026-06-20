@@ -2,7 +2,7 @@
 2|
 3|> **Lightweight heterogeneous pre-verification protocol. hm's self-doubt resolution layer.**
 4|>
-5|> **v3.0 (2026-06-19)**: Complete redesign. MAGI is no longer an OCR verification pipeline. It is now a general-purpose heterogeneous LLM ensemble for rapid pre-verification — three base models (grok/kimi/mimo) in parallel, converge-or-escalate to QUINTE.
+5|> **v3.1 (2026-06-20)**: Expanded deployment model. MAGI is no longer restricted to QUINTE R1 pre-verification. Three doctors (Gold/Fr/Myrrh) can be dispatched independently or collectively at ANY phase of QUINTE or outside it — as on-demand analysis, agent fallback, filesystem exploration, or quick second opinion. Mode A (pre-verification) and Mode B (R1 participant) remain, but neither is exhaustive. Usage: anytime, anywhere, any question.
 6|>
 7|> *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 8|
@@ -124,6 +124,7 @@ Three heterogeneous base models. Not roles on the same model — **different mod
 115||---------|------|---------|
 116|| 2.0 | 2026-06-17 | Gold-dominant OCR verification pipeline |
 117|| 3.0 | 2026-06-19 | **Complete redesign**: OCR removed; general-purpose heterogeneous pre-verification; hm-triggered; binary convergence gate; cost-aware escalation to QUINTE |
+| 3.1 | 2026-06-20 | **Anytime deployment**: MAGI doctors dispatchable independently or collectively at any QUINTE phase or outside it — on-demand analysis, agent fallback, filesystem exploration, second opinion. Mode A/B remain but non-exhaustive. |
 118|
 119|---
 120|
