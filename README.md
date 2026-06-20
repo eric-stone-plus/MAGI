@@ -90,7 +90,6 @@ MIT — the protocol and orchestration layer.
 
 - **Matthew 2:1-12** — Three wise men follow the star to Bethlehem, bearing gold, frankincense, and myrrh. Three gifts, three perspectives, one truth sought from different directions.
 - **Hideaki Anno**, *Neon Genesis Evangelion* (1995) — The MAGI supercomputer system governing Tokyo-3: Melchior (scientist/logic), Balthasar (mother/intuition), Casper (woman/pragmatism). Three biological computers vote on every critical decision — majority rule, exactly like MAGI's ≥2/3 convergence gate. When they deadlock, NERV is paralyzed.
-- **Polybius**, *Histories* VI.10 — The Roman Republic's mixed constitution as institutionalized tension between consuls, senate, and tribunes. MAGI extends this: the tribune (hm) is supervised by the Magi (three external perspectives).
 
 ## References
 
