@@ -1,4 +1,4 @@
-1|# MAGI v3.0 — Protocol Specification · Hermes Agent
+1|# MAGI v3.1 — Protocol Specification · Hermes Agent
 2|
 3|> **Lightweight heterogeneous pre-verification protocol. hm's self-doubt resolution layer.**
 4|>
@@ -130,6 +130,6 @@ Three heterogeneous base models. Not roles on the same model — **different mod
 118|
 119|---
 120|
-121|*MAGI v3.0 — 2026-06-19*
+121|*MAGI v3.1 — 2026-06-20*
 122|*sine ira et studio.*
 123|
