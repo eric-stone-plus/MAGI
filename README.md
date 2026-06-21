@@ -12,7 +12,7 @@ When hm is uncertain, MAGI dispatches three base models in parallel. Each brings
 
 ---
 
-[![Hermes Agent Protocol](https://img.shields.io/badge/Hermes_Agent-v3.4-blue?style=flat)](specs/PROTOCOL.md)
+[![Protocol](https://img.shields.io/badge/protocol-v3.4-blue?style=flat)](specs/PROTOCOL.md)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
 </div>
