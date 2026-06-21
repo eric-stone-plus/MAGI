@@ -3,6 +3,11 @@
 MAGI — Multi-agent Adversarial Grounded Inquiry
 Orchestrator engine v1.0
 
+DEPRECATED (2026-06-20): This v1.0 implementation uses 4-phase spiral with
+weighted scoring and confidence thresholds. MAGI v3.4 uses binary convergence
+gate (≥2/3) with no confidence scoring. Refer to specs/PROTOCOL.md §2.4 for
+the current protocol. This file is retained for historical reference only.
+
 Drives the Three Gifts dialectical spiral through three heterogeneous base models.
 Designed for Hermes Agent — uses terminal CLI for parallel dispatch.
 
