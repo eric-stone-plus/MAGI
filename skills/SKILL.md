@@ -11,20 +11,7 @@ triggers:
 
 ## Architecture
 
-```
-              hm (self-doubt trigger)
-               │
-    ┌──────────┼──────────┐
-    ▼          ▼          ▼
-  Gold       Frankincense  Myrrh
-  (grok)     (kimi)        (mimo)
-    │          │            │
-    └──────────┼────────────┘
-               ▼
-         Convergence Gate
-         >=2/3 -> [MAGI N/3]
-         <=1/3 -> escalate to QUINTE
-```
+hm dispatches three doctors in parallel: Gold (grok), Frankincense (kimi), Myrrh (mimo). Each answers independently. Output converges through a binary gate: >=2/3 agreement -> [MAGI N/3] verdict; <=1/3 -> escalate to QUINTE.
 
 ## Dual-Mode Operation (v3.4)
 
