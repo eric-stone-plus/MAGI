@@ -12,7 +12,7 @@ When hm is uncertain, MAGI dispatches three base models in parallel. Each brings
 
 ---
 
-[![Hermes Agent Protocol](https://img.shields.io/badge/Hermes_Agent-v3.0-blue?style=flat)](specs/PROTOCOL.md)
+[![Hermes Agent Protocol](https://img.shields.io/badge/Hermes_Agent-v3.4-blue?style=flat)](specs/PROTOCOL.md)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
 </div>
@@ -21,7 +21,7 @@ When hm is uncertain, MAGI dispatches three base models in parallel. Each brings
 
 ## What is MAGI?
 
-MAGI is hm's self-doubt mechanism and an inseparable part of QUINTE v3.3. Not merely a user-facing tool — both an internal escalation pathway (Mode A) and QUINTE R1's fifth element (Mode B).
+MAGI is hm's self-doubt mechanism and an inseparable part of QUINTE v3.4. Not merely a user-facing tool — both an internal escalation pathway (Mode A) and QUINTE R1's fifth element (Mode B).
 
 ```
 User asks hm
@@ -56,7 +56,7 @@ No weighting, no scoring, no "convergence score." Binary gate: enough agreement 
 
 ## Relationship to QUINTE
 
-MAGI is an inseparable part of QUINTE v3.3. Not an external filter — a senator with dual citizenship.
+MAGI is an inseparable part of QUINTE v3.4. Not an external filter — a senator with dual citizenship.
 
 | | QUINTE | MAGI |
 |-|--------|------|
@@ -66,7 +66,7 @@ MAGI is an inseparable part of QUINTE v3.3. Not an external filter — a senator
 | Cost | High | Low (3 API calls) |
 | Failure | Deadlock → human review | Diverge → escalate to QUINTE R2+ |
 
-**Dual citizenship:** Mode A — MAGI is the antechamber, filtering questions before the Senate convenes. Mode B (v3.3+) — MAGI enters QUINTE R1 as the fifth element, one collective with internal convergence, one vote. Bethlehem does not observe Rome from outside. Bethlehem has a seat in the Senate.
+**Dual citizenship:** Mode A — MAGI is the antechamber, filtering questions before the Senate convenes. Mode B (v3.4+) — MAGI enters QUINTE R1 as the fifth element, one collective with internal convergence, one vote. Bethlehem does not observe Rome from outside. Bethlehem has a seat in the Senate.
 
 ## Delegate Routing
 
@@ -78,7 +78,7 @@ MAGI runs on [Hermes Agent](https://github.com/nousresearch/hermes-agent). Three
 
 | Path | What |
 |------|------|
-| [specs/PROTOCOL.md](specs/PROTOCOL.md) | Canonical v3.0 protocol specification |
+| [specs/PROTOCOL.md](specs/PROTOCOL.md) | Canonical v3.4 protocol specification |
 | [specs/theoretical-foundation.md](specs/theoretical-foundation.md) | Academic foundations |
 | [ontology/](ontology/) | Protocol ontology |
 
