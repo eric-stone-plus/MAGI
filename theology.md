@@ -54,7 +54,7 @@ MAGI's hm-triggered dispatch echoes this: hm dispatches the delegates not becaus
 
 ## Design Narrative, Not Architectural Constraint
 
-The theological framework enriches MAGI's conceptual grammar but generates no testable predictions beyond what the cited ML literature provides. No design decision is derived from theology — the protocol would function identically with different names. The framework is classified as "design narrative" following the QUINTE v3.2 precedent on Polybius.
+The theological framework enriches MAGI's conceptual grammar but generates no testable predictions beyond what the cited ML literature provides. No design decision is derived from theology — the protocol would function identically with different names. The framework is classified as "design narrative" following the QUINTE v3.4 on Polybius.
 
 It exists because naming matters. A protocol called "3-Model Parallel Pre-Verification with Binary Convergence Gate" would be technically accurate and spiritually dead. The Magi followed a star. So do we.
 
