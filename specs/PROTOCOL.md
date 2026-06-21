@@ -71,6 +71,23 @@ All three delegates dispatched in parallel via independent execution contexts (H
 
 **Dispatch (v3.4)**: `magi_dispatch.py v1` — unified wrapper for grok/kimi/mimo. Structured JSON error reporting on stderr: `{"status":"ok|error","class":"auth|rate_limit|timeout|interrupted_recoverable|deprecated|unknown","retry":"..."}`. Grok exit 143 (SIGTERM) triggers session resume, not substitution.
 
+### 2.3 JSON Sidecar & Evidence Validation (v3.4)
+
+MAGI delegates append a structured JSON block after their markdown answer:
+
+```json
+{
+  "verdict": "string",
+  "confidence": 0.0-1.0,
+  "reasoning_chain": ["string"],
+  "evidence_citations": ["file:line or command reference"]
+}
+```
+
+Markdown is the primary output for convergence gate comparison. JSON is consumed by QUINTE Phase 2 auto-diff.
+
+**Evidence Validation Gate (v3.4 — Myrrh)**: Before QUINTE Phase 2 consumes confidence scores from JSON sidecars, hm MUST verify that all `evidence_citations` resolve to real file:line locations or reproducible command output. Unresolved → `[CITATION_UNVERIFIED]` → claim confidence 0.5× weight. This gate prevents fabricated citations from inflating agent confidence — closing a trust boundary opened by self-reported metadata.
+
 ### 2.4 Convergence Gate
 
 hm reads all three outputs. Binary decision:
@@ -81,6 +98,23 @@ hm reads all three outputs. Binary decision:
 | ≤1/3 agree | **Diverge** | Escalate to QUINTE. Disagreement pattern recorded for KOZO. |
 
 No weighted voting. No confidence score. Binary gate.
+
+### 2.5 Agent Substitution (v3.4)
+
+When directed by QUINTE, MAGI doctors serve as fallback for failed core agents:
+
+| Failed Agent | MAGI Substitute | Reason |
+|-------------|----------------|--------|
+| cc (MiMo) | Myrrh (mimo) | Same provider |
+| cw (DS) | Fr (kimi) | Deep file exploration |
+| omp (DS) | Gold (grok) | Fast reasoning + external view |
+| rx (DS) | Any available | Tool-capable replacement |
+
+Original prompt forwarded directly. 180s deadline. Output annotated `[MAGI: <dr> substituting <agent>]`. Equal voting weight. Substitute failure → degrade, don't block QUINTE.
+
+### 2.6 Cross-Repo Consistency (v3.4 — Fr/kimi)
+
+The `website/` directory within QUINTE is an independent git sub-repo. Before any dispatch script or spec edit, hm MUST grep across both repos. Stale duplicates → sync or annotate `[STALE]`.
 
 ---
 
@@ -93,6 +127,7 @@ No weighted voting. No confidence score. Binary gate.
 5. **Binary gate.** ≥2/3 → answer. Otherwise → QUINTE. No intermediate states.
 6. **Cost cap.** If all three models are unavailable, hm answers directly with `[UNCERTAIN]` annotation.
 7. **Error recovery (v3.4).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip). Interrupted Grok (exit 143) → `grok --resume` before substitution.
+8. **Evidence verification (v3.4).** JSON sidecar `evidence_citations` MUST be verified as resolvable before QUINTE Phase 2 consumption. Fabricated citations → `[CITATION_UNVERIFIED]` → 0.5× confidence weight.
 
 ---
 
