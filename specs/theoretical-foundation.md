@@ -1,8 +1,8 @@
 # MAGI Theoretical Foundation
 
 > **Domain**: Lightweight heterogeneous pre-verification — hm's self-doubt resolution layer  
-> **Version**: 3.0 (2026-06-19) — Complete redesign: OCR removed, general-purpose ensemble  
-> **Parent audit**: QUINTE v3.3 theoretical foundation hardening
+> **Version**: 3.4 (2026-06-20) — QUINTE v3.4 ecosystem sync: 6-tier error classification, magi_dispatch.py v1, JSON sidecard evidence gate, cross-repo consistency check  
+> **Parent audit**: QUINTE v3.4 theoretical foundation hardening
 
 ## Abstract
 
@@ -118,4 +118,4 @@ Du, Y. et al. (2023). *Multiagent Debate*. ICML 2024. arXiv:2305.14325. Foundati
 
 ---
 
-*Version 3.0 — 2026-06-19 — Complete redesign: general-purpose heterogeneous pre-verification*
+*Version 3.4 — 2026-06-20 — QUINTE v3.4 ecosystem sync: general-purpose heterogeneous pre-verification*
