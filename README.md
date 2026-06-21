@@ -60,7 +60,7 @@ MAGI is an inseparable part of QUINTE v3.4. Not an external filter — a senator
 
 | | QUINTE | MAGI |
 |-|--------|------|
-| Trigger | User or 證門 gate | hm's internal uncertainty |
+| Trigger | User or Shōmon gate (evidence gate) | hm's internal uncertainty |
 | R1 elements | 5 (cc+hm+cw+omp+MAGI as collective) | 3 delegates (Gold+Fr+Myrrh) converge internally → 1 vote |
 | Rounds | 3 (R1→R2→R3) | 1 (parallel → converge/diverge) |
 | Cost | High | Low (3 API calls) |
