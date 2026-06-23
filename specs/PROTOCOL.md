@@ -2,7 +2,7 @@
 
 > **Lightweight heterogeneous pre-verification protocol. hm's self-doubt resolution layer.**
 >
-> **v3.4 (2026-06-20)**: Synced with QUINTE v3.4. MAGI ecosystem adoption complete: 6-tier error classification across all dispatch paths (magi_dispatch.py v1 unified wrapper for grok/kimi/mimo), Grok interrupt recovery (exit 143 → `--resume`/`grok export`), JSON sidecard with evidence validation gate (Myrrh), cross-repo consistency check (Fr/kimi), agent→MAGI substitution protocol. Three doctors dispatchable anytime — Mode A (pre-verification), Mode B (QUINTE R1 embedded), or independent.
+> **v3.4 (2026-06-20)**: Synced with QUINTE v3.4. MAGI ecosystem adoption complete: 6-tier error classification across all dispatch paths (magi_dispatch.py v1 unified wrapper for grok/kimi/mimo), Grok interrupt recovery (exit 143 → `--resume`/`grok export`), JSON sidecar with evidence validation gate (Myrrh), cross-repo consistency check (Fr/kimi), agent→MAGI substitution protocol. Three doctors dispatchable anytime — Mode A (pre-verification), Mode B (QUINTE R1 embedded), or independent.
 >
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
@@ -163,7 +163,7 @@ Primary anchors:
 | 2.0 | 2026-06-17 | Gold-dominant OCR verification pipeline |
 | 3.0 | 2026-06-19 | **Complete redesign**: OCR removed; general-purpose heterogeneous pre-verification; hm-triggered; binary convergence gate; cost-aware escalation to QUINTE |
 | 3.1 | 2026-06-20 | **Anytime deployment**: MAGI doctors dispatchable independently or collectively at any QUINTE phase or outside it — on-demand analysis, agent fallback, filesystem exploration, second opinion. Mode A/B remain but non-exhaustive. |
-| 3.4 | 2026-06-20 | **QUINTE v3.4 sync**: 6-tier error classification (auth/rate_limit/timeout/interrupted_recoverable/deprecated/unknown); magi_dispatch.py v1 unified wrapper; Grok exit 143 session resume; JSON sidecard evidence validation gate; cross-repo consistency check; agent→MAGI substitution table. Invariant #7 added. Synced with QUINTE v3.4. |
+| 3.4 | 2026-06-20 | **QUINTE v3.4 sync**: 6-tier error classification (auth/rate_limit/timeout/interrupted_recoverable/deprecated/unknown); magi_dispatch.py v1 unified wrapper; Grok exit 143 session resume; JSON sidecar evidence validation gate; cross-repo consistency check; agent→MAGI substitution table. Invariant #7 added. Synced with QUINTE v3.4. |
 
 ---
 
