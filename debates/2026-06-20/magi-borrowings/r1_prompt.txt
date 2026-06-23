@@ -1,0 +1,14 @@
+QUINTE should absorb 7 borrowings from external MAGI ecosystem. Evaluate each for feasibility, priority, and CODE CONSTRAINTS (breaker changes, backward compatibility, implementation cost).
+
+CANDIDATES:
+A. Structured JSON output per agent {verdict,confidence,reasoning_chain,evidence}
+B. R2 anonymous review (replace agent names with pseudonyms)
+C. Mind-change tracking (R2 explicitly records "changed from X to Y because Z")
+D. Error classification (deprecated/auth/rate_limit/timeout/unknown → different recovery)
+E. Rapporteur confidence-weighting (highest-confidence R1 agent gets extra R3 weight)
+F. Mandatory file:line citations in R1 (no citation = vote excluded)
+G. Adaptive pre-check (R1 ≥80% consensus → lighter R2)
+
+For each: viable? priority? break anything? implementation path? RANK them 1-7.
+
+SPECIAL FOCUS (kimi & grok): Code constraints — what existing dispatch code would break, what prompt templates need changing, what's the minimum viable implementation per item.

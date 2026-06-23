@@ -1,0 +1,24 @@
+TASK: Cross-review R1 findings from a multi-agent debate about GitHub MAGI projects landscape analysis.
+
+R1 agents reviewed an analysis of ~15 GitHub MAGI projects and a comparison with QUINTE. Key R1 findings:
+
+CONSENSUS FINDINGS (multiple agents agree):
+1. fshiori/magi README's "MMLU Hell Mode 83.3%" claim has NO verifiable source. Actual experiment uses 25-50 builtin trivia questions, not MMLU. Results file shows 76%/88%, not 83.3%.
+2. jason-chao/MAGI (PyPI: magi-core, 8 decision modes, deliberative rounds) is the BIGGEST OMISSION from analysis.
+3. MAGI psychiatric (ACL 2025) and MAgICoRe (EMNLP 2025) should be reclassified as acronym collisions, not MAGI-pattern projects.
+4. magi-core is a Python PyPI package (v1.1.0), not a Rust crate (v0.3.0).
+5. QUINTE vs fshiori/magi comparison is structurally biased — self-assessment vs inspectable open-source.
+6. 6-7 missing projects identified (mcp-magi, magi-system2, akokubo/magi_system, BolivarTech/magi, etc.)
+
+DISPUTED POINTS:
+- Analysis says "7-question PoC" — Fr says 25 questions, omp says 50 builtin questions exist. Actual number disputed.
+- TomaszRewak/MAGI (140★) classified as "EVA FAN" — Myrrh disputes, says deserves higher tier.
+
+YOUR TASK:
+1. Verify which R1 findings are most critical and well-supported
+2. Identify any remaining blind spots the R1 agents missed
+3. Assess whether the QUINTE comparison bias claim is valid
+4. Rate confidence in each consensus finding
+5. State clearly where you agree/disagree with each finding
+
+Output: TASK: [restatement] then structured review.
