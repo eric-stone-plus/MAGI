@@ -1,0 +1,39 @@
+diff --git a/specs/PROTOCOL.md b/specs/PROTOCOL.md
+index e5c2d2f..94f082d 100644
+--- a/specs/PROTOCOL.md
++++ b/specs/PROTOCOL.md
+@@ -50,12 +50,15 @@ Three escalation paths:
+ | Uncertain | MAGI (3 delegates → converge/diverge) |
+ | Conclusion-grade | Direct QUINTE (bypass MAGI) |
+ 
+-### 2.1a Dual-Mode Operation (v3.4+)
++### 2.1a Deployment Modes (v3.4+)
+ 
+-MAGI operates in two mutually exclusive modes:
++MAGI operates in two primary mutually exclusive modes, plus an anytime independent deployment (MAGI v3.1+):
+ 
+ - **Mode A — Standalone Pre-Verification**: hm uncertain → MAGI → ≥2/3 converge (answer) or diverge (escalate to QUINTE).
+-- **Mode B — QUINTE R1 Participant**: During QUINTE v3.4+ execution, MAGI enters R1 as one collective element. Internal convergence gate is ACTIVE — three delegates converge (≥2/3) into one output with one vote. Delegates do not participate in R2. Mode A and Mode B cannot both be active in the same session. See [QUINTE v3.4 spec](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md).
++- **Mode B — QUINTE R1 Participant**: During QUINTE v3.4+ execution, MAGI enters R1 as one collective element. Internal convergence gate is ACTIVE — three delegates converge (≥2/3) into one output with one vote. Delegates do not participate in R2. Mode A and Mode B cannot both be active in the same session.
++- **Anytime / Independent (v3.1+)**: MAGI doctors may be dispatched independently or collectively at any QUINTE phase, or outside it, for on-demand analysis, agent fallback, filesystem exploration, or second opinion. Mode A and Mode B remain but are non-exhaustive.
++
++See [QUINTE v3.4 spec](../../QUINTE/specs/PROTOCOL.md).
+ 
+ ### 2.2 Delegates
+ 
+@@ -90,12 +93,12 @@ Markdown is the primary output for convergence gate comparison. JSON is consumed
+ 
+ ### 2.4 Convergence Gate
+ 
+-hm reads all three outputs. Binary decision:
++hm applies the mechanical binary gate to the three delegate outputs:
+ 
+ | Condition | Outcome | Action |
+ |-----------|---------|--------|
+-| ≥2/3 agree | **Converge** | hm adopts answer. Annotates: `[MAGI 2/3]` or `[MAGI 3/3]`. |
+-| ≤1/3 agree | **Diverge** | Escalate to QUINTE. Disagreement pattern recorded for KOZO. |
++| ≥2/3 agree | **Converge** | Answer is mechanically adopted. Annotates: `[MAGI 2/3]` or `[MAGI 3/3]`. |
++| ≤1/3 agree | **Diverge** | Escalate to QUINTE. Disagreement pattern recorded for KOZO (構造, HIGHBALL attention-quality measurement layer; see [HIGHBALL spec](../../HIGHBALL/README.md#kozo--attention-quality--cross-detection-sensitivity)). |
+ 
+ No weighted voting. No confidence score. Binary gate.
+ 

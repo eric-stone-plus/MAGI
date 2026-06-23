@@ -1,0 +1,142 @@
+[0m
+> build · mimo-v2.5-pro
+[0m
+[0m$ [0mgrok build 'reply OK' 2>&1
+error: unexpected argument 'reply OK' found
+
+Usage: grok [OPTIONS] [PROMPT] [COMMAND]
+
+For more information, try '--help'.
+[0m
+I'll run all three dispatch modes in parallel to test them.
+[0m$ [0mecho 'reply OK' | grok --always-approve --verbatim 2>&1 | head -5
+(no output)
+[0m
+[0m$ [0mgrok -p='reply OK' 2>&1
+OK
+[0m
+Let me get `grok --help` to understand the correct TUI/build syntax.
+[0m$ [0mgrok --help 2>&1
+Grok Build TUI
+
+Usage: grok [OPTIONS] [PROMPT] [COMMAND]
+
+Arguments:
+  [PROMPT]  Initial prompt for the interactive session, e.g. `grok "fix the bug"` or `grok --worktree=feat "create this feature"`
+
+Options:
+      --agent <NAME>
+          Agent name or definition file path
+      --agents <JSON>
+          Inline subagent definitions as JSON
+      --allow <RULE>
+          Permission allow rule (Claude Code: --allowedTools)
+      --always-approve
+          Auto-approve all tool executions
+      --best-of-n <N>
+          Run the task N ways in parallel and pick the best (headless only)
+  -c, --continue
+          Continue the most recent session for the current working directory
+      --check
+          Append a self-verification loop to the prompt (headless only)
+      --cwd <CWD>
+          Working directory
+      --debug
+          Enable debug logging
+      --debug-file <FILE>
+          Write debug logs to FILE
+      --deny <RULE>
+          Permission deny rule (Claude Code: --disallowedTools)
+      --disable-web-search
+          Disable web search and web fetch tools
+      --disallowed-tools <TOOLS>
+          Built-in tools to remove (comma-separated)
+      --effort <LEVEL>
+          Effort level [possible values: low, medium, high, xhigh, max]
+      --experimental-memory
+          Enable cross-session memory
+  -h, --help
+          Print help
+      --leader-socket <PATH>
+          Use a custom leader socket path instead of the default `~/.grok/leader.sock`
+  -m, --model <MODEL>
+          Model ID to use
+      --max-turns <N>
+          Maximum number of agent turns
+      --no-alt-screen
+          Run inline instead of using the terminal alternate screen
+      --no-memory
+          Disable cross-session memory for this session
+      --no-plan
+          Disable plan mode
+      --no-subagents
+          Disable subagent spawning
+      --oauth
+          Use OAuth when the welcome screen starts authentication
+      --output-format <OUTPUT_FORMAT>
+          Output format for headless mode [default: plain] [possible values: plain, json, streaming-json]
+  -p, --single <PROMPT>
+          Single-turn prompt. Prints the response to stdout and exits
+      --permission-mode <MODE>
+          Permission mode [possible values: default, acceptEdits, auto, dontAsk, bypassPermissions, plan]
+      --prompt-file <PATH>
+          Single-turn prompt from a file
+      --prompt-json <JSON>
+          Single-turn prompt as JSON content blocks
+  -r, --resume [<SESSION_ID>]
+          Resume a session by ID, or the most recent if omitted
+      --reasoning-effort <EFFORT>
+          Reasoning effort for reasoning models
+      --restore-code
+          Check out the original session's commit when resuming
+      --rules <RULES>
+          Extra rules to append to the system prompt
+      --sandbox <PROFILE>
+          Sandbox profile for filesystem and network access [env: GROK_SANDBOX=]
+      --system-prompt-override <PROMPT>
+          Override the agent's system prompt (Claude Code: --system-prompt)
+      --tools <TOOLS>
+          Built-in tools to allow (comma-separated)
+  -v, --version
+          Print version
+      --verbatim
+          Send the prompt exactly as given
+  -w, --worktree [<WORKTREE>]
+          Start the session in a new git worktree, optionally named
+
+Commands:
+  agent        Run Grok without the interactive UI
+  completions  Generate shell completion scripts (bash, zsh, fish, powershell, ...)
+  dashboard    Open the Agent Dashboard view at startup
+  export       Export a session transcript as Markdown
+  help         Print this message or the help of the given subcommand(s)
+  import       Import sessions into Grok
+  inspect      Show the configuration Grok discovers for this directory
+  leader       Manage running leader processes
+  login        Sign in to Grok
+  logout       Sign out and clear cached credentials
+  mcp          Manage MCP server configurations
+  memory       Manage cross-session memory
+  models       List available models and exit
+  plugin       Manage plugins and marketplace sources
+  sessions     List, search, or restore sessions
+  setup        Fetch and install managed configuration
+  ssh          Run ssh with local clipboard support
+  trace        Export or upload session trace data
+  update       Check for updates or install a specific version
+  version      Print version information [aliases: v]
+  worktree     Manage git worktrees
+[0m
+[0m← [0mWrite grok_dispatch_modes.json
+Wrote file successfully.
+[0m
+Results are clear. Let me write the sidecar JSON with the verdict.
+**Verdict summary:**
+
+| Mode | Command | Result |
+|---|---|---|
+| **Headless one-shot** | `grok -p='reply OK'` | **WORKS** — returned `OK`, clean exit |
+| **Stdin pipe** | `echo ... \| grok --always-approve --verbatim` | **BROKEN** — no output, grok doesn't read stdin |
+| **TUI / `build`** | `grok build 'reply OK'` | **UNSUITABLE** — `build` isn't a valid subcommand; default mode is interactive TUI |
+
+**For background/headless dispatch, use:** `grok -p='<prompt>'` (the `--single` / `-p` flag is the only reliable mode). Sidecar written to `grok_dispatch_modes.json`.
