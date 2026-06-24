@@ -176,7 +176,7 @@ Based on 2026-06-24 empirical evidence. Six-phase pipeline with codex reserved f
 
 ### Iron Rules
 
-1. Codex used for diagnosis (phase 2) and attack (phase 4) — with precise commands only, never open-ended exploration.
+1. Codex: no rabbit holes. Stay on task, don't follow tangents. If a file references history/related topics, ignore them. Read only the specified files/line ranges, answer only the specified question.
 2. kimi never given grep/search (recursive self-inclusion bug).
 3. Before killing any process: `process log > archive` first.
 4. Every phase has explicit timeout + output size cap.
@@ -190,7 +190,7 @@ Based on 2026-06-24 empirical evidence. Six-phase pipeline with codex reserved f
 |---------|-------|-----------|-----|
 | Output >100MB, self-referencing | kimi | grep matched own output | Phase 1 only: read file paths, no grep. Discovery done in phase 0. |
 | Output quotes survey verbatim | mimo | Given kimi's output as reference | Phase 3: adversarial prompt ("find flaws"), independence similarity check. |
-| 29min no output, reading history | codex | "Be thorough, search every file" | Phase 2 only: bounded synthesis with JSON schema output. |
+| 29min no output, reading history | codex | Rabbit hole: followed changelog tangents instead of staying on task | "No rabbit holes" rule: read only specified files, answer only specified question, ignore tangents. |
 | 0-byte output | cc/oc/omp | Auth/CLI issue | Verify CLI auth before dispatch. |
 
 ---
