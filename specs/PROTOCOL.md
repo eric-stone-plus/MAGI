@@ -161,6 +161,40 @@ Primary anchors:
 
 ---
 
+## §7 · Operational Phases (v3.6)
+
+Based on 2026-06-24 empirical evidence. Six-phase pipeline with codex reserved for diagnosis, not mechanical editing.
+
+| Phase | Model | Cost | Role | Timeout | Rules |
+|-------|-------|------|------|---------|-------|
+| **0. 发现 Discover** | grep (non-LLM) or cheap model | free | Find files matching pattern, return paths only | 60s | Do not read file contents in this phase. |
+| **1. 勘察 Survey** | kimi | 包月 | Read specific files, structured summary per file | 120s/file, 600s total | ⛔ Never grep/search. Exact file paths only. Size cap 1MB. |
+| **2. 诊断 Diagnose** | codex | 按量 | Analyze survey output → root cause + file:line:old:new fix | 300s | Bounded synthesis. Output must be structured (JSON schema). |
+| **3. 验证 Verify** | mimo | 最便宜 | Adversarial: "find flaws in the diagnosis" | 180s | ⛔ Never show kimi's output. Independence check: >40% phrase overlap with survey → re-run. |
+| **4. 攻击 Attack** | Lightweight agent/script | cheap | Apply verified file:line:old:new mechanically | 60s | Pre-flight: git stash. Post-flight: verify diff confines to specified range. |
+| **5. 复核 Post-Verify** | mimo | 最便宜 | Checklist: "did edit apply? surrounding lines parse? fix addresses diagnosis?" | 120s | On FAIL: git stash pop → loop to phase 2 (max 3). Human gate on final diff. |
+
+### Iron Rules
+
+1. Codex reserved for diagnosis (phase 2), not mechanical editing (phase 4).
+2. kimi never given grep/search (recursive self-inclusion bug).
+3. Before killing any process: `process log > archive` first.
+4. Every phase has explicit timeout + output size cap.
+5. Max 5 codex invocations per session, max 3 diagnosis→attack loops.
+6. Discovery (phase 0) may use non-LLM grep or cheap model — never kimi.
+7. Human gates at post-diagnosis and post-attack for irreversible changes.
+
+### Failure Mode Map
+
+| Symptom | Model | Root Cause | Fix |
+|---------|-------|-----------|-----|
+| Output >100MB, self-referencing | kimi | grep matched own output | Phase 1 only: read file paths, no grep. Discovery done in phase 0. |
+| Output quotes survey verbatim | mimo | Given kimi's output as reference | Phase 3: adversarial prompt ("find flaws"), independence similarity check. |
+| 29min no output, reading history | codex | "Be thorough, search every file" | Phase 2 only: bounded synthesis with JSON schema output. |
+| 0-byte output | cc/oc/omp | Auth/CLI issue | Verify CLI auth before dispatch. |
+
+---
+
 ## §6 · Version History
 
 | Version | Date | Changes |
@@ -170,6 +204,7 @@ Primary anchors:
 | 3.1 | 2026-06-20 | **Anytime deployment**: MAGI doctors dispatchable independently or collectively at any QUINTE phase or outside it — on-demand analysis, agent fallback, filesystem exploration, second opinion. Mode A/B remain but non-exhaustive. |
 | 3.4 | 2026-06-20 | **QUINTE v3.4 sync**: 6-tier error classification (auth/rate_limit/timeout/interrupted_recoverable/deprecated/unknown); magi_dispatch.py v1 unified wrapper; Grok exit 143 session resume; JSON sidecar evidence validation gate; cross-repo consistency check; agent→MAGI substitution table. Invariant #7 added. Synced with QUINTE v3.4. |
 | 3.5 | 2026-06-24 | **QUINTE v3.5 sync**: MAGI repositioned from QUINTE R1 participant to cross-cutting heterogeneous audit layer. Mode B retired. Substitution table updated: rx removed, oc added. Dispatch notes updated for Mac (codex/gpt-5.4) and Win (apiyi GPT-4o-mini / o4-mini fallback). Convergence gate now covers both standalone Mode A `[MAGI N/3]` and audit-layer `[MAGI AUDIT N/3]` annotations. |
+| 3.6 | 2026-06-24 | **Three-phase operational design** — based on empirical evidence: (1) Codex 29min scope creep on open-ended audit, (2) kimi 965MB recursive self-grep, (3) mimo copy-paste when given others' output. New phase model: **勘察 (survey)** = kimi read specific files only, never grep; **验证 (verify)** = mimo independent checklist, cross-check kimi; **攻击 (attack)** = codex precise file:line:old:new modifications only, bounded tasks. Iron rules: kill前必archive, codex禁open-ended prompts, kimi禁grep. See §7 Operational Phases. |
 
 ---
 
