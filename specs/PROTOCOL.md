@@ -178,11 +178,13 @@ Six-phase pipeline derived from heterogeneous model behavior patterns.
 
 1. No rabbit holes. Stay on task, don't follow tangents. If a file references history/related topics, ignore them. Read only the specified files/line ranges, answer only the specified question.
 2. The survey model must never read files in its own output directory, including any files it has written.
-3. Before killing any process: `process log > archive` first.
-4. Every phase has explicit timeout + output size cap.
-5. Max 5 invocations per session, max 3 diagnosis→attack loops.
-6. Discovery (phase 0) may use non-LLM grep or cheap model — never the survey model.
-7. Human gates at post-diagnosis and post-attack for irreversible changes.
+3. Survey model output goes to stdout; hm saves with shell redirect. Survey model must never read files in its own output directory.
+4. Phases 0-3 (discover, survey, diagnose, verify) may run concurrently where independent. Phases 4-5 (attack, post-verify) are serial after diagnose.
+5. Before killing any process: `process log > archive` first.
+6. Every phase has explicit timeout + output size cap.
+7. Max 5 invocations per session, max 3 diagnosis→attack loops.
+8. Discovery (phase 0) may use non-LLM grep or cheap model — never the survey model.
+9. Human gates at post-diagnosis and post-attack for irreversible changes.
 
 ### Failure Mode Map
 
