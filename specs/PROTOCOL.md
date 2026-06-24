@@ -188,10 +188,11 @@ Based on 2026-06-24 empirical evidence. Six-phase pipeline with codex reserved f
 
 | Symptom | Model | Root Cause | Fix |
 |---------|-------|-----------|-----|
-| Output >100MB, self-referencing | kimi | grep matched own output | Phase 1 only: read file paths, no grep. Discovery done in phase 0. |
-| Output quotes survey verbatim | mimo | Given kimi's output as reference | Phase 3: adversarial prompt ("find flaws"), independence similarity check. |
-| 29min no output, reading history | codex | Rabbit hole: followed changelog tangents instead of staying on task | "No rabbit holes" rule: read only specified files, answer only specified question, ignore tangents. |
-| 0-byte output | cc/oc/omp | Auth/CLI issue | Verify CLI auth before dispatch. |
+| Survey output >100MB, self-referencing | survey | Search tool matched own output | Phase 1 only: read file paths, no search. Discovery done in phase 0. |
+| Verify output quotes survey verbatim | verify | Given survey output as reference | Phase 3: adversarial prompt, independence similarity check. |
+| Reasoning 29min no output, reading history | reasoning | Rabbit hole: followed tangents instead of staying on task | No rabbit holes: read only specified files, answer only specified question. |
+| Survey output file corrupted with null bytes | survey | Survey model read its own output file, triggering recursive write bug | Survey output to stdout; hm saves with shell redirect. Survey must never read its own output directory. |
+| Debate agents 0-byte output | debate agents | Authentication or CLI configuration issue | Verify agent authentication before dispatch. |
 
 ---
 
