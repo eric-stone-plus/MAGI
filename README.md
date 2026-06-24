@@ -70,11 +70,11 @@ MAGI is an inseparable part of QUINTE v3.4. Not an external filter — a senator
 
 ## Delegate Routing
 
-Operational details (which model serves which delegate) live in the Hermes profile dispatch configuration. The protocol is model-agnostic — any three heterogeneous base models satisfy the architecture. Current dispatch: Win=apiyi GPT-4o-mini / Mac=codex/gpt-5.2-high (Gold), kimi (Fr), mimo (Myrrh). See the Hermes profiles ([mac-x86](https://github.com/eric-stone-plus/hermes-core-rules-mac-x86), [win](https://github.com/eric-stone-plus/hermes-core-rules-win)) for platform-specific mappings.
+The protocol is model-agnostic — any three heterogeneous base models satisfy the architecture. Platform-specific dispatch details are documented in the private core-rules profiles.
 
 ## Implementation
 
-MAGI runs on [Hermes Agent](https://github.com/nousresearch/hermes-agent). Three delegates dispatched in parallel via independent execution contexts. hm adjudicates convergence.
+MAGI runs on a model-agnostic agent runtime. Three delegates dispatched in parallel via independent execution contexts. hm adjudicates convergence.
 
 | Path | What |
 |------|------|
