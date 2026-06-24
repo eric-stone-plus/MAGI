@@ -1,3 +1,0 @@
-From an operational-risk standpoint, failure #4 (delegate_task false heterogeneity) poses the highest recurrence risk: it silently collapses the declared multi-model separation, producing fake convergence with large blast radius and low detectability. Prevent it at the SOUL layer by making "declared model identity must be verifiably preserved across dispatch" a non-negotiable protocol invariant, enforced by a pre-round identity canary. At the SKILL layer, hard-ban delegate_task for heterogeneous MAGI rounds and require terminal CLI with explicit provider/model arguments plus a post-dispatch identity check.
-
-Confidence: HIGH

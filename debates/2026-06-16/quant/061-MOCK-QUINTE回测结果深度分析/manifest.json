@@ -1,9 +1,0 @@
-{
-  "topic": "MOCK-QUINTE回测结果深度分析",
-  "track": "quant",
-  "tnum": 61,
-  "verdict": "LLM预测准确率36%仅略高于随机33%，看空方向最强43.5%，震荡占62%表明模型偏保守",
-  "mode": "hm-solo",
-  "convergence": 0.801,
-  "created_at": "2026-06-16T02:04:35.771862"
-}

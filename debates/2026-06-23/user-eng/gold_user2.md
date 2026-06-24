@@ -1,1 +1,0 @@
-The file has been cleaned and written back. All Chinese full-stop characters (。) removed, phrasing made natural while preserving the original structure, facts, rules, abbreviations, and technical details exactly.

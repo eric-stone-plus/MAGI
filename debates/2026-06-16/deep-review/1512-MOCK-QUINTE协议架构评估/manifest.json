@@ -1,9 +1,0 @@
-{
-  "topic": "MOCK-QUINTE协议架构评估",
-  "track": "deep-review",
-  "tnum": 1512,
-  "verdict": "5agent(TA/FA/CA/SA/RA)×3轮(R1独立/R2交叉/R3终裁)的完整辩论协议。报告生成(.md+.html)、回测框架、批量运行能力已验证。待优化：多轮螺旋、置信度拓扑、自适应agent数。",
-  "mode": "hm-solo-deep",
-  "convergence": 0.852,
-  "created_at": "2026-06-16T02:27:10.460085"
-}
