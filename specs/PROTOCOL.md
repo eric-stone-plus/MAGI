@@ -161,7 +161,7 @@ Primary anchors:
 
 ---
 
-## §7 · Operational Phases (v3.6)
+## §7 · Operational Phases
 
 Based on 2026-06-24 empirical evidence. Six-phase pipeline with codex reserved for diagnosis, not mechanical editing.
 
@@ -203,8 +203,7 @@ Based on 2026-06-24 empirical evidence. Six-phase pipeline with codex reserved f
 | 3.0 | 2026-06-19 | **Complete redesign**: OCR removed; general-purpose heterogeneous pre-verification; hm-triggered; binary convergence gate; cost-aware escalation to QUINTE |
 | 3.1 | 2026-06-20 | **Anytime deployment**: MAGI doctors dispatchable independently or collectively at any QUINTE phase or outside it — on-demand analysis, agent fallback, filesystem exploration, second opinion. Mode A/B remain but non-exhaustive. |
 | 3.4 | 2026-06-20 | **QUINTE v3.4 sync**: 6-tier error classification (auth/rate_limit/timeout/interrupted_recoverable/deprecated/unknown); magi_dispatch.py v1 unified wrapper; Grok exit 143 session resume; JSON sidecar evidence validation gate; cross-repo consistency check; agent→MAGI substitution table. Invariant #7 added. Synced with QUINTE v3.4. |
-| 3.5 | 2026-06-24 | **QUINTE v3.5 sync**: MAGI repositioned from QUINTE R1 participant to cross-cutting heterogeneous audit layer. Mode B retired. Substitution table updated: rx removed, oc added. Dispatch notes updated for Mac (codex/gpt-5.4) and Win (apiyi GPT-4o-mini / o4-mini fallback). Convergence gate now covers both standalone Mode A `[MAGI N/3]` and audit-layer `[MAGI AUDIT N/3]` annotations. |
-| 3.6 | 2026-06-24 | **Three-phase operational design** — based on empirical evidence: (1) Codex 29min scope creep on open-ended audit, (2) kimi 965MB recursive self-grep, (3) mimo copy-paste when given others' output. New phase model: **勘察 (survey)** = kimi read specific files only, never grep; **验证 (verify)** = mimo independent checklist, cross-check kimi; **攻击 (attack)** = codex precise file:line:old:new modifications only, bounded tasks. Iron rules: kill前必archive, codex禁open-ended prompts, kimi禁grep. See §7 Operational Phases. |
+| 3.5 | 2026-06-24 | **QUINTE v3.5 sync + operational refinement**: MAGI repositioned from QUINTE R1 participant to cross-cutting heterogeneous audit layer. Mode B retired. Substitution table updated: rx removed, oc added. Six-phase operational pipeline (discover→survey→diagnose→verify→attack→post-verify) based on empirical failure analysis. Codex reserved for diagnosis, not mechanical editing. Dispatch notes updated for Mac (codex/gpt-5.4) and Win (apiyi GPT-4o-mini / o4-mini fallback). See §7. |
 
 ---
 
