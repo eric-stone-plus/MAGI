@@ -171,12 +171,12 @@ Based on 2026-06-24 empirical evidence. Six-phase pipeline with codex reserved f
 | **1. 勘察 Survey** | kimi | 包月 | Read specific files, structured summary per file | 120s/file, 600s total | ⛔ Never grep/search. Exact file paths only. Size cap 1MB. |
 | **2. 诊断 Diagnose** | codex | 按量 | Analyze survey output → root cause + file:line:old:new fix | 300s | Bounded synthesis. Output must be structured (JSON schema). |
 | **3. 验证 Verify** | mimo | 最便宜 | Adversarial: "find flaws in the diagnosis" | 180s | ⛔ Never show kimi's output. Independence check: >40% phrase overlap with survey → re-run. |
-| **4. 攻击 Attack** | Lightweight agent/script | cheap | Apply verified file:line:old:new mechanically | 60s | Pre-flight: git stash. Post-flight: verify diff confines to specified range. |
+| **4. 攻击 Attack** | codex | 按量 | Apply verified file:line:old:new with precise commands | 60s | Bounded, line-level edits only. Pre-flight: git stash. Post-flight: verify diff within range. |
 | **5. 复核 Post-Verify** | mimo | 最便宜 | Checklist: "did edit apply? surrounding lines parse? fix addresses diagnosis?" | 120s | On FAIL: git stash pop → loop to phase 2 (max 3). Human gate on final diff. |
 
 ### Iron Rules
 
-1. Codex reserved for diagnosis (phase 2), not mechanical editing (phase 4).
+1. Codex used for diagnosis (phase 2) and attack (phase 4) — with precise commands only, never open-ended exploration.
 2. kimi never given grep/search (recursive self-inclusion bug).
 3. Before killing any process: `process log > archive` first.
 4. Every phase has explicit timeout + output size cap.
