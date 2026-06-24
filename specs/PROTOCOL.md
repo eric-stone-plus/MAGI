@@ -2,7 +2,7 @@
 
 > **Cross-cutting heterogeneous audit layer. hm's self-doubt resolution layer.**
 >
-> **v3.5 (2026-06-24)**: Synced with QUINTE v3.5. MAGI repositioned as cross-cutting heterogeneous audit layer — always-on alongside QUINTE phases, not a formal debate participant. Three heterogeneous models (Win: Gold=apiyi GPT-4o-mini/o4-mini fallback, Fr=kimi, Myrrh=mimo; Mac: Gold=codex/gpt-5.4, Fr=kimi, Myrrh=mimo) provide the only cross-model signal when all 5 QUINTE debate agents share deepseek-v4-pro. Internal ≥2/3 convergence produces `[MAGI AUDIT]` annotations; ≤1/3 produces individual annotations. Mode A (standalone pre-verification) and independent anytime deployment remain available.
+> **v3.5 (2026-06-24)**: Synced with QUINTE v3.5. MAGI repositioned as cross-cutting heterogeneous audit layer — always-on alongside QUINTE phases, not a formal debate participant. Three heterogeneous models (Gold, Frankincense, Myrrh — each a different base model with different training distribution) provide the only cross-model signal when all debate agents share the same base model. Internal ≥2/3 convergence produces `[MAGI AUDIT]` annotations; ≤1/3 produces individual annotations. Mode A (standalone pre-verification) and independent anytime deployment remain available.
 >
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
@@ -31,7 +31,7 @@ RASHOMON (why) → QUINTE (how heavy) → KANSA (監査)
          (cross-cutting heterogeneous guardrail)
 ```
 
-MAGI is the antechamber AND the heterogeneity guardrail. Mode A (standalone): three heterogeneous models answer *can this be resolved quickly?* Mode B retired in v3.5 — MAGI no longer sits as an R1 debate participant; it operates as a cross-cutting audit layer alongside every QUINTE phase, providing the only cross-model signal when all 5 debate agents share deepseek-v4-pro.
+MAGI is the antechamber AND the heterogeneity guardrail. Mode A (standalone): three heterogeneous models answer *can this be resolved quickly?* Mode B retired in v3.5 — MAGI no longer sits as an R1 debate participant; it operates as a cross-cutting audit layer alongside every QUINTE phase, providing the only cross-model signal when all 5 debate agents share the same base model.
 
 ---
 
@@ -53,7 +53,7 @@ Three escalation paths:
 
 MAGI operates as a cross-cutting heterogeneous audit layer during QUINTE v3.5+, plus standalone and anytime deployments (MAGI v3.1+):
 
-- **QUINTE Audit Layer (v3.5 default)**: During QUINTE execution, MAGI's three heterogeneous models dispatch in parallel alongside each phase. Each model audits R1 outputs and R2 cross-examinations; internal ≥2/3 convergence produces a unified `[MAGI AUDIT]` annotation appended to the phase. Findings are advisory — hm weighs them at R3 verdict. This is the only cross-model signal when the 5 formal debate agents share deepseek-v4-pro.
+- **QUINTE Audit Layer (v3.5 default)**: During QUINTE execution, MAGI's three heterogeneous models dispatch in parallel alongside each phase. Each model audits R1 outputs and R2 cross-examinations; internal ≥2/3 convergence produces a unified `[MAGI AUDIT]` annotation appended to the phase. Findings are advisory — hm weighs them at R3 verdict. This is the only cross-model signal when the 5 formal debate agents share the same base model.
 - **Mode A — Standalone Pre-Verification**: hm uncertain → MAGI → ≥2/3 converge (answer) or diverge (escalate to QUINTE).
 - **Anytime / Independent (v3.1+)**: MAGI doctors may be dispatched independently or collectively at any QUINTE phase, or outside it, for on-demand analysis, agent fallback, filesystem exploration, or second opinion.
 
@@ -71,7 +71,7 @@ Three heterogeneous base models. Not roles on the same model — **different mod
 
 All three delegates dispatched in parallel via independent execution contexts (Hermes `terminal(background=true)` + native CLI, or unified `magi_dispatch.py` wrapper). Each receives the same question. Each answers independently in their own context. No delegate sees another's output.
 
-**Dispatch (v3.5)**: Gold dispatch is platform-specific (Win: `apiyi -p` with o4-mini via opencode fallback, Mac: `codex exec`); Fr: `kimi -p`; Myrrh: `mimo run --dangerously-skip-permissions`. All three dispatched in parallel via independent `terminal(background=true)` + native CLI. In QUINTE v3.5+, MAGI also runs as a cross-cutting audit layer alongside R1 and R2, with each delegate receiving the phase outputs for heterogeneity review.
+**Dispatch**: Each delegate dispatched via independent execution context. Platform-specific dispatch commands are documented in the private core-rules repository. In QUINTE v3.5+, MAGI also runs as a cross-cutting audit layer alongside R1 and R2, with each delegate receiving the phase outputs for heterogeneity review.
 
 ### 2.3 JSON Sidecar & Evidence Validation (v3.4)
 
@@ -109,14 +109,14 @@ When directed by QUINTE v3.5, MAGI doctors serve as fallback for failed core age
 
 | Failed Agent | MAGI Substitute | Reason |
 |-------------|----------------|--------|
-| cc (DS) | Myrrh (mimo) | Provider diversity |
-| cw (DS) | Fr (kimi) | Deep file exploration |
-| omp (DS) | Gold (platform-specific — Win=apiyi GPT-4o-mini, Mac=codex/gpt-5.4) | Fast reasoning + external view |
+| Debate Agent A | Myrrh | Provider diversity |
+| Debate Agent B | Frankincense | Deep file exploration |
+| Debate Agent C | Gold | Fast reasoning + external view |
 | oc (DS) | Any available | Tool-capable replacement |
 
 Original prompt forwarded directly. 180s deadline. Output annotated `[MAGI: <dr> substituting <agent>]`. Equal voting weight. Substitute failure → degrade, don't block QUINTE.
 
-### 2.6 Cross-Repo Consistency (v3.4 — Fr/kimi)
+### 2.6 Cross-Repo Consistency (v3.4)
 
 The `website/` directory within QUINTE is an independent git sub-repo. Before any dispatch script or spec edit, hm MUST grep across both repos. Stale duplicates → sync or annotate `[STALE]`.
 
@@ -130,7 +130,7 @@ The `website/` directory within QUINTE is an independent git sub-repo. Before an
 4. **Blind delegates.** No delegate sees another's output before producing its own.
 5. **Binary gate.** ≥2/3 → answer. Otherwise → QUINTE. No intermediate states.
 6. **Cost cap.** If all three models are unavailable, hm answers directly with `[UNCERTAIN]` annotation.
-7. **Error recovery (v3.4).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip). Interrupted Grok (exit 143) → `grok --resume` before substitution.
+7. **Error recovery (v3.4).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip). Agent interrupted (exit 143) → session resume before substitution.
 8. **Evidence verification (v3.4).** JSON sidecar `evidence_citations` MUST be verified as resolvable before QUINTE Phase 2 consumption. Fabricated citations → `[CITATION_UNVERIFIED]` → 0.5× confidence weight.
 
 ---
@@ -145,7 +145,7 @@ The `website/` directory within QUINTE is an independent git sub-repo. Before an
 | Failure | Diverge → escalate | Deadlock → human review |
 | Cost | Low (3 API calls) | High (15+ API calls) |
 | Evidence | Light (answer + reasoning) | Full (claims, evidence, cross-review) |
-| Heterogeneity | Only cross-model signal in v3.5 | All 5 debate agents share deepseek-v4-pro without MAGI |
+| Heterogeneity | Only cross-model signal in v3.5 | All debate agents share the same base model without MAGI |
 
 ---
 
@@ -163,25 +163,25 @@ Primary anchors:
 
 ## §7 · Operational Phases
 
-Based on 2026-06-24 empirical evidence. Six-phase pipeline with codex reserved for diagnosis, not mechanical editing.
+Six-phase pipeline derived from heterogeneous model behavior patterns.
 
-| Phase | Model | Cost | Role | Timeout | Rules |
-|-------|-------|------|------|---------|-------|
-| **0. 发现 Discover** | grep (non-LLM) or cheap model | free | Find files matching pattern, return paths only | 60s | Do not read file contents in this phase. |
-| **1. 勘察 Survey** | kimi | 包月 | Read specific files, structured summary per file | 120s/file, 600s total | ⛔ Never grep/search. Exact file paths only. Size cap 1MB. |
-| **2. 诊断 Diagnose** | codex | 按量 | Analyze survey output → root cause + file:line:old:new fix | 300s | Bounded synthesis. Output must be structured (JSON schema). |
-| **3. 验证 Verify** | mimo | 最便宜 | Adversarial: "find flaws in the diagnosis" | 180s | ⛔ Never show kimi's output. Independence check: >40% phrase overlap with survey → re-run. |
-| **4. 攻击 Attack** | codex | 按量 | Apply verified file:line:old:new with precise commands | 60s | Bounded, line-level edits only. Pre-flight: git stash. Post-flight: verify diff within range. |
-| **5. 复核 Post-Verify** | mimo | 最便宜 | Checklist: "did edit apply? surrounding lines parse? fix addresses diagnosis?" | 120s | On FAIL: git stash pop → loop to phase 2 (max 3). Human gate on final diff. |
+| Phase | Role | Timeout | Rules |
+|-------|------|---------|-------|
+| 0. Discover | Find files matching pattern, return paths only | 60s | Non-LLM tools only. Do not read contents. |
+| 1. Survey | Read specified files, structured summary per file | 120s/file, 600s total | No search. Exact file paths. Size cap 1MB. |
+| 2. Diagnose | Synthesize survey → root cause + precise fix | 300s | Structured output required. |
+| 3. Verify | Adversarial: find flaws in diagnosis | 180s | Must not see survey output. Similarity check. |
+| 4. Attack | Apply verified fix with line-level precision | 60s | Pre-flight snapshot. Diff verification. |
+| 5. Post-Verify | Checklist verification of applied fix | 120s | On fail: rollback → loop to phase 2 (max 3). |
 
 ### Iron Rules
 
-1. Codex: no rabbit holes. Stay on task, don't follow tangents. If a file references history/related topics, ignore them. Read only the specified files/line ranges, answer only the specified question.
-2. kimi never given grep/search (recursive self-inclusion bug).
+1. No rabbit holes. Stay on task, don't follow tangents. If a file references history/related topics, ignore them. Read only the specified files/line ranges, answer only the specified question.
+2. The survey model must never read files in its own output directory, including any files it has written.
 3. Before killing any process: `process log > archive` first.
 4. Every phase has explicit timeout + output size cap.
-5. Max 5 codex invocations per session, max 3 diagnosis→attack loops.
-6. Discovery (phase 0) may use non-LLM grep or cheap model — never kimi.
+5. Max 5 invocations per session, max 3 diagnosis→attack loops.
+6. Discovery (phase 0) may use non-LLM grep or cheap model — never the survey model.
 7. Human gates at post-diagnosis and post-attack for irreversible changes.
 
 ### Failure Mode Map
@@ -204,7 +204,7 @@ Based on 2026-06-24 empirical evidence. Six-phase pipeline with codex reserved f
 | 3.0 | 2026-06-19 | **Complete redesign**: OCR removed; general-purpose heterogeneous pre-verification; hm-triggered; binary convergence gate; cost-aware escalation to QUINTE |
 | 3.1 | 2026-06-20 | **Anytime deployment**: MAGI doctors dispatchable independently or collectively at any QUINTE phase or outside it — on-demand analysis, agent fallback, filesystem exploration, second opinion. Mode A/B remain but non-exhaustive. |
 | 3.4 | 2026-06-20 | **QUINTE v3.4 sync**: 6-tier error classification (auth/rate_limit/timeout/interrupted_recoverable/deprecated/unknown); magi_dispatch.py v1 unified wrapper; Grok exit 143 session resume; JSON sidecar evidence validation gate; cross-repo consistency check; agent→MAGI substitution table. Invariant #7 added. Synced with QUINTE v3.4. |
-| 3.5 | 2026-06-24 | **QUINTE v3.5 sync + operational refinement**: MAGI repositioned from QUINTE R1 participant to cross-cutting heterogeneous audit layer. Mode B retired. Substitution table updated: rx removed, oc added. Six-phase operational pipeline (discover→survey→diagnose→verify→attack→post-verify) based on empirical failure analysis. Codex reserved for diagnosis, not mechanical editing. Dispatch notes updated for Mac (codex/gpt-5.4) and Win (apiyi GPT-4o-mini / o4-mini fallback). See §7. |
+| 3.5 | 2026-06-24 | **QUINTE v3.5 sync + operational refinement**: MAGI repositioned from QUINTE R1 participant to cross-cutting heterogeneous audit layer. Mode B retired. Substitution table updated: rx removed, oc added. Six-phase operational pipeline (discover→survey→diagnose→verify→attack→post-verify) based on empirical failure analysis. Dispatch notes and operational details documented in private core-rules repository. See §7. |
 
 ---
 
