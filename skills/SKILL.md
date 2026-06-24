@@ -1,6 +1,6 @@
 ---
 name: magi
-description: "MAGI v3.4 — Lightweight heterogeneous pre-verification layer. Three base models (grok/kimi/mimo) in parallel with binary convergence gate (>=2/3). Dual-mode: Mode A independent pre-verification / Mode B QUINTE R1 embedded participant. hm's self-doubt resolution layer."
+description: "MAGI v3.4 — Lightweight heterogeneous pre-verification layer. Three base models (Gold=platform-specific/kimi/mimo) in parallel with binary convergence gate (>=2/3). Dual-mode: Mode A independent pre-verification / Mode B QUINTE R1 embedded participant. hm's self-doubt resolution layer."
 spec: "https://github.com/eric-stone-plus/MAGI/blob/master/specs/PROTOCOL.md"
 version: "3.4"
 triggers:
@@ -11,7 +11,7 @@ triggers:
 
 ## Architecture
 
-hm dispatches three doctors in parallel: Gold (grok), Frankincense (kimi), Myrrh (mimo). Each answers independently. Output converges through a binary gate: >=2/3 agreement -> [MAGI N/3] verdict; <=1/3 -> escalate to QUINTE.
+hm dispatches three doctors in parallel: Gold (platform-specific — Win=apiyi GPT-4o-mini, Mac=codex/gpt-5.2-high), Frankincense (kimi), Myrrh (mimo). Each answers independently. Output converges through a binary gate: >=2/3 agreement -> [MAGI N/3] verdict; <=1/3 -> escalate to QUINTE.
 
 ## Dual-Mode Operation (v3.4)
 
@@ -27,7 +27,7 @@ During QUINTE execution, MAGI enters R1 as one collective element. Internal conv
 
 | Doctor | Model | Role | Dispatch |
 |--------|-------|------|----------|
-| Gold | grok | External perspective, deep analysis | `grok -p="prompt"` (conversational tone) |
+| Gold | platform-specific (Win=apiyi GPT-4o-mini, Mac=codex/gpt-5.2-high) | External perspective, deep analysis | `apiyi -p "prompt"` (Win) / `codex -p "prompt"` (Mac) |
 | Frankincense (Fr) | kimi | File system exploration, thorough scanning | `kimi -p "prompt"` (give file paths) |
 | Myrrh | mimo | Verification, catch what others miss | `mimo run --dangerously-skip-permissions "prompt"` |
 
@@ -35,7 +35,7 @@ During QUINTE execution, MAGI enters R1 as one collective element. Internal conv
 
 Per-model optimal prompt style determined empirically:
 
-- **Gold (grok)**: Conversational tone. "Hey, I'd really value your take on..." -> 22KB output. Formal TASK:/CONSTRAINT: format -> 123B or 400 error.
+- **Gold (platform-specific)**: Win=apiyi GPT-4o-mini (OpenAI backend, company firewall compatible); Mac=codex/gpt-5.2-high. Conversational tone works well.
 - **Fr (kimi)**: File explorer mode. Give file paths to explore, not open-ended questions. Prevents tool-search mode.
 - **Myrrh (mimo)**: Verification mode. "Work from the provided context, not memory search. Be thorough, catch what others miss."
 
@@ -53,19 +53,20 @@ Per-model optimal prompt style determined empirically:
 | 400 (reasoningEffort) | Gold | Retry, verify no --effort/--reasoning-effort CLI flag |
 | Timeout | Fr | Shrink prompt <=500 chars, retry; still fails -> `[MAGI Fr-unavailable]` |
 | Empty output | Myrrh | Check tp- key validity, retry; still fails -> `[MAGI Myrrh-unavailable]` |
-| Exit 143 (SIGTERM) | Gold | `grok export <sessionId>` or `grok --resume` — interrupted_recoverable, not timeout |
+| Exit 143 (SIGTERM) | Gold (if grok) | `grok export <sessionId>` or `grok --resume` — interrupted_recoverable, not timeout. Not applicable to apiyi/codex. |
 
 ## Dispatch Command Reference
 
 ```bash
-# Gold (grok) — conversational, no effort flags
-grok -p="Hey, I'd really value your take on <topic>. Full analysis, no shortcuts."
+# Gold (Win=apiyi GPT-4o-mini, Mac=codex/gpt-5.2-high)
+apiyi -p "Gold role: <prompt>" > D:/Download/MAGI/.../gold.md 2>&1    # Win
+codex -p "Gold role: <prompt>" > ~/Downloads/MAGI/.../gold.md 2>&1     # Mac
 
 # Frankincense (kimi) — file explorer, give paths
-kimi -p "Read /path/to/files. Check for <issue>. Report findings." > /tmp/magi_fr.md 2>&1
+kimi -p "Read /path/to/files. Check for <issue>. Report findings." > D:/Download/MAGI/.../fr.md 2>&1
 
 # Myrrh (mimo) — verification, from context
-mimo run --dangerously-skip-permissions "Work from the provided context. Exhaustive analysis." > /tmp/magi_myrrh.md 2>&1
+mimo run --dangerously-skip-permissions "Work from the provided context. Exhaustive analysis." > D:/Download/MAGI/.../myrrh.md 2>&1
 
 # NEVER delegate_task — routes through parent provider, breaks model heterogeneity
 ```

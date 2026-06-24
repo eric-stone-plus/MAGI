@@ -2,7 +2,7 @@
 
 > **Lightweight heterogeneous pre-verification protocol. hm's self-doubt resolution layer.**
 >
-> **v3.4 (2026-06-20)**: Synced with QUINTE v3.4. MAGI ecosystem adoption complete: 6-tier error classification across all dispatch paths (magi_dispatch.py v1 unified wrapper for grok/kimi/mimo), Grok interrupt recovery (exit 143 → `--resume`/`grok export`), JSON sidecar with evidence validation gate (Myrrh), cross-repo consistency check (Fr/kimi), agent→MAGI substitution protocol. Three doctors dispatchable anytime — Mode A (pre-verification), Mode B (QUINTE R1 embedded), or independent.
+> **v3.4 (2026-06-20)**: Synced with QUINTE v3.4. MAGI ecosystem adoption complete: platform-specific Gold dispatch (Win=apiyi GPT-4o-mini, Mac=codex/gpt-5.2-high), Fr=kimi, Myrrh=mimo. JSON sidecar with evidence validation gate (Myrrh), cross-repo consistency check (Fr/kimi), agent→MAGI substitution protocol. Three doctors dispatchable anytime — Mode A (pre-verification), Mode B (QUINTE R1 embedded), or independent.
 >
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
@@ -72,7 +72,7 @@ Three heterogeneous base models. Not roles on the same model — **different mod
 
 All three delegates dispatched in parallel via independent execution contexts (Hermes `terminal(background=true)` + native CLI, or unified `magi_dispatch.py` wrapper). Each receives the same question. Each answers independently in their own context. No delegate sees another's output.
 
-**Dispatch (v3.4)**: `magi_dispatch.py v1` — unified wrapper for grok/kimi/mimo. Structured JSON error reporting on stderr: `{"status":"ok|error","class":"auth|rate_limit|timeout|interrupted_recoverable|deprecated|unknown","retry":"..."}`. Grok exit 143 (SIGTERM) triggers session resume, not substitution.
+**Dispatch (v3.4)**: Gold dispatch is platform-specific (Win: `apiyi -p`, Mac: `codex -p`); Fr: `kimi -p`; Myrrh: `mimo run --dangerously-skip-permissions`. All three dispatched in parallel via independent `terminal(background=true)` + native CLI. Grok exit 143 (SIGTERM) triggers session resume when grok is the Gold model (not applicable to apiyi/codex).
 
 ### 2.3 JSON Sidecar & Evidence Validation (v3.4)
 
@@ -110,7 +110,7 @@ When directed by QUINTE, MAGI doctors serve as fallback for failed core agents:
 |-------------|----------------|--------|
 | cc (MiMo) | Myrrh (mimo) | Same provider |
 | cw (DS) | Fr (kimi) | Deep file exploration |
-| omp (DS) | Gold (grok) | Fast reasoning + external view |
+| omp (DS) | Gold (platform-specific — Win=apiyi GPT-4o-mini, Mac=codex/gpt-5.2-high) | Fast reasoning + external view |
 | rx (DS) | Any available | Tool-capable replacement |
 
 Original prompt forwarded directly. 180s deadline. Output annotated `[MAGI: <dr> substituting <agent>]`. Equal voting weight. Substitute failure → degrade, don't block QUINTE.

@@ -8,6 +8,10 @@ weighted scoring and confidence thresholds. MAGI v3.4 uses binary convergence
 gate (≥2/3) with no confidence scoring. Refer to specs/PROTOCOL.md §2.4 for
 the current protocol. This file is retained for historical reference only.
 
+DEPRECATED (2026-06-24): Gold model references in this file assume grok.
+Current Gold mappings: Win=apiyi GPT-4o-mini, Mac=codex/gpt-5.2-high.
+See skills/SKILL.md for current dispatch instructions.
+
 Drives the Three Gifts dialectical spiral through three heterogeneous base models.
 Designed for Hermes Agent — uses terminal CLI for parallel dispatch.
 
