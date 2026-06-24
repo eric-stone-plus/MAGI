@@ -204,11 +204,12 @@ Six-phase pipeline derived from heterogeneous model behavior patterns.
 
 Current BANNIN is a session-log grep (`lib/bannin.sh`). Next upgrade priorities:
 
-1. **Authorization tokens**: Cryptographic, one-use, time-bound tokens bound to exact commands. Replaces keyword grep.
-2. **Command allowlist**: Exact command form matching with flag normalization. No regex bypass.
-3. **Protected-file manifest**: Machine-readable list of architecture-critical paths per repo. Pre-write hash verification.
-4. **Session isolation**: BANNIN runs outside the guarded agent process. Agent cannot read/write auth tokens or BANNIN configuration.
-5. **Structured audit log**: Append-only JSON log outside agent working directory.
+1. **Survey model output isolation**: Intercept survey model writes — redirect to stdout only, block any write to its own output directory. Verify phase model reads from hm-supplied path, not survey output directory.
+2. **Authorization tokens**: Cryptographic, one-use, time-bound tokens bound to exact commands. Replaces keyword grep.
+3. **Command allowlist**: Exact command form matching with flag normalization. No regex bypass.
+4. **Protected-file manifest**: Machine-readable list of architecture-critical paths per repo. Pre-write hash verification.
+5. **Session isolation**: BANNIN runs outside the guarded agent process. Agent cannot read/write auth tokens or BANNIN configuration.
+6. **Structured audit log**: Append-only JSON log outside agent working directory.
 
 ### 8.2 hm Auto-Trigger MAGI Dispatch
 
