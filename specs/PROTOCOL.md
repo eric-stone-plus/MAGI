@@ -198,6 +198,28 @@ Six-phase pipeline derived from heterogeneous model behavior patterns.
 
 ---
 
+## §8 · Roadmap
+
+### 8.1 BANNIN Code-Level Enforcement (next upgrade)
+
+Current BANNIN is a session-log grep (`lib/bannin.sh`). Next upgrade priorities:
+
+1. **Authorization tokens**: Cryptographic, one-use, time-bound tokens bound to exact commands. Replaces keyword grep.
+2. **Command allowlist**: Exact command form matching with flag normalization. No regex bypass.
+3. **Protected-file manifest**: Machine-readable list of architecture-critical paths per repo. Pre-write hash verification.
+4. **Session isolation**: BANNIN runs outside the guarded agent process. Agent cannot read/write auth tokens or BANNIN configuration.
+5. **Structured audit log**: Append-only JSON log outside agent working directory.
+
+### 8.2 hm Auto-Trigger MAGI Dispatch
+
+hm currently decides subjectively when to dispatch MAGI. Next upgrade:
+
+1. **Pre-modification hook**: Before any `patch`/`write_file` to a constitutional file, automatically trigger MAGI dispatch.
+2. **Confidence threshold**: If hm's internal confidence score falls below threshold, trigger MAGI without hm needing to decide.
+3. **Verifiable trigger trail**: Every MAGI dispatch records trigger reason (pre-modification hook / confidence threshold / manual) in structured log.
+
+---
+
 ## §6 · Version History
 
 | Version | Date | Changes |
