@@ -21,7 +21,7 @@ When hm is uncertain, MAGI dispatches three base models in parallel. Each brings
 
 ## What is MAGI?
 
-MAGI is hm's self-doubt mechanism and an inseparable part of QUINTE v1.6. Not merely a user-facing tool — both an internal escalation pathway (Mode A) and cross-cutting audit layer (Mode B).
+MAGI is hm's self-doubt mechanism and an inseparable part of QUINTE v1.6. Not merely a user-facing tool — both an internal escalation pathway (Mode A) and a cross-cutting audit layer.
 
 ```
 User asks hm
@@ -36,7 +36,6 @@ User asks hm
 MAGI answers: *before I burn 5 agents on a full debate, can 3 heterogeneous models resolve this quickly?*
 
 ## The Three Delegates
-n**v1.6 Composition**: Gold=codex/gpt-5.4, Frankincense=kimi, Myrrh=mimo
 
 Not three roles — three base models. Each brings a different training distribution, architecture, and inductive bias. Zhang et al. (2025) showed that model heterogeneity is the critical factor in multi-agent accuracy gains. MAGI implements this at the lowest level.
 
@@ -45,6 +44,8 @@ Not three roles — three base models. Each brings a different training distribu
 | **Gold** | Factual verification | *is this claim correct?* |
 | **Frankincense** | Contextual reasoning | *does this hold from another angle?* |
 | **Myrrh** | Adversarial audit | *what breaks if this is wrong?* |
+
+MAGI v1.6: Gold=codex/gpt-5.4, Fr=kimi, Myrrh=mimo
 
 ## Convergence Gate
 
@@ -62,12 +63,12 @@ MAGI is an inseparable part of QUINTE v1.6. Not an external filter — a senator
 | | QUINTE | MAGI |
 |-|--------|------|
 | Trigger | User or Shōmon gate (evidence gate) | hm's internal uncertainty |
-| R1 elements | 5 (cc+hm+cw+omp+MAGI as collective) | 3 delegates (Gold+Fr+Myrrh) converge internally → 1 vote |
+| Audit layer | Cross-cutting heterogeneous audit alongside all phases | 3 delegates (Gold+Fr+Myrrh) converge internally → advisory annotation |
 | Rounds | 3 (R1→R2→R3) | 1 (parallel → converge/diverge) |
 | Cost | High | Low (3 API calls) |
 | Failure | Deadlock → human review | Diverge → escalate to QUINTE R2+ |
 
-**Dual citizenship:** Mode A — MAGI is the antechamber, filtering questions before the Senate convenes. Cross-cutting audit layer (v1.6+) — MAGI enters QUINTE R1 as the fifth element, one collective with internal convergence, one vote. Bethlehem does not observe Rome from outside. 
+**Dual citizenship:** Mode A — MAGI is the antechamber, filtering questions before the Senate convenes. Cross-cutting audit layer (v1.6+) — MAGI operates alongside every QUINTE phase as a heterogeneous audit layer, providing advisory annotations. Bethlehem does not observe Rome from outside.
 
 ## Delegate Routing
 

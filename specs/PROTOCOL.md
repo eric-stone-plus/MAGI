@@ -2,7 +2,7 @@
 
 > **Cross-cutting heterogeneous audit layer. hm's self-doubt resolution layer.**
 >
-> **v1.6 (2026-06-25)**: Synced with QUINTE v3.5. MAGI repositioned as cross-cutting heterogeneous audit layer — always-on alongside QUINTE phases, not a formal debate participant. Three heterogeneous models (Gold, Frankincense, Myrrh — each a different base model with different training distribution) provide the only cross-model signal when all debate agents share the same base model. Internal ≥2/3 convergence produces `[MAGI AUDIT]` annotations; ≤1/3 produces individual annotations. Mode A (standalone pre-verification) and independent anytime deployment remain available.
+> **v1.6 (2026-06-24)**: Synced with QUINTE v3.5. MAGI repositioned as cross-cutting heterogeneous audit layer — always-on alongside QUINTE phases, not a formal debate participant. Three heterogeneous models (Gold, Frankincense, Myrrh — each a different base model with different training distribution) provide the only cross-model signal when all debate agents share the same base model. Internal ≥2/3 convergence produces `[MAGI AUDIT]` annotations; ≤1/3 produces individual annotations. Mode A (standalone pre-verification) and independent anytime deployment remain available.
 >
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
@@ -31,7 +31,7 @@ RASHOMON (why) → QUINTE (how heavy) → KANSA (監査)
          (cross-cutting heterogeneous guardrail)
 ```
 
-MAGI is the antechamber AND the heterogeneity guardrail. Mode A (standalone): three heterogeneous models answer *can this be resolved quickly?* Mode B retired in v3.5 — MAGI no longer sits as an R1 debate participant; it operates as a cross-cutting audit layer alongside every QUINTE phase, providing the only cross-model signal when all 5 debate agents share the same base model.
+MAGI is the antechamber AND the heterogeneity guardrail. Mode A (standalone): three heterogeneous models answer *can this be resolved quickly?* Mode B retired in v1.6 — MAGI no longer sits as an R1 debate participant; it operates as a cross-cutting audit layer alongside every QUINTE phase, providing the only cross-model signal when all 5 debate agents share the same base model.
 
 ---
 
@@ -49,15 +49,15 @@ Three escalation paths:
 | Uncertain | MAGI (3 delegates → converge/diverge) |
 | Conclusion-grade | Direct QUINTE (bypass MAGI) |
 
-### 2.1a Deployment Modes (v3.5)
+### 2.1a Deployment Modes (v1.6)
 
 MAGI operates as a cross-cutting heterogeneous audit layer during QUINTE v3.5+, plus standalone and anytime deployments (MAGI v3.1+):
 
-- **QUINTE Audit Layer (v3.5 default)**: During QUINTE execution, MAGI's three heterogeneous models dispatch in parallel alongside each phase. Each model audits R1 outputs and R2 cross-examinations; internal ≥2/3 convergence produces a unified `[MAGI AUDIT]` annotation appended to the phase. Findings are advisory — hm weighs them at R3 verdict. This is the only cross-model signal when the 5 formal debate agents share the same base model.
+- **QUINTE Audit Layer (v1.6 default)**: During QUINTE execution, MAGI's three heterogeneous models dispatch in parallel alongside each phase. Each model audits R1 outputs and R2 cross-examinations; internal ≥2/3 convergence produces a unified `[MAGI AUDIT]` annotation appended to the phase. Findings are advisory — hm weighs them at R3 verdict. This is the only cross-model signal when the 5 formal debate agents share the same base model.
 - **Mode A — Standalone Pre-Verification**: hm uncertain → MAGI → ≥2/3 converge (answer) or diverge (escalate to QUINTE).
 - **Anytime / Independent (v3.1+)**: MAGI doctors may be dispatched independently or collectively at any QUINTE phase, or outside it, for on-demand analysis, agent fallback, filesystem exploration, or second opinion.
 
-Mode B (R1 participant) retired in v3.5. See [QUINTE v3.5 spec](../../QUINTE/specs/PROTOCOL.md).
+Mode B (R1 participant) retired in v1.6. See [QUINTE v3.5 spec](../../QUINTE/specs/PROTOCOL.md).
 
 ### 2.2 Delegates
 
@@ -73,7 +73,7 @@ All three delegates dispatched in parallel via independent execution contexts (H
 
 **Dispatch**: Each delegate dispatched via independent execution context. Platform-specific dispatch commands are documented in the private core-rules repository. In QUINTE v3.5+, MAGI also runs as a cross-cutting audit layer alongside R1 and R2, with each delegate receiving the phase outputs for heterogeneity review.
 
-### 2.3 JSON Sidecar & Evidence Validation (v3.4)
+### 2.3 JSON Sidecar & Evidence Validation (v1.6)
 
 MAGI delegates append a structured JSON block after their markdown answer:
 
@@ -88,7 +88,7 @@ MAGI delegates append a structured JSON block after their markdown answer:
 
 Markdown is the primary output for convergence gate comparison. JSON is consumed by QUINTE Phase 2 auto-diff.
 
-**Evidence Validation Gate (v3.4 — Myrrh)**: Before QUINTE Phase 2 consumes confidence scores from JSON sidecars, hm MUST verify that all `evidence_citations` resolve to real file:line locations or reproducible command output. Unresolved → `[CITATION_UNVERIFIED]` → claim confidence 0.5× weight. This gate prevents fabricated citations from inflating agent confidence — closing a trust boundary opened by self-reported metadata.
+**Evidence Validation Gate (v1.6 — Myrrh)**: Before QUINTE Phase 2 consumes confidence scores from JSON sidecars, hm MUST verify that all `evidence_citations` resolve to real file:line locations or reproducible command output. Unresolved → `[CITATION_UNVERIFIED]` → claim confidence 0.5× weight. This gate prevents fabricated citations from inflating agent confidence — closing a trust boundary opened by self-reported metadata.
 
 ### 2.4 Convergence Gate
 
@@ -103,7 +103,7 @@ In QUINTE v3.5+ audit-layer mode, the same ≥2/3 convergence produces a single 
 
 No weighted voting. No confidence score. Binary gate.
 
-### 2.5 Agent Substitution (v3.4)
+### 2.5 Agent Substitution (v1.6)
 
 When directed by QUINTE v3.5, MAGI doctors serve as fallback for failed core agents:
 
@@ -116,7 +116,7 @@ When directed by QUINTE v3.5, MAGI doctors serve as fallback for failed core age
 
 Original prompt forwarded directly. 180s deadline. Output annotated `[MAGI: <dr> substituting <agent>]`. Equal voting weight. Substitute failure → degrade, don't block QUINTE.
 
-### 2.6 Cross-Repo Consistency (v3.4)
+### 2.6 Cross-Repo Consistency (v1.6)
 
 The `website/` directory within QUINTE is an independent git sub-repo. Before any dispatch script or spec edit, hm MUST grep across both repos. Stale duplicates → sync or annotate `[STALE]`.
 
@@ -130,8 +130,8 @@ The `website/` directory within QUINTE is an independent git sub-repo. Before an
 4. **Blind delegates.** No delegate sees another's output before producing its own.
 5. **Binary gate.** ≥2/3 → answer. Otherwise → QUINTE. No intermediate states.
 6. **Cost cap.** If all three models are unavailable, hm answers directly with `[UNCERTAIN]` annotation.
-7. **Error recovery (v3.4).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip). Agent interrupted (exit 143) → session resume before substitution.
-8. **Evidence verification (v3.4).** JSON sidecar `evidence_citations` MUST be verified as resolvable before QUINTE Phase 2 consumption. Fabricated citations → `[CITATION_UNVERIFIED]` → 0.5× confidence weight.
+7. **Error recovery (v1.6).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip). Agent interrupted (exit 143) → session resume before substitution.
+8. **Evidence verification (v1.6).** JSON sidecar `evidence_citations` MUST be verified as resolvable before QUINTE Phase 2 consumption. Fabricated citations → `[CITATION_UNVERIFIED]` → 0.5× confidence weight.
 
 ---
 
@@ -145,7 +145,7 @@ The `website/` directory within QUINTE is an independent git sub-repo. Before an
 | Failure | Diverge → escalate | Deadlock → human review |
 | Cost | Low (3 API calls) | High (15+ API calls) |
 | Evidence | Light (answer + reasoning) | Full (claims, evidence, cross-review) |
-| Heterogeneity | Only cross-model signal in v3.5 | All debate agents share the same base model without MAGI |
+| Heterogeneity | Only cross-model signal in v1.6 | All debate agents share the same base model without MAGI |
 
 ---
 
@@ -192,7 +192,7 @@ Six-phase pipeline derived from heterogeneous model behavior patterns.
 |---------|-------|-----------|-----|
 | Survey output >100MB, self-referencing | survey | Search tool matched own output | Phase 1 only: read file paths, no search. Discovery done in phase 0. |
 | Verify output quotes survey verbatim | verify | Given survey output as reference | Phase 3: adversarial prompt, independence similarity check. |
-| Reasoning 29min no output, reading history | reasoning | Rabbit hole: followed tangents instead of staying on task | No rabbit holes: read only specified files, answer only specified question. |
+| Reasoning 29min no output, reading history | reasoning | Rabbit hole: followed tangents instead of staying on task | No rabbit holes: read only specified files, answer only the specified question. |
 | Survey output file corrupted with null bytes | survey | Survey model read its own output file, triggering recursive write bug | Survey output to stdout; hm saves with shell redirect. Survey must never read its own output directory. |
 | Debate agents 0-byte output | debate agents | Authentication or CLI configuration issue | Verify agent authentication before dispatch. |
 
