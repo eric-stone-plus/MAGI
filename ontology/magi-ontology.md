@@ -48,11 +48,11 @@ Binary only. No intermediate states. No weighted voting.
 4. **Blind delegates.** No delegate sees another's output before producing its own.
 5. **Binary gate.** ≥2/3 → answer. Otherwise → QUINTE.
 6. **Cost cap.** All three unavailable → hm answers with [UNCERTAIN].
-7. **Error recovery (v3.4).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip). Interrupted Grok (exit 143) → `grok --resume` before substitution.
+7. **Error recovery (v1.6).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip). Interrupted Grok (exit 143) → `grok --resume` before substitution.
 
 ## Cross-References
 
 - [RASHOMON ontology](../../RASHOMON/ontology/rashomon-ontology.md) — Conceptual foundation
 - [QUINTE PROTOCOL.md](../../QUINTE/specs/PROTOCOL.md) — Full debate protocol
-- [../specs/PROTOCOL.md](../specs/PROTOCOL.md) — v3.4 canonical spec
+- [../specs/PROTOCOL.md](../specs/PROTOCOL.md) — v1.6 canonical spec
 - [../specs/theoretical-foundation.md](../specs/theoretical-foundation.md) — Academic foundations

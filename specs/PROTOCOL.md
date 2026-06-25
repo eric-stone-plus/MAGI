@@ -2,7 +2,7 @@
 
 > **Cross-cutting heterogeneous audit layer. hm's self-doubt resolution layer.**
 >
-> **v1.6 (2026-06-24)**: Synced with QUINTE v3.5. MAGI repositioned as cross-cutting heterogeneous audit layer — always-on alongside QUINTE phases, not a formal debate participant. Three heterogeneous models (Gold, Frankincense, Myrrh — each a different base model with different training distribution) provide the only cross-model signal when all debate agents share the same base model. Internal ≥2/3 convergence produces `[MAGI AUDIT]` annotations; ≤1/3 produces individual annotations. Mode A (standalone pre-verification) and independent anytime deployment remain available.
+> **v1.6 (2026-06-24)**: Synced with QUINTE v1.6. MAGI repositioned as cross-cutting heterogeneous audit layer — always-on alongside QUINTE phases, not a formal debate participant. Three heterogeneous models (Gold, Frankincense, Myrrh — each a different base model with different training distribution) provide the only cross-model signal when all debate agents share the same base model. Internal ≥2/3 convergence produces `[MAGI AUDIT]` annotations; ≤1/3 produces individual annotations. Mode A (standalone pre-verification) and independent anytime deployment remain available.
 >
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
@@ -51,13 +51,13 @@ Three escalation paths:
 
 ### 2.1a Deployment Modes (v1.6)
 
-MAGI operates as a cross-cutting heterogeneous audit layer during QUINTE v3.5+, plus standalone and anytime deployments (MAGI v3.1+):
+MAGI operates as a cross-cutting heterogeneous audit layer during QUINTE v1.6+, plus standalone and anytime deployments (MAGI v3.1+):
 
 - **QUINTE Audit Layer (v1.6 default)**: During QUINTE execution, MAGI's three heterogeneous models dispatch in parallel alongside each phase. Each model audits R1 outputs and R2 cross-examinations; internal ≥2/3 convergence produces a unified `[MAGI AUDIT]` annotation appended to the phase. Findings are advisory — hm weighs them at R3 verdict. This is the only cross-model signal when the 5 formal debate agents share the same base model.
 - **Mode A — Standalone Pre-Verification**: hm uncertain → MAGI → ≥2/3 converge (answer) or diverge (escalate to QUINTE).
 - **Anytime / Independent (v3.1+)**: MAGI doctors may be dispatched independently or collectively at any QUINTE phase, or outside it, for on-demand analysis, agent fallback, filesystem exploration, or second opinion.
 
-Mode B (R1 participant) retired in v1.6. See [QUINTE v3.5 spec](../../QUINTE/specs/PROTOCOL.md).
+Mode B (R1 participant) retired in v1.6. See [QUINTE v1.6 spec](../../QUINTE/specs/PROTOCOL.md).
 
 ### 2.2 Delegates
 
@@ -71,7 +71,7 @@ Three heterogeneous base models. Not roles on the same model — **different mod
 
 All three delegates dispatched in parallel via independent execution contexts (Hermes `terminal(background=true)` + native CLI, or unified `magi_dispatch.py` wrapper). Each receives the same question. Each answers independently in their own context. No delegate sees another's output.
 
-**Dispatch**: Each delegate dispatched via independent execution context. Platform-specific dispatch commands are documented in the private core-rules repository. In QUINTE v3.5+, MAGI also runs as a cross-cutting audit layer alongside R1 and R2, with each delegate receiving the phase outputs for heterogeneity review.
+**Dispatch**: Each delegate dispatched via independent execution context. Platform-specific dispatch commands are documented in the private core-rules repository. In QUINTE v1.6+, MAGI also runs as a cross-cutting audit layer alongside R1 and R2, with each delegate receiving the phase outputs for heterogeneity review.
 
 ### 2.3 JSON Sidecar & Evidence Validation (v1.6)
 
@@ -99,13 +99,13 @@ In standalone Mode A, hm applies the mechanical binary gate to the three delegat
 | ≥2/3 agree | **Converge** | Answer is mechanically adopted. Annotates: `[MAGI 2/3]` or `[MAGI 3/3]`. |
 | ≤1/3 agree | **Diverge** | Escalate to QUINTE. Disagreement pattern recorded for KOZO (構造, HIGHBALL attention-quality measurement layer; see [HIGHBALL spec](../../HIGHBALL/README.md#kozo--attention-quality--cross-detection-sensitivity)). |
 
-In QUINTE v3.5+ audit-layer mode, the same ≥2/3 convergence produces a single `[MAGI AUDIT N/3]` annotation appended to the phase output; ≤1/3 produces individual `[MAGI AUDIT 1/3]` annotations. Audit findings are advisory — hm weighs them at R3 verdict.
+In QUINTE v1.6+ audit-layer mode, the same ≥2/3 convergence produces a single `[MAGI AUDIT N/3]` annotation appended to the phase output; ≤1/3 produces individual `[MAGI AUDIT 1/3]` annotations. Audit findings are advisory — hm weighs them at R3 verdict.
 
 No weighted voting. No confidence score. Binary gate.
 
 ### 2.5 Agent Substitution (v1.6)
 
-When directed by QUINTE v3.5, MAGI doctors serve as fallback for failed core agents:
+When directed by QUINTE v1.6, MAGI doctors serve as fallback for failed core agents:
 
 | Failed Agent | MAGI Substitute | Reason |
 |-------------|----------------|--------|
@@ -229,7 +229,7 @@ hm currently decides subjectively when to dispatch MAGI. Next upgrade:
 | 3.0 | 2026-06-19 | **Complete redesign**: OCR removed; general-purpose heterogeneous pre-verification; hm-triggered; binary convergence gate; cost-aware escalation to QUINTE |
 | 3.1 | 2026-06-20 | **Anytime deployment**: MAGI doctors dispatchable independently or collectively at any QUINTE phase or outside it — on-demand analysis, agent fallback, filesystem exploration, second opinion. Mode A/B remain but non-exhaustive. |
 | 3.4 | 2026-06-20 | **QUINTE v3.4 sync**: 6-tier error classification (auth/rate_limit/timeout/interrupted_recoverable/deprecated/unknown); magi_dispatch.py v1 unified wrapper; Grok exit 143 session resume; JSON sidecar evidence validation gate; cross-repo consistency check; agent→MAGI substitution table. Invariant #7 added. Synced with QUINTE v3.4. |
-| 3.5 | 2026-06-24 | **QUINTE v3.5 sync + operational refinement**: MAGI repositioned from QUINTE R1 participant to cross-cutting heterogeneous audit layer. Mode B retired. Substitution table updated: rx removed, oc added. Six-phase operational pipeline (discover→survey→diagnose→verify→attack→post-verify) based on empirical failure analysis. Dispatch notes and operational details documented in private core-rules repository. See §7. |
+| 3.5 | 2026-06-24 | **QUINTE v1.6 sync + operational refinement**: MAGI repositioned from QUINTE R1 participant to cross-cutting heterogeneous audit layer. Mode B retired. Substitution table updated: rx removed, oc added. Six-phase operational pipeline (discover→survey→diagnose→verify→attack→post-verify) based on empirical failure analysis. Dispatch notes and operational details documented in private core-rules repository. See §7. |
 
 ---
 
