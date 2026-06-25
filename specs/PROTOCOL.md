@@ -1,8 +1,8 @@
-# MAGI v3.5 — Protocol Specification · Hermes Agent
+# MAGI v1.6 — Protocol Specification · Hermes Agent
 
 > **Cross-cutting heterogeneous audit layer. hm's self-doubt resolution layer.**
 >
-> **v3.5 (2026-06-24)**: Synced with QUINTE v3.5. MAGI repositioned as cross-cutting heterogeneous audit layer — always-on alongside QUINTE phases, not a formal debate participant. Three heterogeneous models (Gold, Frankincense, Myrrh — each a different base model with different training distribution) provide the only cross-model signal when all debate agents share the same base model. Internal ≥2/3 convergence produces `[MAGI AUDIT]` annotations; ≤1/3 produces individual annotations. Mode A (standalone pre-verification) and independent anytime deployment remain available.
+> **v1.6 (2026-06-25)**: Synced with QUINTE v3.5. MAGI repositioned as cross-cutting heterogeneous audit layer — always-on alongside QUINTE phases, not a formal debate participant. Three heterogeneous models (Gold, Frankincense, Myrrh — each a different base model with different training distribution) provide the only cross-model signal when all debate agents share the same base model. Internal ≥2/3 convergence produces `[MAGI AUDIT]` annotations; ≤1/3 produces individual annotations. Mode A (standalone pre-verification) and independent anytime deployment remain available.
 >
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
@@ -27,7 +27,7 @@ Three persons, one inquiry. Three models, one question. The theological framewor
 ```
 RASHOMON (why) → QUINTE (how heavy) → KANSA (監査)
                        │
-                MAGI v3.5 audit layer
+                MAGI v1.6 audit layer
          (cross-cutting heterogeneous guardrail)
 ```
 
@@ -233,5 +233,5 @@ hm currently decides subjectively when to dispatch MAGI. Next upgrade:
 
 ---
 
-*MAGI v3.5 — 2026-06-24*
+*MAGI v1.6 — 2026-06-24*
 *sine ira et studio.*

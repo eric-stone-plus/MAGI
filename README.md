@@ -4,7 +4,7 @@
 
 # MAGI (マギ) · Hermes Agent Protocol
 
-**QUINTE R1 element + standalone pre-verification — hm's uncertainty resolver.**
+**Cross-cutting heterogeneous audit layer + standalone pre-verification — hm's uncertainty resolver.**
 
 When hm is uncertain, MAGI dispatches three base models in parallel. Each brings a different cognitive stance. Converge → answer. Diverge → escalate to QUINTE.
 
@@ -12,7 +12,7 @@ When hm is uncertain, MAGI dispatches three base models in parallel. Each brings
 
 ---
 
-[![Protocol](https://img.shields.io/badge/protocol-v3.4-blue?style=flat)](specs/PROTOCOL.md)
+[![Protocol](https://img.shields.io/badge/protocol-v1.6-blue?style=flat)](specs/PROTOCOL.md)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
 </div>
@@ -21,7 +21,7 @@ When hm is uncertain, MAGI dispatches three base models in parallel. Each brings
 
 ## What is MAGI?
 
-MAGI is hm's self-doubt mechanism and an inseparable part of QUINTE v3.4. Not merely a user-facing tool — both an internal escalation pathway (Mode A) and QUINTE R1's fifth element (Mode B).
+MAGI is hm's self-doubt mechanism and an inseparable part of QUINTE v1.6. Not merely a user-facing tool — both an internal escalation pathway (Mode A) and cross-cutting audit layer (Mode B).
 
 ```
 User asks hm
@@ -36,6 +36,7 @@ User asks hm
 MAGI answers: *before I burn 5 agents on a full debate, can 3 heterogeneous models resolve this quickly?*
 
 ## The Three Delegates
+n**v1.6 Composition**: Gold=codex/gpt-5.4, Frankincense=kimi, Myrrh=mimo
 
 Not three roles — three base models. Each brings a different training distribution, architecture, and inductive bias. Zhang et al. (2025) showed that model heterogeneity is the critical factor in multi-agent accuracy gains. MAGI implements this at the lowest level.
 
@@ -56,7 +57,7 @@ No weighting, no scoring, no "convergence score." Binary gate: enough agreement 
 
 ## Relationship to QUINTE
 
-MAGI is an inseparable part of QUINTE v3.4. Not an external filter — a senator with dual citizenship.
+MAGI is an inseparable part of QUINTE v1.6. Not an external filter — a senator with dual citizenship.
 
 | | QUINTE | MAGI |
 |-|--------|------|
@@ -66,7 +67,7 @@ MAGI is an inseparable part of QUINTE v3.4. Not an external filter — a senator
 | Cost | High | Low (3 API calls) |
 | Failure | Deadlock → human review | Diverge → escalate to QUINTE R2+ |
 
-**Dual citizenship:** Mode A — MAGI is the antechamber, filtering questions before the Senate convenes. Mode B (v3.4+) — MAGI enters QUINTE R1 as the fifth element, one collective with internal convergence, one vote. Bethlehem does not observe Rome from outside. Bethlehem has a seat in the Senate.
+**Dual citizenship:** Mode A — MAGI is the antechamber, filtering questions before the Senate convenes. Cross-cutting audit layer (v1.6+) — MAGI enters QUINTE R1 as the fifth element, one collective with internal convergence, one vote. Bethlehem does not observe Rome from outside. 
 
 ## Delegate Routing
 
@@ -78,7 +79,7 @@ MAGI runs on a model-agnostic agent runtime. Three delegates dispatched in paral
 
 | Path | What |
 |------|------|
-| [specs/PROTOCOL.md](specs/PROTOCOL.md) | Canonical v3.4 protocol specification |
+| [specs/PROTOCOL.md](specs/PROTOCOL.md) | Canonical v1.6 protocol specification |
 | [specs/theoretical-foundation.md](specs/theoretical-foundation.md) | Academic foundations |
 | [ontology/](ontology/) | Protocol ontology |
 
