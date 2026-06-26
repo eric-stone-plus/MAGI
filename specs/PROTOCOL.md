@@ -1,8 +1,8 @@
-# MAGI v3.4 — Protocol Specification · Hermes Agent
+# MAGI v1.7 — Protocol Specification · Hermes Agent
 
 > **Lightweight heterogeneous pre-verification protocol. hm's self-doubt resolution layer.**
 >
-> **v3.4 (2026-06-20)**: Synced with QUINTE v3.4. MAGI ecosystem adoption complete: 6-tier error classification across all dispatch paths (magi_dispatch.py v1 unified wrapper for grok/kimi/mimo), Grok interrupt recovery (exit 143 → `--resume`/`grok export`), JSON sidecard with evidence validation gate (Myrrh), cross-repo consistency check (Fr/kimi), agent→MAGI substitution protocol. Three doctors dispatchable anytime — Mode A (pre-verification), Mode B (QUINTE R1 embedded), or independent.
+> **v1.7 (2026-06-20)**: MAGI ecosystem adoption complete: 6-tier error classification across all dispatch paths (magi_dispatch.py v1 unified wrapper for kimi/mimo/rx), JSON sidecard with evidence validation gate (Myrrh), cross-repo consistency check (Fr/mimo), agent→MAGI substitution protocol. Three doctors dispatchable anytime — pre-verification or independent.
 >
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
@@ -24,15 +24,7 @@ Three persons, one inquiry. Three models, one question. The theological framewor
 
 ## §1 · Position in the Ecosystem
 
-```
-RASHOMON (why) → QUINTE (how heavy) → KANSA (監査)
-                       │
-                 ┌─────┴─────┐
-           MAGI (Mode A)   MAGI (Mode B)
-           antechamber     R1 5th element
-```
-
-MAGI is both the antechamber AND a senator. Mode A: three heterogeneous models answer *can this be resolved quickly?* Mode B (v3.4+): MAGI enters QUINTE R1 as an embedded collective element, internal convergence gate ACTIVE, one vote.
+MAGI is the antechamber. Three heterogeneous models answer *can this be resolved quickly?*
 
 ---
 
@@ -50,13 +42,6 @@ Three escalation paths:
 | Uncertain | MAGI (3 delegates → converge/diverge) |
 | Conclusion-grade | Direct QUINTE (bypass MAGI) |
 
-### 2.1a Dual-Mode Operation (v3.4+)
-
-MAGI operates in two mutually exclusive modes:
-
-- **Mode A — Standalone Pre-Verification**: hm uncertain → MAGI → ≥2/3 converge (answer) or diverge (escalate to QUINTE).
-- **Mode B — QUINTE R1 Participant**: During QUINTE v3.4+ execution, MAGI enters R1 as one collective element. Internal convergence gate is ACTIVE — three delegates converge (≥2/3) into one output with one vote. Delegates do not participate in R2. Mode A and Mode B cannot both be active in the same session. See [QUINTE v3.4 spec](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md).
-
 ### 2.2 Delegates
 
 Three heterogeneous base models. Not roles on the same model — **different models with different training distributions**.
@@ -69,9 +54,9 @@ Three heterogeneous base models. Not roles on the same model — **different mod
 
 All three delegates dispatched in parallel via independent execution contexts (Hermes `terminal(background=true)` + native CLI, or unified `magi_dispatch.py` wrapper). Each receives the same question. Each answers independently in their own context. No delegate sees another's output.
 
-**Dispatch (v3.4)**: `magi_dispatch.py v1` — unified wrapper for grok/kimi/mimo. Structured JSON error reporting on stderr: `{"status":"ok|error","class":"auth|rate_limit|timeout|interrupted_recoverable|deprecated|unknown","retry":"..."}`. Grok exit 143 (SIGTERM) triggers session resume, not substitution.
+**Dispatch (v1.7)**: `magi_dispatch.py v1` — unified wrapper for kimi/mimo/rx. Structured JSON error reporting on stderr: `{"status":"ok|error","class":"auth|rate_limit|timeout|interrupted_recoverable|deprecated|unknown","retry":"..."}`.
 
-### 2.3 JSON Sidecar & Evidence Validation (v3.4)
+### 2.3 JSON Sidecar & Evidence Validation (v1.7)
 
 MAGI delegates append a structured JSON block after their markdown answer:
 
@@ -86,7 +71,7 @@ MAGI delegates append a structured JSON block after their markdown answer:
 
 Markdown is the primary output for convergence gate comparison. JSON is consumed by QUINTE Phase 2 auto-diff.
 
-**Evidence Validation Gate (v3.4 — Myrrh)**: Before QUINTE Phase 2 consumes confidence scores from JSON sidecars, hm MUST verify that all `evidence_citations` resolve to real file:line locations or reproducible command output. Unresolved → `[CITATION_UNVERIFIED]` → claim confidence 0.5× weight. This gate prevents fabricated citations from inflating agent confidence — closing a trust boundary opened by self-reported metadata.
+**Evidence Validation Gate (v1.7 — Myrrh)**: Before QUINTE Phase 2 consumes confidence scores from JSON sidecars, hm MUST verify that all `evidence_citations` resolve to real file:line locations or reproducible command output. Unresolved → `[CITATION_UNVERIFIED]` → claim confidence 0.5× weight. This gate prevents fabricated citations from inflating agent confidence — closing a trust boundary opened by self-reported metadata.
 
 ### 2.4 Convergence Gate
 
@@ -99,20 +84,20 @@ hm reads all three outputs. Binary decision:
 
 No weighted voting. No confidence score. Binary gate.
 
-### 2.5 Agent Substitution (v3.4)
+### 2.5 Agent Substitution (v1.7)
 
 When directed by QUINTE, MAGI doctors serve as fallback for failed core agents:
 
 | Failed Agent | MAGI Substitute | Reason |
 |-------------|----------------|--------|
-| cc (MiMo) | Myrrh (mimo) | Same provider |
-| cw (DS) | Fr (kimi) | Deep file exploration |
-| omp (DS) | Gold (grok) | Fast reasoning + external view |
+| cc (MiMo) | Myrrh (rx) | Same provider |
+| cw (DS) | Fr (mimo) | Deep file exploration |
+| omp (DS) | Gold (kimi) | Fast reasoning + external view |
 | rx (DS) | Any available | Tool-capable replacement |
 
 Original prompt forwarded directly. 180s deadline. Output annotated `[MAGI: <dr> substituting <agent>]`. Equal voting weight. Substitute failure → degrade, don't block QUINTE.
 
-### 2.6 Cross-Repo Consistency (v3.4 — Fr/kimi)
+### 2.6 Cross-Repo Consistency (v1.7 — Fr/mimo)
 
 The `website/` directory within QUINTE is an independent git sub-repo. Before any dispatch script or spec edit, hm MUST grep across both repos. Stale duplicates → sync or annotate `[STALE]`.
 
@@ -126,8 +111,8 @@ The `website/` directory within QUINTE is an independent git sub-repo. Before an
 4. **Blind delegates.** No delegate sees another's output before producing its own.
 5. **Binary gate.** ≥2/3 → answer. Otherwise → QUINTE. No intermediate states.
 6. **Cost cap.** If all three models are unavailable, hm answers directly with `[UNCERTAIN]` annotation.
-7. **Error recovery (v3.4).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip). Interrupted Grok (exit 143) → `grok --resume` before substitution.
-8. **Evidence verification (v3.4).** JSON sidecar `evidence_citations` MUST be verified as resolvable before QUINTE Phase 2 consumption. Fabricated citations → `[CITATION_UNVERIFIED]` → 0.5× confidence weight.
+7. **Error recovery (v1.7).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip).
+8. **Evidence verification (v1.7).** JSON sidecar `evidence_citations` MUST be verified as resolvable before QUINTE Phase 2 consumption. Fabricated citations → `[CITATION_UNVERIFIED]` → 0.5× confidence weight.
 
 ---
 
@@ -160,12 +145,9 @@ Primary anchors:
 
 | Version | Date | Changes |
 |---------|------|---------|
-| 2.0 | 2026-06-17 | Gold-dominant OCR verification pipeline |
-| 3.0 | 2026-06-19 | **Complete redesign**: OCR removed; general-purpose heterogeneous pre-verification; hm-triggered; binary convergence gate; cost-aware escalation to QUINTE |
-| 3.1 | 2026-06-20 | **Anytime deployment**: MAGI doctors dispatchable independently or collectively at any QUINTE phase or outside it — on-demand analysis, agent fallback, filesystem exploration, second opinion. Mode A/B remain but non-exhaustive. |
-| 3.4 | 2026-06-20 | **QUINTE v3.4 sync**: 6-tier error classification (auth/rate_limit/timeout/interrupted_recoverable/deprecated/unknown); magi_dispatch.py v1 unified wrapper; Grok exit 143 session resume; JSON sidecard evidence validation gate; cross-repo consistency check; agent→MAGI substitution table. Invariant #7 added. Synced with QUINTE v3.4. |
+| 1.7 | 2026-06-20 | **Standalone release**: 6-tier error classification; magi_dispatch.py v1 unified wrapper; JSON sidecard evidence validation gate; cross-repo consistency check; agent→MAGI substitution table. Fully decoupled from QUINTE. Doctors: Gold=kimi, Fr=mimo, Myrrh=rx (deepseek-v4-pro). |
 
 ---
 
-*MAGI v3.4 — 2026-06-20*
+*MAGI v1.7 — 2026-06-20*
 *sine ira et studio.*

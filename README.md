@@ -4,7 +4,7 @@
 
 # MAGI (マギ) · Hermes Agent Protocol
 
-**QUINTE R1 element + standalone pre-verification — hm's uncertainty resolver.**
+**Standalone pre-verification — hm's uncertainty resolver.**
 
 When hm is uncertain, MAGI dispatches three base models in parallel. Each brings a different cognitive stance. Converge → answer. Diverge → escalate to QUINTE.
 
@@ -12,7 +12,7 @@ When hm is uncertain, MAGI dispatches three base models in parallel. Each brings
 
 ---
 
-[![Protocol](https://img.shields.io/badge/protocol-v3.4-blue?style=flat)](specs/PROTOCOL.md)
+[![Protocol](https://img.shields.io/badge/protocol-v1.7-blue?style=flat)](specs/PROTOCOL.md)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
 
 </div>
@@ -21,17 +21,7 @@ When hm is uncertain, MAGI dispatches three base models in parallel. Each brings
 
 ## What is MAGI?
 
-MAGI is hm's self-doubt mechanism and an inseparable part of QUINTE v3.4. Not merely a user-facing tool — both an internal escalation pathway (Mode A) and QUINTE R1's fifth element (Mode B).
-
-```
-User asks hm
-  │
-  ├─ hm is confident → answer directly
-  ├─ hm is uncertain → MAGI dispatches 3 delegates
-  │     ├─ converge → answer (with confidence annotation)
-  │     └─ diverge → escalate to QUINTE (5-element full debate)
-  └─ conclusion-grade question → direct QUINTE
-```
+MAGI is hm's self-doubt mechanism. Not merely a user-facing tool — an internal escalation pathway.
 
 MAGI answers: *before I burn 5 agents on a full debate, can 3 heterogeneous models resolve this quickly?*
 
@@ -56,17 +46,15 @@ No weighting, no scoring, no "convergence score." Binary gate: enough agreement 
 
 ## Relationship to QUINTE
 
-MAGI is an inseparable part of QUINTE v3.4. Not an external filter — a senator with dual citizenship.
+MAGI is standalone. Decoupled from QUINTE — operates independently as hm's pre-verification layer.
 
 | | QUINTE | MAGI |
 |-|--------|------|
 | Trigger | User or Shōmon gate (evidence gate) | hm's internal uncertainty |
-| R1 elements | 5 (cc+hm+cw+omp+MAGI as collective) | 3 delegates (Gold+Fr+Myrrh) converge internally → 1 vote |
+| Agents | 5 (specialized roles) | 3 delegates (Gold+Fr+Myrrh) |
 | Rounds | 3 (R1→R2→R3) | 1 (parallel → converge/diverge) |
 | Cost | High | Low (3 API calls) |
-| Failure | Deadlock → human review | Diverge → escalate to QUINTE R2+ |
-
-**Dual citizenship:** Mode A — MAGI is the antechamber, filtering questions before the Senate convenes. Mode B (v3.4+) — MAGI enters QUINTE R1 as the fifth element, one collective with internal convergence, one vote. Bethlehem does not observe Rome from outside. Bethlehem has a seat in the Senate.
+| Failure | Deadlock → human review | Diverge → escalate to QUINTE |
 
 ## Delegate Routing
 
@@ -78,7 +66,7 @@ MAGI runs on [Hermes Agent](https://github.com/nousresearch/hermes-agent). Three
 
 | Path | What |
 |------|------|
-| [specs/PROTOCOL.md](specs/PROTOCOL.md) | Canonical v3.4 protocol specification |
+| [specs/PROTOCOL.md](specs/PROTOCOL.md) | Canonical v1.7 protocol specification |
 | [specs/theoretical-foundation.md](specs/theoretical-foundation.md) | Academic foundations |
 | [ontology/](ontology/) | Protocol ontology |
 
