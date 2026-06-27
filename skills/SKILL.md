@@ -4,8 +4,7 @@ description: "MAGI v1.7 - three-delegate heterogeneous audit for standalone chec
 spec: "https://github.com/eric-stone-plus/MAGI/blob/master/specs/PROTOCOL.md"
 version: "1.7"
 triggers:
-  - "magi"
-  - "kansa-b"
+  - "quinte"
 ---
 
 # MAGI v1.7
