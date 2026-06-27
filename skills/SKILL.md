@@ -73,4 +73,6 @@ rx -p "Work from the provided context. Exhaustive verification." --effort max > 
 
 MAGI operates standalone as hm's pre-verification layer. On divergence, escalates to QUINTE for full multi-agent debate.
 
+When invoked by QUINTE, MAGI is R3 KANSA B only. It must never be dispatched as a R1/R2 debate party or as a fallback for failed QUINTE parties.
+
 See [QUINTE spec](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md) for escalation protocol.

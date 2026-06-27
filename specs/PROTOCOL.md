@@ -2,7 +2,7 @@
 
 > **Lightweight heterogeneous pre-verification protocol. hm's self-doubt resolution layer.**
 >
-> **v1.7 (2026-06-20)**: MAGI ecosystem adoption complete: 6-tier error classification across all dispatch paths (magi_dispatch.py v1 unified wrapper for kimi/mimo/rx), JSON sidecard with evidence validation gate (Myrrh), cross-repo consistency check (Fr/mimo), agent→MAGI substitution protocol. Three doctors dispatchable anytime — pre-verification or independent.
+> **v1.7 (2026-06-20, aligned 2026-06-28)**: MAGI ecosystem adoption complete: 6-tier error classification across all dispatch paths (magi_dispatch.py v1 unified wrapper for kimi/mimo/rx), JSON sidecard with evidence validation gate (Myrrh), cross-repo consistency check (Fr/mimo). Three doctors dispatchable anytime as standalone pre-verification; inside QUINTE, MAGI is R3 KANSA B only.
 >
 > *"Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."* — Matthew 2:2
 
@@ -84,18 +84,15 @@ hm reads all three outputs. Binary decision:
 
 No weighted voting. No confidence score. Binary gate.
 
-### 2.5 Agent Substitution (v1.7)
+### 2.5 QUINTE Boundary (v1.7, aligned to QUINTE v3.5)
 
-When directed by QUINTE, MAGI doctors serve as fallback for failed core agents:
+MAGI does not substitute for QUINTE R1/R2 agents. Current Hermes integration permits MAGI in exactly three contexts:
 
-| Failed Agent | MAGI Substitute | Reason |
-|-------------|----------------|--------|
-| cc (MiMo) | Myrrh (rx) | Same provider |
-| cw (DS) | Fr (mimo) | Deep file exploration |
-| omp (DS) | Gold (kimi) | Fast reasoning + external view |
-| rx (DS) | Any available | Tool-capable replacement |
+- standalone pre-verification before hm answers
+- R0 implementation support after a QUINTE PASS
+- R3 KANSA Auditor B inside QUINTE
 
-Original prompt forwarded directly. 180s deadline. Output annotated `[MAGI: <dr> substituting <agent>]`. Equal voting weight. Substitute failure → degrade, don't block QUINTE.
+If a QUINTE R1/R2 party fails, recovery and fallback are owned by QUINTE and must use another QUINTE party. MAGI output is R3 evidence only, not R1/R2 voting material.
 
 ### 2.6 Cross-Repo Consistency (v1.7 — Fr/mimo)
 
@@ -113,6 +110,7 @@ The `website/` directory within QUINTE is an independent git sub-repo. Before an
 6. **Cost cap.** If all three models are unavailable, hm answers directly with `[UNCERTAIN]` annotation.
 7. **Error recovery (v1.7).** Any delegate producing 0 bytes → classify error → apply tier-specific recovery (backoff/shrink/resume/skip).
 8. **Evidence verification (v1.7).** JSON sidecar `evidence_citations` MUST be verified as resolvable before QUINTE Phase 2 consumption. Fabricated citations → `[CITATION_UNVERIFIED]` → 0.5× confidence weight.
+9. **QUINTE boundary.** MAGI is never a QUINTE R1/R2 party or substitute. In QUINTE, MAGI may appear only as R3 KANSA B.
 
 ---
 
@@ -145,7 +143,8 @@ Primary anchors:
 
 | Version | Date | Changes |
 |---------|------|---------|
-| 1.7 | 2026-06-20 | **Standalone release**: 6-tier error classification; magi_dispatch.py v1 unified wrapper; JSON sidecard evidence validation gate; cross-repo consistency check; agent→MAGI substitution table. Fully decoupled from QUINTE. Doctors: Gold=kimi, Fr=mimo, Myrrh=rx (deepseek-v4-pro). |
+| 1.7 | 2026-06-20 | **Standalone release**: 6-tier error classification; magi_dispatch.py v1 unified wrapper; JSON sidecard evidence validation gate; cross-repo consistency check. Fully decoupled from QUINTE R1/R2. Doctors: Gold=kimi, Fr=mimo, Myrrh=rx (deepseek-v4-pro). |
+| 1.7a | 2026-06-28 | QUINTE v3.5 alignment: removed the old failed-agent fallback semantics; MAGI may appear inside QUINTE only as R3 KANSA B. |
 
 ---
 

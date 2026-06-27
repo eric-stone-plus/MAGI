@@ -1,8 +1,8 @@
 # MAGI Theoretical Foundation
 
 > **Domain**: Lightweight heterogeneous pre-verification — hm's self-doubt resolution layer  
-> **Version**: 3.4 (2026-06-20) — QUINTE v3.4 ecosystem sync: 6-tier error classification, magi_dispatch.py v1, JSON sidecard evidence gate, cross-repo consistency check  
-> **Parent audit**: QUINTE v3.4 theoretical foundation hardening
+> **Version**: 1.7a (2026-06-28) — QUINTE v3.5 alignment: MAGI remains standalone pre-verification and may appear inside QUINTE only as R3 KANSA B
+> **Parent audit**: QUINTE v3.5 R3-only integration boundary
 
 ## Abstract
 
