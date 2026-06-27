@@ -1,78 +1,94 @@
 ---
 name: magi
-description: "MAGI v1.7 — Lightweight heterogeneous pre-verification layer. Three base models (kimi/mimo/rx) in parallel with binary convergence gate (>=2/3). Standalone — fully decoupled from QUINTE. hm's self-doubt resolution layer."
+description: "MAGI v1.7 - three-delegate heterogeneous audit for standalone checks, post-QUINTE R0 implementation, and QUINTE R3 KANSA B. Never participates in QUINTE R1/R2."
 spec: "https://github.com/eric-stone-plus/MAGI/blob/master/specs/PROTOCOL.md"
 version: "1.7"
 triggers:
   - "magi"
+  - "kansa-b"
 ---
 
-# MAGI — Heterogeneous Pre-Verification Protocol v1.7
+# MAGI v1.7
 
-## Architecture
+## Boundary
 
-hm dispatches three doctors in parallel: Gold (kimi), Frankincense (mimo), Myrrh (rx). Each answers independently. Output converges through a binary gate: >=2/3 agreement -> [MAGI N/3] verdict; <=1/3 -> escalate to QUINTE.
+MAGI is a separate heterogeneous audit protocol from QUINTE.
 
-## Standalone Operation
+MAGI may run in exactly three contexts:
 
-MAGI is fully decoupled from QUINTE. hm is uncertain about a claim, decision, or analysis -> dispatches MAGI three doctors in parallel for independent verification. Each doctor answers the same question with their own model and perspective. Convergence gate: >=2/3 agreement -> accepted. <=1/3 -> escalate to full QUINTE.
+| Context | Role |
+|---------|------|
+| Standalone | pre-verification when hm is uncertain |
+| R0 after QUINTE | implementation support after a QUINTE PASS |
+| R3 inside QUINTE | KANSA B for the dual-consul verdict |
 
-## Three Doctors
+MAGI never participates in QUINTE R1/R2 and never substitutes for failed QUINTE debate parties.
 
-| Doctor | Model | Role | Dispatch |
-|--------|-------|------|----------|
-| Gold | kimi | External perspective, deep analysis | `kimi -p "prompt"` |
-| Frankincense (Fr) | mimo | File system exploration, thorough scanning | `mimo run --dangerously-skip-permissions "prompt"` |
-| Myrrh | rx (deepseek-v4-pro) | Verification, catch what others miss | `rx -p "prompt" --effort max` |
+## Three Delegates
 
-## Dispatch Strategies
+The public protocol defines roles, not provider bindings. Concrete model and CLI mappings live in the platform core-rules profiles. A valid MAGI deployment preserves three-way heterogeneity: no two delegates should collapse onto the same base model unless the verdict is explicitly degraded.
 
-Per-model optimal prompt style determined empirically:
+| Delegate | Function | Operational stance |
+|----------|----------|--------------------|
+| Gold | factual verification | establish what is true and design the fix when edits are needed |
+| Frankincense | contextual reasoning | inspect surrounding files, assumptions, and stragglers |
+| Myrrh | adversarial audit | verify runtime behavior and identify what breaks if the answer is wrong |
 
-- **Gold (kimi)**: Deep reasoning, external perspective. Structured prompts with clear constraints.
-- **Fr (mimo)**: File explorer mode. Give file paths to explore, not open-ended questions. Prevents tool-search mode.
-- **Myrrh (rx)**: Verification mode. Uses deepseek-v4-pro with `--effort max`. "Work from the provided context, not memory search. Be thorough, catch what others miss."
+## Pipeline
 
-## Convergence Gate
+MAGI can be used as a compact three-delegate vote or as an operational audit pipeline. Platform profiles may implement more detailed dispatch mechanics, but the role boundary stays the same.
 
-- >=2/3 doctors agree -> `[MAGI N/3]` — verdict accepted
-- <=1/3 agree -> MAGI divergence — escalate to QUINTE
-- Single delegate failure does not block others — retry independently (max 3 attempts)
-- 3x all-delegate failure -> `[MAGI hm-solo]` — hm produces substitute analysis
+| Phase | Actor | Purpose |
+|-------|-------|---------|
+| 0. Discover | non-LLM search | find relevant files and scope |
+| 1. Survey | Gold / Frankincense | read bounded inputs and summarize facts |
+| 2. Diagnose | Gold | root cause and fix specification |
+| 3. Verify | Myrrh | adversarial check of the diagnosis |
+| 4. Attack | Gold | apply the verified fix when file edits are required |
+| 5. Post-Verify | Frankincense / Myrrh | confirm the edit landed cleanly and no stragglers remain |
 
-## Failure Recovery
+Read-only tasks may stop after convergence. File modifications require attack plus post-verify.
 
-| Failure | Doctor | Recovery |
-|---------|--------|----------|
-| Timeout | Fr | Shrink prompt <=500 chars, retry; still fails -> `[MAGI Fr-unavailable]` |
-| Empty output | Myrrh | Check key validity, retry; still fails -> `[MAGI Myrrh-unavailable]` |
-| Any delegate 0 bytes | Any | Classify error (6-tier: auth/rate_limit/timeout/interrupted_recoverable/deprecated/unknown) -> apply tier-specific recovery |
+## Dispatch Rules
 
-## Dispatch Command Reference
+- Dispatch all three delegates independently; do not route them through a parent model.
+- Use real CLI processes in separate execution contexts.
+- Use file-based prompts for long tasks or prompts containing code, paths, or shell-sensitive characters.
+- Capture output with `> file 2>&1`; do not use `tee` as the primary capture path.
+- Do not use `delegate_task` for MAGI dispatch because it destroys model heterogeneity.
+- Do not let any delegate read another delegate's output before producing its own first answer.
 
-```bash
-# Gold (kimi) — deep reasoning, external perspective
-kimi -p "Full analysis of <topic>. Be thorough." > /tmp/magi_gold.md 2>&1
+## Gate
 
-# Frankincense (mimo) — file explorer, give paths
-mimo run --dangerously-skip-permissions "Read /path/to/files. Check for <issue>. Report findings." > /tmp/magi_fr.md 2>&1
+| Result | Action |
+|--------|--------|
+| 3/3 agree | accept as `[MAGI 3/3]` |
+| 2/3 agree | accept as `[MAGI 2/3]` with dissent noted |
+| 1/3 or 0/3 agree | escalate to QUINTE or human review |
 
-# Myrrh (rx) — verification, deepseek-v4-pro, max effort
-rx -p "Work from the provided context. Exhaustive verification." --effort max > /tmp/magi_myrrh.md 2>&1
+All three delegates are expected. If a delegate fails, classify the failure and retry or substitute within the MAGI profile. If fewer than two valid delegate outputs remain after recovery, do not silently produce an hm-solo verdict.
 
-# NEVER delegate_task — routes through parent provider, breaks model heterogeneity
+## QUINTE Boundary
+
+When invoked by QUINTE, MAGI is R3 KANSA B only. It reviews R1/R2 evidence and draft verdict context, then votes internally through the MAGI gate.
+
+MAGI output from a prior standalone audit must not become a self-referential veto in R3. R3 input should be the QUINTE R1/R2 record plus the draft verdict context.
+
+MAGI has no R1/R2 authority:
+
+- no R1/R2 debate-party status
+- no R1/R2 fallback status
+- no R1/R2 audit veto
+- no replacement for QUINTE's five-party dispatch
+
+## File Modification Gate
+
+For code, system configuration, agent constitution, deployment, or other high-impact file edits, hm should route implementation through MAGI rather than patching solo. The minimum acceptable edit flow is:
+
+```text
+Discover -> Diagnose -> Attack -> Post-Verify
 ```
 
-## Invocation Rules
+## Public / Platform Boundary
 
-- MAGI is triggered autonomously by hm — not by user command
-- Three doctors always dispatched together — each model has unique blind spots
-- File modification gate: hm must output `[MAGI CHECK]` before any patch/write_file
-
-## Integration
-
-MAGI operates standalone as hm's pre-verification layer. On divergence, escalates to QUINTE for full multi-agent debate.
-
-When invoked by QUINTE, MAGI is R3 KANSA B only. It must never be dispatched as a R1/R2 debate party or as a fallback for failed QUINTE parties.
-
-See [QUINTE spec](https://github.com/eric-stone-plus/QUINTE/blob/master/specs/PROTOCOL.md) for escalation protocol.
+This public skill is the protocol contract. It intentionally does not hardcode private paths, API keys, provider names, pricing assumptions, or per-machine command flags. Platform repos define those dispatch details and must preserve the boundary above.
