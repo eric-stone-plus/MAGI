@@ -25,6 +25,7 @@ services:
     <<: *seat-common
     environment:
       SEAT_ID: seat-m
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?ANTHROPIC_API_KEY required — cc 仲裁的 MiMo token-plan key;容器内无 Keychain,只能 env 注入}
     volumes:
       - ../vol/brief:/input:ro
       - ../policies/v1-current/seat-m.policy.json:/config/policy.json:ro
@@ -41,6 +42,7 @@ services:
     <<: *seat-common
     environment:
       SEAT_ID: seat-d
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?ANTHROPIC_API_KEY required — cc 仲裁的 MiMo token-plan key;容器内无 Keychain,只能 env 注入}
     volumes:
       - ../vol/brief:/input:ro
       - ../policies/v1-current/seat-m.policy.json:/config/policy.json:ro
@@ -57,6 +59,7 @@ services:
     <<: *seat-common
     environment:
       SEAT_ID: seat-g
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?ANTHROPIC_API_KEY required — cc 仲裁的 MiMo token-plan key;容器内无 Keychain,只能 env 注入}
       # P2 启用:中转端点与 key 经环境注入,egress 白名单只放此端点
       # SEAT_G_RELAY_BASE_URL: https://<relay-host>/v1
       # SEAT_G_RELAY_API_KEY: <secret>

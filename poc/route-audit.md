@@ -27,8 +27,16 @@ opencode + 多 omp lane(harness 扰动仍在,族纯度保住)。
 | `~/.local/share/mimocode/` | `/cred/mimocode/` | 同上 |
 | `~/.config/mimo/` | `/cred/mimo-config/` | 同上 |
 | `~/.claude/` | `/cred/claude` | `~/.claude/` |
+| (Keychain) `xiaomi-mimo-token-plan-api-key` | 环境变量 `ANTHROPIC_API_KEY` | cc 仲裁 lane env |
 
 ⚠️ 挂载源不存在时 docker 会创建同名空目录 —— `compose up` 前先逐条核对。
+
+⚠️ **cc 仲裁凭证特殊**:宿主走 macOS Keychain(service `xiaomi-mimo-token-plan-api-key`,
+QUINTE `credential.rs` probe 顺序:protected store → `~/.claude/settings.json` env 块 →
+`ANTHROPIC_API_KEY` env)。容器是 Linux,无 Keychain;宿主 settings.json 也无 env 块,
+故**唯一路径是 env 注入**:`ANTHROPIC_API_KEY=$(security find-generic-password -s
+"xiaomi-mimo-token-plan-api-key" -w) docker compose … up -d`(值只进进程环境,
+不落盘、不进镜像;`docker inspect` 可见,P0 可接受,P1 换 apiKeyHelper 方案)。
 
 ## §3 席 G 中转(relay)
 
