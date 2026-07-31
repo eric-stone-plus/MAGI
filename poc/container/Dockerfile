@@ -1,12 +1,17 @@
 # MAGI 席位一体化镜像:quinte(源码构建)+ 五个 harness CLI + claude(cc 仲裁)
 # 凭证一律运行时挂载注入,不进镜像层。
 ARG QUINTE_REPO=https://github.com/eric-stone-plus/QUINTE.git
-ARG QUINTE_REF=main
+ARG QUINTE_COMMIT=main
 
 FROM rust:1-bookworm AS quinte-build
 ARG QUINTE_REPO
-ARG QUINTE_REF
-RUN git clone --depth 1 --branch "$QUINTE_REF" "$QUINTE_REPO" /src
+ARG QUINTE_COMMIT
+# 按 commit 精确取码:--build-arg QUINTE_COMMIT=<sha> 既锁定内容,又让缓存按值失效
+# (直接 clone 分支会被 docker 层缓存钉死在旧 commit 上)
+RUN git init /src && cd /src \
+ && git remote add origin "$QUINTE_REPO" \
+ && git fetch --depth 1 origin "$QUINTE_COMMIT" \
+ && git checkout --detach FETCH_HEAD
 WORKDIR /src
 RUN cargo build --release && strip target/release/quinte
 
@@ -55,6 +60,17 @@ RUN chmod +x /usr/local/bin/seat-entrypoint.sh
 # node:22-bookworm-slim 自带 uid 1000 的 node 用户,直接复用
 USER node
 ENV HOME=/home/node
+
+# 构建期自检门(以运行用户身份):任一 CLI 的平台二进制缺失(如 claude
+# postinstall flake)直接 fail build,不带病出厂
+RUN quinte --version \
+ && codewhale-tui --version \
+ && mimo --version \
+ && opencode --version \
+ && kilo --version \
+ && omp --version \
+ && claude --version \
+ && bun --version
 
 # /config/policy.json(只读挂载)/ /input(brief 只读)/ /state(席位 QUINTE_HOME)/
 # /artifacts(输出)/ /cred/*(凭证只读挂载,entrypoint 拷入 $HOME)
