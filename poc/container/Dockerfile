@@ -16,23 +16,31 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # 五个 roster harness + claude(cc 仲裁,后端走 MiMo token plan,非 Anthropic 模型)。
+# bun 是 omp 的运行时。opencode/claude/omp 的平台二进制由 postinstall 安装,
+# --ignore-scripts 装完后必须对这三个 npm rebuild 补跑,否则 CLI 报
+# "postinstall script was not run" / "native binary not installed"。
 # 版本 P0 浮动;定稿前用 npm-shrinkwrap 锁死(参考上游 pi 的供应链纪律)。
 RUN npm install -g --ignore-scripts \
+      bun \
       codewhale \
       @mimo-ai/cli \
       opencode-ai \
       @oh-my-pi/pi-coding-agent \
       @anthropic-ai/claude-code \
       @kilocode/cli \
+ && npm rebuild -g --foreground-scripts \
+      opencode-ai \
+      @anthropic-ai/claude-code \
+      @oh-my-pi/pi-coding-agent \
  && npm cache clean --force
 
 COPY --from=quinte-build /src/target/release/quinte /usr/local/bin/quinte
 COPY entrypoint.sh /usr/local/bin/seat-entrypoint.sh
 RUN chmod +x /usr/local/bin/seat-entrypoint.sh
 
-RUN useradd -m -u 1000 seat
-USER seat
-ENV HOME=/home/seat
+# node:22-bookworm-slim 自带 uid 1000 的 node 用户,直接复用
+USER node
+ENV HOME=/home/node
 
 # /config/policy.json(只读挂载)/ /input(brief 只读)/ /state(席位 QUINTE_HOME)/
 # /artifacts(输出)/ /cred/*(凭证只读挂载,entrypoint 拷入 $HOME)

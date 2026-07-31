@@ -16,8 +16,6 @@ x-seat-common: &seat-common
     - ${HOME}/.local/share/opencode/auth.json:/cred/opencode-auth.json:ro
     - ${HOME}/.local/share/kilo/auth.json:/cred/kilo-auth.json:ro
     - ${HOME}/.local/share/mimocode:/cred/mimocode:ro
-    - ${HOME}/.local/share/mimo:/cred/mimo-share:ro
-    - ${HOME}/.config/mimo:/cred/mimo-config:ro
     - ${HOME}/.claude:/cred/claude:ro
   # egress 白名单(席 G 只放中转端点、M/D 只放各自 provider)属于 P1 硬化,
   # P0 依赖宿主网络默认行为,污染风险记入 trial_manifest。
@@ -37,8 +35,6 @@ services:
       - ${HOME}/.local/share/opencode/auth.json:/cred/opencode-auth.json:ro
       - ${HOME}/.local/share/kilo/auth.json:/cred/kilo-auth.json:ro
       - ${HOME}/.local/share/mimocode:/cred/mimocode:ro
-      - ${HOME}/.local/share/mimo:/cred/mimo-share:ro
-      - ${HOME}/.config/mimo:/cred/mimo-config:ro
       - ${HOME}/.claude:/cred/claude:ro
 
   seat-d:
@@ -55,8 +51,6 @@ services:
       - ${HOME}/.local/share/opencode/auth.json:/cred/opencode-auth.json:ro
       - ${HOME}/.local/share/kilo/auth.json:/cred/kilo-auth.json:ro
       - ${HOME}/.local/share/mimocode:/cred/mimocode:ro
-      - ${HOME}/.local/share/mimo:/cred/mimo-share:ro
-      - ${HOME}/.config/mimo:/cred/mimo-config:ro
       - ${HOME}/.claude:/cred/claude:ro
 
   seat-g:
@@ -76,6 +70,4 @@ services:
       - ${HOME}/.local/share/opencode/auth.json:/cred/opencode-auth.json:ro
       - ${HOME}/.local/share/kilo/auth.json:/cred/kilo-auth.json:ro
       - ${HOME}/.local/share/mimocode:/cred/mimocode:ro
-      - ${HOME}/.local/share/mimo:/cred/mimo-share:ro
-      - ${HOME}/.config/mimo:/cred/mimo-config:ro
       - ${HOME}/.claude:/cred/claude:ro
