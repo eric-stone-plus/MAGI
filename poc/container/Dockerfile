@@ -16,18 +16,22 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # 五个 roster harness + claude(cc 仲裁,后端走 MiMo token plan,非 Anthropic 模型)。
-# bun 是 omp 的运行时。opencode/claude 的平台二进制由 postinstall 安装,
-# 这两个必须正常装(不带 --ignore-scripts);omp 只需要 bun 运行时,保持
-# --ignore-scripts。版本 P0 浮动;定稿前用 npm-shrinkwrap 锁死。
+# 第一层:版本稳定/已验证的包。opencode/claude 的平台二进制由 postinstall 安装,
+# 必须正常装(不带 --ignore-scripts);omp 只需要 bun 运行时,保持 --ignore-scripts。
 RUN npm install -g --ignore-scripts \
       bun \
-      codewhale \
       @mimo-ai/cli \
       @oh-my-pi/pi-coding-agent \
       @kilocode/cli \
  && npm install -g \
-      opencode-ai \
       @anthropic-ai/claude-code \
+ && npm cache clean --force
+
+# 第二层:版本与宿主钉死(容器内实测踩过漂移坑:codewhale 0.9.2 的 provider
+# 解析与宿主 0.8.66 行为不同,直接打挂 Party A lane)。单独成层,改版本号
+# 不必重装第一层。opencode 钉宿主同款 1.18.5。
+RUN npm install -g --ignore-scripts codewhale@0.8.66 \
+ && npm install -g opencode-ai@1.18.5 \
  && npm cache clean --force
 
 # bun 单独一层正常装:其 npm 包要跑 postinstall 放置平台二进制。
