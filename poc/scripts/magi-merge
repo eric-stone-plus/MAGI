@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 JACCARD_THRESHOLD = 0.12
-SEVERITY_ORDER = {"LOW": 0, "MEDIUM": 1, "HIGH": 2}
+SEVERITY_ORDER = {"LOW": 0, "MEDIUM": 1, "HIGH": 2, "CRITICAL": 3, "P0": 4}
 DEFAULT_CONTROLS = [
     "container_isolation",
     "per_seat_quinte_home",
@@ -158,7 +158,7 @@ def main() -> int:
         trace_residuals.append({
             "id": f"MAGI-{n:03d}",
             "severity": str(best.get("severity", "MEDIUM")).upper(),
-            "type": best.get("type", "residual"),
+            "type": best.get("residual_type") or best.get("type", "residual"),
             "source": "+".join(member_seats),
             "convergence": convergence,
             "finding": best.get("finding", ""),
