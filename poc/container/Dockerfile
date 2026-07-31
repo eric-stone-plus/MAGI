@@ -34,6 +34,10 @@ RUN npm install -g --ignore-scripts \
 # 独立成层,改动时不必重装上面全部 CLI(上一层残留的 shim 会被这里覆盖)。
 RUN npm install -g bun && npm cache clean --force
 
+# codewhale 首次运行时才下载平台二进制到包目录;以 root 预热,
+# 避免 node 用户运行期写 /usr/local 触发 EACCES(Party A lane 全灭)
+RUN codewhale-tui --version
+
 # procps:QUINTE 的 worker 存活检查 shell 到 `ps -p <pid>`(src/run.rs process_alive);
 # slim 基础镜像不带 ps,缺失会让父进程秒判 "worker is not alive" 并杀掉整轮 run。
 RUN apt-get update \
