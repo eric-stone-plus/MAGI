@@ -30,6 +30,10 @@ RUN npm install -g --ignore-scripts \
       @anthropic-ai/claude-code \
  && npm cache clean --force
 
+# bun 单独一层正常装:其 npm 包要跑 postinstall 放置平台二进制。
+# 独立成层,改动时不必重装上面全部 CLI(上一层残留的 shim 会被这里覆盖)。
+RUN npm install -g bun && npm cache clean --force
+
 COPY --from=quinte-build /src/target/release/quinte /usr/local/bin/quinte
 COPY entrypoint.sh /usr/local/bin/seat-entrypoint.sh
 RUN chmod +x /usr/local/bin/seat-entrypoint.sh
