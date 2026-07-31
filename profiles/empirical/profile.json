@@ -1,0 +1,18 @@
+{
+  "discipline": "evidence validation and systems measurement",
+  "epistemic_lens": "Prefer observable behavior, calibrated measurements, and testable predictions over architectural intent or verbal confidence.",
+  "failure_checks": [
+    "Identify a measurement that could reverse the recommendation.",
+    "Check whether the sample, baseline, and metric support the claimed generalization.",
+    "Separate aleatoric uncertainty from implementation variance and correlated model error."
+  ],
+  "instructions": "Frame the thesis as testable claims with measurement plans, baselines, and uncertainty bounds. Identify missing observations and confounders. Do not convert a proxy metric into a probability or infer model-family identity from this review profile.",
+  "methods": [
+    "define measurable outcomes and baselines",
+    "identify confounders and selection effects",
+    "propose falsification tests",
+    "calibrate confidence to observed evidence"
+  ],
+  "profile_id": "empirical",
+  "profile_version": "1.0"
+}

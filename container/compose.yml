@@ -1,0 +1,273 @@
+name: magi-seats
+
+x-seat: &seat
+  image: ${MAGI_SEAT_IMAGE:-magi-seat:local}
+  init: false
+  restart: "no"
+  user: "${MAGI_CONTAINER_UID:?set MAGI_CONTAINER_UID}:${MAGI_CONTAINER_GID:?set MAGI_CONTAINER_GID}"
+  read_only: true
+  cap_drop: [ALL]
+  security_opt:
+    - no-new-privileges:true
+  ipc: private
+  pids_limit: 256
+  mem_limit: 8g
+  cpus: 4.0
+  tmpfs:
+    - /runtime:rw,noexec,nosuid,nodev,mode=0700,uid=${MAGI_CONTAINER_UID:?set MAGI_CONTAINER_UID},gid=${MAGI_CONTAINER_GID:?set MAGI_CONTAINER_GID},size=2g
+    - /tmp:rw,noexec,nosuid,nodev,mode=0700,uid=${MAGI_CONTAINER_UID:?set MAGI_CONTAINER_UID},gid=${MAGI_CONTAINER_GID:?set MAGI_CONTAINER_GID},size=256m
+  environment:
+    HERMES_TIMEOUT_SECONDS: ${HERMES_TIMEOUT_SECONDS:-3600}
+    QUINTE_TIMEOUT_SECONDS: ${QUINTE_TIMEOUT_SECONDS:-7200}
+    QUINTE_POLL_SECONDS: ${QUINTE_POLL_SECONDS:-30}
+
+services:
+  seat-m:
+    <<: *seat
+    networks: [seat-m-private]
+    depends_on:
+      seat-m-egress:
+        condition: service_healthy
+    environment:
+      HERMES_TIMEOUT_SECONDS: ${HERMES_TIMEOUT_SECONDS:-3600}
+      QUINTE_TIMEOUT_SECONDS: ${QUINTE_TIMEOUT_SECONDS:-7200}
+      QUINTE_POLL_SECONDS: ${QUINTE_POLL_SECONDS:-30}
+      SEAT_ID: seat-m
+      MAGI_SEAT_MODE: ${MAGI_SEAT_MODE:-build}
+      HTTP_PROXY: http://seat-m-egress:3128
+      HTTPS_PROXY: http://seat-m-egress:3128
+      http_proxy: http://seat-m-egress:3128
+      https_proxy: http://seat-m-egress:3128
+      NO_PROXY: ""
+      no_proxy: ""
+    secrets:
+      - source: seat_m_provider_api_key
+        target: provider_api_key
+    volumes:
+      - ${MAGI_ORIGINAL_BRIEF:?set MAGI_ORIGINAL_BRIEF}:/input/original-brief.json:ro
+      - ${MAGI_EVIDENCE_ROOT:-${MAGI_ORIGINAL_BRIEF}}:/evidence:ro
+      - ${MAGI_ASSIGNMENT_PLAN:-${MAGI_ORIGINAL_BRIEF}}:/input/assignment-plan.json:ro
+      - ${MAGI_SEAT_M_PROFILE:?set MAGI_SEAT_M_PROFILE to a host-composed private profile}:/profile-source:ro
+      - ${MAGI_SEAT_M_CONFIG:?set MAGI_SEAT_M_CONFIG}:/config/seat.json:ro
+      - ${MAGI_SEAT_M_POLICY:?set MAGI_SEAT_M_POLICY}:/config/policy.json:ro
+      - ${MAGI_ARTIFACT_ROOT:?set MAGI_ARTIFACT_ROOT}/seat-m:/artifacts
+      - ${MAGI_REVIEW_PACKET_M:-${MAGI_ORIGINAL_BRIEF}}:/review-input/packet.json:ro
+      - ${MAGI_REVIEW_OUTPUT_M:-${MAGI_ARTIFACT_ROOT}/seat-m}:/review-output
+
+  seat-d:
+    <<: *seat
+    networks: [seat-d-private]
+    depends_on:
+      seat-d-egress:
+        condition: service_healthy
+    environment:
+      HERMES_TIMEOUT_SECONDS: ${HERMES_TIMEOUT_SECONDS:-3600}
+      QUINTE_TIMEOUT_SECONDS: ${QUINTE_TIMEOUT_SECONDS:-7200}
+      QUINTE_POLL_SECONDS: ${QUINTE_POLL_SECONDS:-30}
+      SEAT_ID: seat-d
+      MAGI_SEAT_MODE: ${MAGI_SEAT_MODE:-build}
+      HTTP_PROXY: http://seat-d-egress:3128
+      HTTPS_PROXY: http://seat-d-egress:3128
+      http_proxy: http://seat-d-egress:3128
+      https_proxy: http://seat-d-egress:3128
+      NO_PROXY: ""
+      no_proxy: ""
+    secrets:
+      - source: seat_d_provider_api_key
+        target: provider_api_key
+    volumes:
+      - ${MAGI_ORIGINAL_BRIEF:?set MAGI_ORIGINAL_BRIEF}:/input/original-brief.json:ro
+      - ${MAGI_EVIDENCE_ROOT:-${MAGI_ORIGINAL_BRIEF}}:/evidence:ro
+      - ${MAGI_ASSIGNMENT_PLAN:-${MAGI_ORIGINAL_BRIEF}}:/input/assignment-plan.json:ro
+      - ${MAGI_SEAT_D_PROFILE:?set MAGI_SEAT_D_PROFILE to a host-composed private profile}:/profile-source:ro
+      - ${MAGI_SEAT_D_CONFIG:?set MAGI_SEAT_D_CONFIG}:/config/seat.json:ro
+      - ${MAGI_SEAT_D_POLICY:?set MAGI_SEAT_D_POLICY}:/config/policy.json:ro
+      - ${MAGI_ARTIFACT_ROOT:?set MAGI_ARTIFACT_ROOT}/seat-d:/artifacts
+      - ${MAGI_REVIEW_PACKET_D:-${MAGI_ORIGINAL_BRIEF}}:/review-input/packet.json:ro
+      - ${MAGI_REVIEW_OUTPUT_D:-${MAGI_ARTIFACT_ROOT}/seat-d}:/review-output
+
+  seat-g:
+    <<: *seat
+    networks: [seat-g-private]
+    depends_on:
+      seat-g-egress:
+        condition: service_healthy
+    environment:
+      HERMES_TIMEOUT_SECONDS: ${HERMES_TIMEOUT_SECONDS:-3600}
+      QUINTE_TIMEOUT_SECONDS: ${QUINTE_TIMEOUT_SECONDS:-7200}
+      QUINTE_POLL_SECONDS: ${QUINTE_POLL_SECONDS:-30}
+      SEAT_ID: seat-g
+      MAGI_SEAT_MODE: ${MAGI_SEAT_MODE:-build}
+      HTTP_PROXY: http://seat-g-egress:3128
+      HTTPS_PROXY: http://seat-g-egress:3128
+      http_proxy: http://seat-g-egress:3128
+      https_proxy: http://seat-g-egress:3128
+      NO_PROXY: ""
+      no_proxy: ""
+    secrets:
+      - source: seat_g_provider_api_key
+        target: provider_api_key
+    volumes:
+      - ${MAGI_ORIGINAL_BRIEF:?set MAGI_ORIGINAL_BRIEF}:/input/original-brief.json:ro
+      - ${MAGI_EVIDENCE_ROOT:-${MAGI_ORIGINAL_BRIEF}}:/evidence:ro
+      - ${MAGI_ASSIGNMENT_PLAN:-${MAGI_ORIGINAL_BRIEF}}:/input/assignment-plan.json:ro
+      - ${MAGI_SEAT_G_PROFILE:?set MAGI_SEAT_G_PROFILE to a host-composed private profile}:/profile-source:ro
+      - ${MAGI_SEAT_G_CONFIG:?set MAGI_SEAT_G_CONFIG}:/config/seat.json:ro
+      - ${MAGI_SEAT_G_POLICY:?set MAGI_SEAT_G_POLICY}:/config/policy.json:ro
+      - ${MAGI_ARTIFACT_ROOT:?set MAGI_ARTIFACT_ROOT}/seat-g:/artifacts
+      - ${MAGI_REVIEW_PACKET_G:-${MAGI_ORIGINAL_BRIEF}}:/review-input/packet.json:ro
+      - ${MAGI_REVIEW_OUTPUT_G:-${MAGI_ARTIFACT_ROOT}/seat-g}:/review-output
+
+  # Final Adjudicator: isolated OpenAI/Codex carrier, own private network + egress.
+  # Packet-in / verdict-out only; no original evidence mount.
+  final-adjudicator:
+    image: ${MAGI_SEAT_IMAGE:-magi-seat:local}
+    init: false
+    restart: "no"
+    user: "${MAGI_CONTAINER_UID:?set MAGI_CONTAINER_UID}:${MAGI_CONTAINER_GID:?set MAGI_CONTAINER_GID}"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    ipc: private
+    pids_limit: 256
+    mem_limit: 8g
+    cpus: 4.0
+    tmpfs:
+      - /runtime:rw,noexec,nosuid,nodev,mode=0700,uid=${MAGI_CONTAINER_UID:?set MAGI_CONTAINER_UID},gid=${MAGI_CONTAINER_GID:?set MAGI_CONTAINER_GID},size=2g
+      - /tmp:rw,noexec,nosuid,nodev,mode=0700,uid=${MAGI_CONTAINER_UID:?set MAGI_CONTAINER_UID},gid=${MAGI_CONTAINER_GID:?set MAGI_CONTAINER_GID},size=256m
+    networks: [final-adjudicator-private]
+    depends_on:
+      final-adjudicator-egress:
+        condition: service_healthy
+    environment:
+      SEAT_ID: seat-g
+      MAGI_SEAT_MODE: final
+      HERMES_TIMEOUT_SECONDS: ${HERMES_TIMEOUT_SECONDS:-3600}
+      HTTP_PROXY: http://final-adjudicator-egress:3128
+      HTTPS_PROXY: http://final-adjudicator-egress:3128
+      http_proxy: http://final-adjudicator-egress:3128
+      https_proxy: http://final-adjudicator-egress:3128
+      NO_PROXY: ""
+      no_proxy: ""
+      PYTHONPATH: /opt/magi/lib
+    secrets:
+      - source: final_adjudicator_provider_api_key
+        target: provider_api_key
+    volumes:
+      - ${MAGI_FINAL_CONFIG:?set MAGI_FINAL_CONFIG}:/config/seat.json:ro
+      - ${MAGI_FINAL_PACKET:?set MAGI_FINAL_PACKET}:/final-input/packet.json:ro
+      - ${MAGI_FINAL_OUTPUT:?set MAGI_FINAL_OUTPUT}:/final-output
+      - ${MAGI_CODE_ROOT:?set MAGI_CODE_ROOT}/bin/magi-agent:/opt/magi/bin/magi-agent:ro
+      - ${MAGI_CODE_ROOT}/magi:/opt/magi/lib/magi:ro
+      - ${MAGI_CODE_ROOT}/schemas:/opt/magi/schemas:ro
+
+  seat-m-egress:
+    image: ghcr.io/tarampampam/3proxy@sha256:39e8f1e745290e9afccb0bee39058d4908e5781da4d4d11b48848b39080bf24c
+    entrypoint: [/bin/3proxy]
+    command: [/config/3proxy.cfg]
+    restart: "no"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    healthcheck:
+      test: [CMD-SHELL, "nc -z 127.0.0.1 3128"]
+      interval: 1s
+      timeout: 1s
+      retries: 30
+      start_period: 1s
+    volumes:
+      - ./proxy/seat-m.cfg:/config/3proxy.cfg:ro
+    networks:
+      seat-m-private:
+        aliases: [seat-m-egress]
+      provider-egress: {}
+
+  seat-d-egress:
+    image: ghcr.io/tarampampam/3proxy@sha256:39e8f1e745290e9afccb0bee39058d4908e5781da4d4d11b48848b39080bf24c
+    entrypoint: [/bin/3proxy]
+    command: [/config/3proxy.cfg]
+    restart: "no"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    healthcheck:
+      test: [CMD-SHELL, "nc -z 127.0.0.1 3128"]
+      interval: 1s
+      timeout: 1s
+      retries: 30
+      start_period: 1s
+    volumes:
+      - ./proxy/seat-d.cfg:/config/3proxy.cfg:ro
+    networks:
+      seat-d-private:
+        aliases: [seat-d-egress]
+      provider-egress: {}
+
+  seat-g-egress:
+    image: ghcr.io/tarampampam/3proxy@sha256:39e8f1e745290e9afccb0bee39058d4908e5781da4d4d11b48848b39080bf24c
+    entrypoint: [/bin/3proxy]
+    command: [/config/3proxy.cfg]
+    restart: "no"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    healthcheck:
+      test: [CMD-SHELL, "nc -z 127.0.0.1 3128"]
+      interval: 1s
+      timeout: 1s
+      retries: 30
+      start_period: 1s
+    volumes:
+      - ./proxy/seat-g.cfg:/config/3proxy.cfg:ro
+    networks:
+      seat-g-private:
+        aliases: [seat-g-egress]
+      provider-egress: {}
+
+  final-adjudicator-egress:
+    image: ghcr.io/tarampampam/3proxy@sha256:39e8f1e745290e9afccb0bee39058d4908e5781da4d4d11b48848b39080bf24c
+    entrypoint: [/bin/3proxy]
+    command: [/config/3proxy.cfg]
+    restart: "no"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    healthcheck:
+      test: [CMD-SHELL, "nc -z 127.0.0.1 3128"]
+      interval: 1s
+      timeout: 1s
+      retries: 30
+      start_period: 1s
+    volumes:
+      - ./proxy/final-adjudicator.cfg:/config/3proxy.cfg:ro
+    networks:
+      final-adjudicator-private:
+        aliases: [final-adjudicator-egress]
+      provider-egress: {}
+
+secrets:
+  seat_m_provider_api_key:
+    file: ${MAGI_SEAT_M_SECRET_FILE:?set MAGI_SEAT_M_SECRET_FILE}
+  seat_d_provider_api_key:
+    file: ${MAGI_SEAT_D_SECRET_FILE:?set MAGI_SEAT_D_SECRET_FILE}
+  seat_g_provider_api_key:
+    file: ${MAGI_SEAT_G_SECRET_FILE:?set MAGI_SEAT_G_SECRET_FILE}
+  final_adjudicator_provider_api_key:
+    file: ${MAGI_FINAL_SECRET_FILE:?set MAGI_FINAL_SECRET_FILE}
+
+networks:
+  seat-m-private:
+    driver: bridge
+    internal: true
+  seat-d-private:
+    driver: bridge
+    internal: true
+  seat-g-private:
+    driver: bridge
+    internal: true
+  final-adjudicator-private:
+    driver: bridge
+    internal: true
+  provider-egress:
+    driver: bridge

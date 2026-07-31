@@ -1,0 +1,581 @@
+{
+  "trace_version": "1.0",
+  "question": "评审以下订单服务缓存层设计方案的可靠性,列出必须在上线前修复的风险项:\n\n设计概述:订单服务(QPS 峰值 3000)在 MySQL 前加 Redis 缓存层。\n1. 读路径:cache-aside 模式,先查 Redis,miss 则查 MySQL 并回写。\n2. 所有订单缓存 key 统一 TTL=600 秒,服务每日 09:00 重启预热全量热点订单。\n3. 对不存在的订单 id(如恶意扫描),直接透传查询 MySQL,不做任何标记,理由是'避免缓存垃圾'。\n4. 写路径:先 UPDATE MySQL,再删除对应 Redis key;不做延迟双删,不订阅 binlog,理由是'窗口期很短,概率可忽略'。\n5. Redis 故障时 fallback 为直连 MySQL,不设限流与熔断,理由是'保持可用性'。\n6. 不采集命中率/穿透率指标,上线后再看是否需要监控。\n\n已知优点(不算缺陷):cache-aside 选型本身合理;团队熟悉 Redis 运维。",
+  "instrument": "MAGI",
+  "merge": {
+    "method": "deterministic (no model chair)",
+    "matcher": "CJK-bigram+latin shingle Jaccard>=0.12",
+    "converged_all": 9,
+    "converged_pair": 8,
+    "unique": 8,
+    "mean_pairwise_overlap": 0.6754,
+    "note": "收敛是信号不是证明;unique 残差不裁决,呈人工终裁。"
+  },
+  "residuals": [
+    {
+      "id": "MAGI-001",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g+seat-m",
+      "convergence": "all",
+      "finding": "写路径存在一致性竞态窗口：(a)UPDATE MySQL后、DEL Redis前，并发读可读到旧值；(b)DEL失败时旧值残留至TTL过期(最长600s)。3000QPS并发密度下窗口命中概率不可忽略。全部5位参与者一致认定此项缺陷。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "实现延迟双删(DEL后延迟200-500ms再DEL一次)或通过Canal/Redis binlog订阅做异步失效；需评估并发写入频率下的脏读概率及业务可接受的一致性窗口。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "所有订单数据的读写一致性，影响金额/状态变更的订单操作最为严重",
+      "seat_residual_refs": [
+        "seat-m:R1-write-consistency-race",
+        "seat-m:write-path-consistency-defect",
+        "seat-m:write-path-inconsistency",
+        "seat-d:R1-write-consistency",
+        "seat-d:R1-write-path-consistency",
+        "seat-d:write-path-staleness",
+        "seat-g:R1_write_inconsistency",
+        "seat-g:R_write_path_inconsistency"
+      ]
+    },
+    {
+      "id": "MAGI-002",
+      "severity": "P0",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g+seat-m",
+      "convergence": "all",
+      "finding": "Redis故障时fallback为直连MySQL,不设限流与熔断。3000 QPS全部打到MySQL会导致数据库雪崩,不仅订单服务崩溃,还可能影响共享MySQL实例上的其他服务。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "必须在fallback路径上添加限流(如令牌桶,限制MySQL并发查询数)和熔断器(如连续失败超过阈值后快速失败),并设置MySQL连接池上限。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "Redis不可用期间的数据库保护机制,影响订单服务及共享数据库实例的所有下游服务。",
+      "seat_residual_refs": [
+        "seat-m:no-circuit-breaker-on-fallback",
+        "seat-m:redis-fallback-cascade",
+        "seat-d:res-01-no-fallback-protection",
+        "seat-g:R1-no-circuit-breaker",
+        "seat-g:R_unbounded_fallback"
+      ]
+    },
+    {
+      "id": "MAGI-003",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g+seat-m",
+      "convergence": "all",
+      "finding": "Write-path staleness race: concurrent reads during the UPDATE→DEL window can backfill stale data into cache; if DEL fails (network jitter), stale data persists until TTL expiry (up to 600 s). At 3000 QPS the race window is hit non-negligibly despite the design's 'probability negligible' claim.",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "Implement delayed double-delete (200–500 ms after first DEL) or Canal/binlog-based async invalidation. Document maximum tolerable inconsistency window for order-state fields.",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "All write-path operations on order data; most critical for payment and status-state fields",
+      "seat_residual_refs": [
+        "seat-m:R3-write-path-consistency",
+        "seat-d:R1-write-staleness",
+        "seat-d:res-03-write-consistency",
+        "seat-g:R1_write_consistency"
+      ]
+    },
+    {
+      "id": "MAGI-004",
+      "severity": "P0",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g+seat-m",
+      "convergence": "all",
+      "finding": "缓存穿透:对不存在的订单 id 直接透传 MySQL 且不做任何标记(设计第3条),恶意扫描在峰值 3000 QPS 下可将全部压力打穿到数据库,连接池耗尽导致服务不可用。设计理由'避免缓存垃圾'不成立——空值短 TTL 缓存与布隆过滤器均不产生实质垃圾。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "实现对不存在 id 的防护:布隆过滤器或空值缓存(TTL≤30s),并以穿透率压测验证 MySQL 侧 QPS 在恶意扫描下不超限。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "订单服务缓存层读路径,上线前必须完成",
+      "seat_residual_refs": [
+        "seat-m:PA-001",
+        "seat-d:PA-001",
+        "seat-g:PA-001"
+      ]
+    },
+    {
+      "id": "MAGI-005",
+      "severity": "P0",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g+seat-m",
+      "convergence": "all",
+      "finding": "级联故障:Redis 故障时 fallback 为直连 MySQL 且不设限流与熔断(设计第5条)。MySQL 典型承载远低于 3000 QPS,全量涌入将使 MySQL 同样过载,'保持可用性'的目标适得其反,缓存故障升级为全站故障。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "fallback 路径加入限流器(如令牌桶,进入 MySQL 的 QPS 设上限)与熔断器(连续错误率超阈值时快速失败),并对 Redis 故障场景做故障注入演练验证。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "订单服务缓存层故障降级路径,上线前必须完成",
+      "seat_residual_refs": [
+        "seat-m:PA-002",
+        "seat-d:PA-002",
+        "seat-g:PA-002"
+      ]
+    },
+    {
+      "id": "MAGI-006",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g+seat-m",
+      "convergence": "all",
+      "finding": "写路径一致性竞态:先 UPDATE MySQL 再 DEL Redis(设计第4条),并发读在 DEL 完成前可将旧值回填缓存,脏数据驻留至 TTL 过期(最长 600s);DEL 失败时旧值持久残留。3000 QPS 并发密度下窗口命中概率不可忽略,'概率可忽略'的理由不成立。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "实现延迟双删(写后 200-500ms 二次删除)或 binlog 订阅失效,并以并发读写一致性测试验证脏读窗口闭合。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "订单服务缓存层写路径,上线前必须完成",
+      "seat_residual_refs": [
+        "seat-m:PA-003",
+        "seat-d:PA-003",
+        "seat-g:PA-003"
+      ]
+    },
+    {
+      "id": "MAGI-007",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g+seat-m",
+      "convergence": "all",
+      "finding": "可观测性盲区:不采集命中率、穿透率、回写延迟、fallback 触发次数(设计第6条)。上述 P0/HIGH 风险的早期预警全部依赖这些指标,'上线后再看'意味着在最需要监控的上线初期与流量爬坡期处于盲运维状态。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "上线前接入命中率/穿透率/回写延迟/fallback 触发次数四类指标并配置告警阈值, dashboards 与告警规则随服务一同发布。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "订单服务缓存层运维面,上线前必须完成",
+      "seat_residual_refs": [
+        "seat-m:PA-004",
+        "seat-d:PA-004",
+        "seat-g:PA-004"
+      ]
+    },
+    {
+      "id": "MAGI-008",
+      "severity": "MEDIUM",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g+seat-m",
+      "convergence": "all",
+      "finding": "TTL 惊群(缓存雪崩):全部 key 统一 TTL=600s(设计第2条),09:00 重启预热后热点 key 将于同一时刻过期,并发回源 MySQL 形成压力尖峰;预热本身还存在冷启动窗口。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "TTL 加随机抖动(600s±120s)或改逻辑过期+后台异步刷新,消除同时过期点;预热改为渐进式。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "订单服务缓存层过期策略,随上述修复一同完成",
+      "seat_residual_refs": [
+        "seat-m:PA-005",
+        "seat-d:PA-005",
+        "seat-g:PA-005"
+      ]
+    },
+    {
+      "id": "MAGI-009",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g+seat-m",
+      "convergence": "all",
+      "finding": "写路径缺少延迟双删或binlog订阅机制。并发场景下:线程A更新MySQL后尚未删除缓存,线程B读到旧缓存并回写(或线程A删除缓存前另一个读请求已将旧数据写回缓存),导致脏数据窗口。在3000 QPS高并发下该窗口内产生脏读的概率不可忽略。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "实现延迟双删(删除缓存后延迟500ms再删一次)或通过binlog订阅实现最终一致性;至少需要量化评估并发写入频率下的脏读概率。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "影响所有订单数据的读写一致性,在并发更新场景下用户可能读到过期数据。",
+      "seat_residual_refs": [
+        "seat-m:R1-write-path-stale-read",
+        "seat-d:R1-write-inconsistency",
+        "seat-g:R1-write-inconsistency"
+      ]
+    },
+    {
+      "id": "MAGI-010",
+      "severity": "P0",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-m",
+      "convergence": "pair",
+      "finding": "Cache-penetration vulnerability: without bloom filter or null-value caching, every request for a non-existent order ID bypasses Redis and hits MySQL. At 3000 QPS peak with malicious ID scanning, this can exhaust MySQL connection pool and cause full service outage.",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "Implement bloom filter (preloaded from order-ID range or sampled from DB) or null-value caching with TTL ≤30 s. Validate with penetration-rate metric post-deployment.",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "All read-path requests for non-existent order IDs; affects MySQL availability under adversarial traffic",
+      "seat_residual_refs": [
+        "seat-m:R1-cache-penetration",
+        "seat-d:res-01-cache-penetration"
+      ]
+    },
+    {
+      "id": "MAGI-011",
+      "severity": "P0",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-m",
+      "convergence": "pair",
+      "finding": "Cascade-failure risk: on Redis outage, 3000 QPS floods MySQL directly. MySQL typical capacity (500–1000 QPS) will be overwhelmed, causing connection-pool exhaustion, slow-query pileup, and total service unavailability — directly contradicting the 'maintain availability' goal.",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "Add circuit breaker (e.g., Resilience4j) on fallback path and rate limiter (token bucket) capping fallback QPS to verified MySQL safe threshold. Run load test simulating full Redis outage at 3000 QPS.",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "Entire order-service read path during Redis failure; cascades to all upstream dependents",
+      "seat_residual_refs": [
+        "seat-m:R2-fallback-cascade",
+        "seat-d:res-02-cascading-failure"
+      ]
+    },
+    {
+      "id": "MAGI-012",
+      "severity": "HIGH",
+      "type": "protocol-gap",
+      "source": "seat-d+seat-m",
+      "convergence": "pair",
+      "finding": "Operational observability gap: without hit-rate, penetration-rate, fallback-trigger-count, and backfill-latency metrics, the team cannot detect cache-penetration attacks, fallback cascade triggers, or consistency degradation. Launch period is precisely when these metrics are most needed.",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "Deploy Redis INFO keyspace_hits/misses or client-side instrumentation; build Grafana dashboard with penetration-rate anomaly alert and fallback-trigger alert. Must be operational before any production traffic.",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "Entire cache-layer operational visibility; inability to detect all other residual risks",
+      "seat_residual_refs": [
+        "seat-m:R4-observability-blindspot",
+        "seat-d:R2-no-observability"
+      ]
+    },
+    {
+      "id": "MAGI-013",
+      "severity": "MEDIUM",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-m",
+      "convergence": "pair",
+      "finding": "Cache-stampede risk: all hot keys preloaded at 09:00 share identical TTL, causing simultaneous expiry ~09:10. Mass concurrent backfill to MySQL may create a traffic spike. Singleflight/mutex on backfill and TTL jitter are standard mitigations.",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "Add TTL jitter (e.g., 600 ± 60 s); implement singleflight or mutex-lock on cache-miss backfill; convert preheat to batched/async loading; assess MySQL load during preheat.",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "All order-cache keys TTL configuration and service-startup preheat flow",
+      "seat_residual_refs": [
+        "seat-m:R5-ttl-stampede",
+        "seat-d:res-05-thundering-herd"
+      ]
+    },
+    {
+      "id": "MAGI-014",
+      "severity": "HIGH",
+      "type": "protocol-gap",
+      "source": "seat-g+seat-m",
+      "convergence": "pair",
+      "finding": "缓存层缺少命中率、穿透率、回写延迟等核心可观测性指标，无法在问题演变为故障前发现异常模式(如穿透率突增、命中率骤降)。上述缓存穿透和级联故障等风险恰恰需要这些指标来早期预警。'上线后再看'意味着在最需要监控的上线初期和流量爬坡期反而处于盲运维状态。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "上线前必须部署Redis命中率、穿透率、回写延迟、fallback触发次数等指标的采集和告警，至少覆盖Grafana dashboard加穿透率异常告警。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "运维团队对缓存层健康状态的感知能力，缺失指标将使上述所有风险的实际发生无法被及时发现和响应",
+      "seat_residual_refs": [
+        "seat-m:no-observability",
+        "seat-g:R2-no-observability"
+      ]
+    },
+    {
+      "id": "MAGI-015",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-g+seat-m",
+      "convergence": "pair",
+      "finding": "缓存层缺少命中率、穿透率、回写延迟、fallback触发次数等核心可观测性指标。上述缓存穿透和级联故障等风险恰恰需要这些指标来早期预警。'上线后再看'意味着在最需要监控的上线初期和流量爬坡期反而处于盲运维状态。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "上线前必须部署Redis命中率、穿透率、回写延迟指标采集与告警,至少覆盖Grafana dashboard和穿透率异常告警。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "运维团队对缓存层健康状态的感知能力,缺失指标将使所有风险的实际发生无法被及时发现",
+      "seat_residual_refs": [
+        "seat-m:no-observability-blindspot",
+        "seat-g:R2-no-monitoring"
+      ]
+    },
+    {
+      "id": "MAGI-016",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-g+seat-m",
+      "convergence": "pair",
+      "finding": "缓存层缺少命中率、穿透率、回写延迟等核心可观测性指标, 无法在问题演变为故障前发现异常模式(如穿透率突增、命中率骤降)。上述缓存穿透和级联故障等风险, 恰恰需要这些指标来早期预警。'上线后再看'意味着在最需要监控的上线初期和流量爬坡期反而处于盲运维状态。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "上线前必须部署 Redis 命中率、穿透率、回写延迟、fallback 触发次数等指标的采集和告警, 至少覆盖 Grafana dashboard + 穿透率异常告警。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "影响面: 运维团队对缓存层健康状态的感知能力。缺失指标将使上述所有风险的实际发生无法被及时发现和响应。",
+      "seat_residual_refs": [
+        "seat-m:no-observability-metrics",
+        "seat-g:R_no_observability"
+      ]
+    },
+    {
+      "id": "MAGI-017",
+      "severity": "P0",
+      "type": "engineering-defect",
+      "source": "seat-d+seat-g",
+      "convergence": "pair",
+      "finding": "设计对不存在的订单ID不做空值缓存或布隆过滤器，恶意扫描可将3000 QPS全部穿透至MySQL压垮数据库。五位参与者两轮均一致识别为P0级缺陷。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "实现空值缓存（TTL 30-60s）或布隆过滤器前置拦截；上线前验证穿透率指标降至可接受水平。",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "所有对外暴露的订单查询接口（设计要点3）",
+      "seat_residual_refs": [
+        "seat-d:res-02-cache-penetration",
+        "seat-g:R_cache_penetration"
+      ]
+    },
+    {
+      "id": "MAGI-018",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-m",
+      "convergence": "unique",
+      "finding": "写路径存在明确的一致性竞态窗口:在MySQL UPDATE完成后、Redis DELETE完成前,并发读请求仍会从Redis读到旧值;若DELETE失败(网络抖动),旧值将残留直到TTL过期(最长600秒)。在3000QPS的并发密度下,该窗口命中概率不可忽略。应增加延迟双删或基于binlog的异步失效机制。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "human_review",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "所有涉及订单状态变更的写操作路径",
+      "seat_residual_refs": [
+        "seat-m:R1-consistency-race"
+      ]
+    },
+    {
+      "id": "MAGI-019",
+      "severity": "P0",
+      "type": "engineering-defect",
+      "source": "seat-m",
+      "convergence": "unique",
+      "finding": "Redis故障时全量3000QPS无保护地直连MySQL。MySQL单实例典型承载能力远低于3000QPS(通常500-1000QPS),全量涌入将导致连接池耗尽、慢查询堆积,最终MySQL也不可用——'保持可用性'的初衷适得其反。五位评审者一致认定此为级联故障风险。应增设:限流器(令牌桶控制透传QPS)、熔断器(Hystrix/Resilience4j快速失败)、降级策略(返回缓存旧值或排队)。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "human_review",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "Redis故障场景下整个订单服务及所有上游依赖的可用性",
+      "seat_residual_refs": [
+        "seat-m:fallback-no-circuit-breaker"
+      ]
+    },
+    {
+      "id": "MAGI-020",
+      "severity": "P0",
+      "type": "engineering-defect",
+      "source": "seat-m",
+      "convergence": "unique",
+      "finding": "Redis 故障时全量流量(峰值 3000 QPS)直接 fallback 到 MySQL 且无限流或熔断保护。MySQL 通常不为承载全量缓存层流量而容量规划, 此设计在 Redis 故障时将缓存层的优势完全归零, MySQL 极大概率过载导致级联故障, 使得'保持可用性'的设计初衷适得其反。应增设: (a) 熔断器在 MySQL 延迟升高时快速失败; (b) 限流以控制 fallback 流量不超过 MySQL 安全阈值; (c) 降级策略(如返回缓存旧值或排队)。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "human_review",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "影响面: Redis 故障场景下整个订单服务的可用性。若 MySQL 过载, 所有依赖订单服务的上游系统均受影响。",
+      "seat_residual_refs": [
+        "seat-m:no-circuit-breaker-fallback"
+      ]
+    },
+    {
+      "id": "MAGI-021",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-d",
+      "convergence": "unique",
+      "finding": "The design explicitly defers hit-rate, penetration-rate, and cache-miss metrics to 'post-launch.' Without observability, the team cannot detect cache penetration attacks, measure TTL effectiveness, or quantify fallback frequency. This makes all other defects harder to diagnose and harder to prove have been fixed.",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "human_review",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "Cache-layer observability; applies to the entire read path.",
+      "seat_residual_refs": [
+        "seat-d:no-observability-metrics"
+      ]
+    },
+    {
+      "id": "MAGI-022",
+      "severity": "HIGH",
+      "type": "protocol-gap",
+      "source": "seat-d",
+      "convergence": "unique",
+      "finding": "No hit-rate, miss-rate, penetration-rate, fallback-trigger-count, or latency P99 metrics before launch. All other defects are invisible without observability. Prerequisite for validating every other fix.",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "human_review",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "Entire cache layer observability; prerequisite for operating and validating all other fixes.",
+      "seat_residual_refs": [
+        "seat-d:res-04-observability"
+      ]
+    },
+    {
+      "id": "MAGI-023",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-g",
+      "convergence": "unique",
+      "finding": "所有缓存key统一TTL=600秒且服务每日固定时间重启预热，预热后所有key将在~09:10集中过期，形成周期性缓存雪崩压力尖峰。重启预热期间未完成预热的请求也直击MySQL。此缺陷被参与者C和E独立识别，参与者A和D未提及。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "human_review",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "所有缓存key的TTL策略及服务启动流程",
+      "seat_residual_refs": [
+        "seat-g:R1-uniform-ttl-stampede"
+      ]
+    },
+    {
+      "id": "MAGI-024",
+      "severity": "HIGH",
+      "type": "engineering-defect",
+      "source": "seat-g",
+      "convergence": "unique",
+      "finding": "固定时间重启 + 统一 TTL 意味着所有热点 key 在同一时刻失效（缓存雪崩）。若重启预热不完整或预热期间有请求漏过，3000 QPS 的 miss 浪潮将直接冲击 MySQL。此外，统一 600s TTL 使 key 批量过期形成周期性压力尖峰。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "human_review",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "所有缓存 key 的 TTL 策略及服务启动流程",
+      "seat_residual_refs": [
+        "seat-g:R2-cache-stampede-restart"
+      ]
+    },
+    {
+      "id": "MAGI-025",
+      "severity": "MEDIUM",
+      "type": "engineering-defect",
+      "source": "seat-g",
+      "convergence": "unique",
+      "finding": "统一TTL=600秒+每日09:00重启预热导致所有预热key在~09:10集中过期，形成thundering herd压力尖峰。两位参与者列为HIGH，三位未提及或列MEDIUM。严重程度取决于预热实现方式（同步全量→HIGH，异步分批→MEDIUM）。建议作为防御性措施修复。",
+      "affected_paths": [],
+      "error_signature": null,
+      "evidence": [],
+      "disposition": "unresolved",
+      "required_closure": "human_review",
+      "closure_state": "open",
+      "closure_evidence": [],
+      "scope": "所有缓存key的TTL策略及每日重启预热流程（设计要点2）",
+      "seat_residual_refs": [
+        "seat-g:R_uniform_ttl_stampede"
+      ]
+    }
+  ],
+  "trial_manifest": {
+    "manifest_version": "1.0",
+    "base_model_relation": "per seat policies (see poc/route-audit.md)",
+    "perspective_count": 3,
+    "perspectives": [
+      {
+        "id": "seat-m",
+        "role": "independent inquiry perspective (containerized QUINTE seat)",
+        "route": "quinte+seat-policy",
+        "artifact": "poc/vol/state/seat-m/runs/019fb6a1-3562-73d3-90e3-34c9fbb709d4/result.json",
+        "prompt_hash": null,
+        "independent_first_pass": true
+      },
+      {
+        "id": "seat-d",
+        "role": "independent inquiry perspective (containerized QUINTE seat)",
+        "route": "quinte+seat-policy",
+        "artifact": "poc/vol/state/seat-d/runs/019fb6f3-e732-7533-9354-74b735187be9/result.json",
+        "prompt_hash": null,
+        "independent_first_pass": true
+      },
+      {
+        "id": "seat-g",
+        "role": "independent inquiry perspective (containerized QUINTE seat)",
+        "route": "quinte+seat-policy",
+        "artifact": "poc/vol/state/seat-g/runs/019fb6e1-dd9b-7762-a638-0a2966c1ae4f/result.json",
+        "prompt_hash": null,
+        "independent_first_pass": true
+      }
+    ],
+    "perturbation_axes": [
+      "seat_container",
+      "lane_harness_roster",
+      "r2_anonymized_review"
+    ],
+    "independence_controls": [
+      "container_isolation",
+      "per_seat_quinte_home",
+      "separate_output_artifacts",
+      "no_shared_context_between_seats"
+    ],
+    "contamination_risks": [
+      "same_family_all_seats (P0: 三席均为 MiMo 族, 只测机制与 ρ̂_w 基线)",
+      "pa_single_responder (R3 Primary Arbiter 均由 kimi 回答)",
+      "cc_same_family_as_lanes (Counterpart Arbiter 为 MiMo 后端)",
+      "shared_evidence_snapshot (三席读同一标定 brief)"
+    ],
+    "cost": {
+      "total_tokens": null,
+      "wall_time_seconds": null,
+      "tool_calls": null,
+      "human_minutes": null
+    }
+  },
+  "action_boundary": "reversible",
+  "highball_decision": "not_applicable"
+}

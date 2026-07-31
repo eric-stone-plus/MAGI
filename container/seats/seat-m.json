@@ -1,0 +1,12 @@
+{
+  "model_family": "mimo",
+  "multimodal_model": "mimo-v2.5",
+  "profile_id": "formalist",
+  "provider": "xiaomi",
+  "provider_base_url": "https://api.xiaomimimo.com/v1",
+  "provider_base_url_env": "XIAOMI_BASE_URL",
+  "provider_key_env": "XIAOMI_API_KEY",
+  "seat_config_version": "1.0",
+  "seat_id": "seat-m",
+  "text_model": "mimo-v2.5-pro"
+}

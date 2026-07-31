@@ -1,0 +1,35 @@
+{
+  "policy_version": "2.0",
+  "seat": {
+    "seat_id": "seat-m",
+    "family": "mimo",
+    "provider": "xiaomi",
+    "text_model": "mimo-v2.5-pro",
+    "multimodal_model": "mimo-v2.5"
+  },
+  "roster": [
+    {"party_id":"Party A","route_id":"mimo-formal","adapter":"mimo","executable":"mimo","required":true,"family":"mimo","provider":"xiaomi","text_model":"mimo-v2.5-pro","multimodal_model":"mimo-v2.5","perspective":"Formal specification, invariants, and boundary-condition audit."},
+    {"party_id":"Party B","route_id":"mimo-failure","adapter":"mimo","executable":"mimo","required":true,"family":"mimo","provider":"xiaomi","text_model":"mimo-v2.5-pro","multimodal_model":"mimo-v2.5","perspective":"Failure-mode, counterexample, and adversarial assumption search."},
+    {"party_id":"Party C","route_id":"mimo-evidence","adapter":"mimo","executable":"mimo","required":true,"family":"mimo","provider":"xiaomi","text_model":"mimo-v2.5-pro","multimodal_model":"mimo-v2.5","perspective":"Evidence provenance, uncertainty, and claim-support audit."},
+    {"party_id":"Party D","route_id":"mimo-operations","adapter":"mimo","executable":"mimo","required":true,"family":"mimo","provider":"xiaomi","text_model":"mimo-v2.5-pro","multimodal_model":"mimo-v2.5","perspective":"Operational implementation, observability, recovery, and rollback audit."},
+    {"party_id":"Party E","route_id":"mimo-synthesis","adapter":"mimo","executable":"mimo","required":true,"family":"mimo","provider":"xiaomi","text_model":"mimo-v2.5-pro","multimodal_model":"mimo-v2.5","perspective":"Independent synthesis emphasizing omissions and decision boundaries."}
+  ],
+  "counterpart_arbiter": {"party_id":"Counterpart Arbiter","route_id":"mimo-counterpart","adapter":"mimo","executable":"mimo","required":true,"family":"mimo","provider":"xiaomi","text_model":"mimo-v2.5-pro","multimodal_model":"mimo-v2.5","perspective":"Steel-man the strongest lane case, then identify unresolved contradictions."},
+  "primary_arbiter": {"party_id":"Primary Arbiter","route_id":"mimo-primary","adapter":"mimo","executable":"mimo","required":true,"family":"mimo","provider":"xiaomi","text_model":"mimo-v2.5-pro","multimodal_model":"mimo-v2.5","perspective":"Issue the final same-family verdict while preserving evidence and dissent."},
+  "auto_primary_arbiter": true,
+  "text_model": "mimo-v2.5-pro",
+  "multimodal_model": "mimo-v2.5",
+  "max_parallel_r1": 5,
+  "max_parallel_r2": 1,
+  "r2_parallel": false,
+  "max_attempts": 3,
+  "timeout_seconds": 300,
+  "retry_backoff_seconds": 15,
+  "retry_backoff_max_seconds": 120,
+  "r2_min_interval_seconds": 10,
+  "max_output_bytes": 1048576,
+  "max_snapshot_files": 2000,
+  "max_snapshot_bytes": 20971520,
+  "max_attachment_bytes": 10485760,
+  "sandbox_mode": "process"
+}

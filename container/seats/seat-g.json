@@ -1,0 +1,12 @@
+{
+  "model_family": "openai",
+  "multimodal_model": "gpt-5.6-sol",
+  "profile_id": "empirical",
+  "provider": "openai-api",
+  "provider_base_url": "https://apinebula.com/v1",
+  "provider_base_url_env": "OPENAI_BASE_URL",
+  "provider_key_env": "OPENAI_API_KEY",
+  "seat_config_version": "1.0",
+  "seat_id": "seat-g",
+  "text_model": "gpt-5.6-sol"
+}

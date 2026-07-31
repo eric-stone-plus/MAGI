@@ -1,0 +1,355 @@
+{
+  "fixture_version": "1.0",
+  "case_id": "king-loong-synthetic-ablation-v1",
+  "evidence_catalog": [
+    {
+      "evidence_ref": "snapshot://documents/ccic-final-report.pdf",
+      "supports_claim_ids": ["C-QUANTITIES", "C-RESERVATION", "C-NOT-LOSS"]
+    },
+    {
+      "evidence_ref": "snapshot://documents/vessel-calculation.pdf",
+      "supports_claim_ids": ["C-QUANTITIES", "C-NOT-LOSS"]
+    },
+    {
+      "evidence_ref": "snapshot://documents/letter-of-protest.pdf",
+      "supports_claim_ids": ["C-RESERVATION", "C-RAW-GAP"]
+    },
+    {
+      "evidence_ref": "snapshot://documents/charter-clause-18.pdf",
+      "supports_claim_ids": ["C-THRESHOLD"]
+    },
+    {
+      "evidence_ref": "snapshot://receipts/media-coverage.json",
+      "supports_claim_ids": ["C-MEDIA-LIMIT", "C-RAW-GAP"]
+    },
+    {
+      "evidence_ref": "snapshot://documents/chat-records.pdf",
+      "supports_claim_ids": ["C-NO-WITNESS"]
+    }
+  ],
+  "oracle_claims": [
+    {
+      "claim_id": "C-QUANTITIES",
+      "equivalence_key": "three-bound-quantities",
+      "statement": "The bill-of-lading quantity is 73,251 MT, the signed CCIC result is 73,034 MT, and the vessel calculation is 73,322.28 MT.",
+      "severity": "HIGH",
+      "material": true,
+      "required": true,
+      "acceptable_evidence_refs": [
+        "snapshot://documents/ccic-final-report.pdf",
+        "snapshot://documents/vessel-calculation.pdf"
+      ]
+    },
+    {
+      "claim_id": "C-RESERVATION",
+      "equivalence_key": "master-reserved-signature",
+      "statement": "The Master's signature records receipt without admission and preserves the vessel figure.",
+      "severity": "HIGH",
+      "material": true,
+      "required": true,
+      "acceptable_evidence_refs": [
+        "snapshot://documents/ccic-final-report.pdf",
+        "snapshot://documents/letter-of-protest.pdf"
+      ]
+    },
+    {
+      "claim_id": "C-NOT-LOSS",
+      "equivalence_key": "measurement-dispute-not-proven-loss",
+      "statement": "The 217 MT arithmetic difference is a measurement dispute and does not prove cargo loss.",
+      "severity": "HIGH",
+      "material": true,
+      "required": true,
+      "acceptable_evidence_refs": [
+        "snapshot://documents/ccic-final-report.pdf",
+        "snapshot://documents/vessel-calculation.pdf"
+      ]
+    },
+    {
+      "claim_id": "C-MEDIA-LIMIT",
+      "equivalence_key": "media-cannot-resolve-precision",
+      "statement": "Selected media support only broad observations and cannot resolve centimetre or density precision.",
+      "severity": "HIGH",
+      "material": true,
+      "required": true,
+      "acceptable_evidence_refs": ["snapshot://receipts/media-coverage.json"]
+    },
+    {
+      "claim_id": "C-THRESHOLD",
+      "equivalence_key": "clause-threshold-not-triggered",
+      "statement": "217 / 73,251 is approximately 2.962 per mille and does not exceed the stated 3 per mille threshold.",
+      "severity": "HIGH",
+      "material": true,
+      "required": true,
+      "acceptable_evidence_refs": ["snapshot://documents/charter-clause-18.pdf"]
+    },
+    {
+      "claim_id": "C-RAW-GAP",
+      "equivalence_key": "missing-primary-measurement-chain",
+      "statement": "The primary measurement records and version trail are missing, so neither discharge result is independently established.",
+      "severity": "P0",
+      "material": true,
+      "required": true,
+      "acceptable_evidence_refs": [
+        "snapshot://documents/letter-of-protest.pdf",
+        "snapshot://receipts/media-coverage.json"
+      ]
+    },
+    {
+      "claim_id": "C-NO-WITNESS",
+      "equivalence_key": "company-did-not-witness",
+      "statement": "The company did not have a representative aboard to witness the disputed survey.",
+      "severity": "HIGH",
+      "material": true,
+      "required": true,
+      "acceptable_evidence_refs": ["snapshot://documents/chat-records.pdf"]
+    }
+  ],
+  "arms": [
+    {
+      "arm_id": "baseline-incomplete",
+      "arm_type": "baseline",
+      "nominal_model_calls": 12,
+      "outputs": [
+        {
+          "artifact_id": "baseline-incomplete",
+          "stage": "single-quinte",
+          "family": "mimo",
+          "review_mode": "independent",
+          "findings": [
+            {
+              "finding_id": "b1",
+              "claim_id": "C-QUANTITIES",
+              "severity": "HIGH",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://documents/ccic-final-report.pdf", "snapshot://documents/vessel-calculation.pdf"],
+              "text": "Three signed or asserted quantities conflict."
+            },
+            {
+              "finding_id": "b2",
+              "claim_id": "C-RESERVATION",
+              "severity": "LOW",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://documents/ccic-final-report.pdf"],
+              "text": "The Master reserved the CCIC result."
+            },
+            {
+              "finding_id": "b3",
+              "claim_id": "C-NOT-LOSS",
+              "severity": "HIGH",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://documents/ccic-final-report.pdf", "snapshot://documents/vessel-calculation.pdf"],
+              "text": "The arithmetic difference does not establish loss."
+            },
+            {
+              "finding_id": "b4",
+              "claim_id": "C-MEDIA-LIMIT",
+              "severity": "HIGH",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://receipts/media-coverage.json"],
+              "text": "The sampled media cannot resolve precision."
+            },
+            {
+              "finding_id": "b5",
+              "claim_id": "C-THRESHOLD",
+              "severity": "HIGH",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://documents/charter-clause-18.pdf"],
+              "text": "The stated arithmetic threshold is not exceeded."
+            }
+          ]
+        }
+      ],
+      "reported_differences": []
+    },
+    {
+      "arm_id": "cross-review-novel",
+      "arm_type": "cross_review",
+      "nominal_model_calls": 34,
+      "outputs": [
+        {
+          "artifact_id": "deepseek-cross-review",
+          "stage": "cross-review",
+          "family": "deepseek",
+          "review_mode": "independent",
+          "findings": [
+            {
+              "finding_id": "d1",
+              "claim_id": "C-RAW-GAP",
+              "severity": "P0",
+              "relation": "challenge",
+              "target_ref": "finding://baseline-incomplete/b3",
+              "evidence_refs": ["snapshot://documents/letter-of-protest.pdf", "snapshot://receipts/media-coverage.json"],
+              "text": "The conclusion is bounded by missing raw measurements and version history."
+            },
+            {
+              "finding_id": "d2",
+              "claim_id": "C-NO-WITNESS",
+              "severity": "HIGH",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://documents/chat-records.pdf"],
+              "text": "No company representative witnessed the disputed measurements."
+            }
+          ]
+        }
+      ],
+      "reported_differences": []
+    },
+    {
+      "arm_id": "same-family-profile-echo",
+      "arm_type": "profiles",
+      "nominal_model_calls": 36,
+      "outputs": [
+        {
+          "artifact_id": "profile-specification",
+          "stage": "profile-view",
+          "family": "mimo",
+          "review_mode": "independent",
+          "findings": [
+            {
+              "finding_id": "p1",
+              "claim_id": "C-QUANTITIES",
+              "severity": "HIGH",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://documents/ccic-final-report.pdf", "snapshot://documents/vessel-calculation.pdf"],
+              "text": "Three recorded quantities require separate provenance."
+            }
+          ]
+        },
+        {
+          "artifact_id": "profile-failure-analysis",
+          "stage": "profile-view",
+          "family": "mimo",
+          "review_mode": "independent",
+          "findings": [
+            {
+              "finding_id": "p2",
+              "claim_id": "C-QUANTITIES",
+              "severity": "HIGH",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://documents/ccic-final-report.pdf", "snapshot://documents/vessel-calculation.pdf"],
+              "text": "73251, 73034, and 73322.28 are conflicting reported values."
+            }
+          ]
+        },
+        {
+          "artifact_id": "profile-evidence-validation",
+          "stage": "profile-view",
+          "family": "mimo",
+          "review_mode": "independent",
+          "findings": [
+            {
+              "finding_id": "p3",
+              "claim_id": "C-QUANTITIES",
+              "severity": "HIGH",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://documents/ccic-final-report.pdf", "snapshot://documents/vessel-calculation.pdf"],
+              "text": "三套数量来自不同文件和计算口径。"
+            }
+          ]
+        }
+      ],
+      "reported_differences": [
+        {
+          "left_ref": "finding://profile-failure-analysis/p2",
+          "right_ref": "finding://profile-evidence-validation/p3"
+        }
+      ]
+    },
+    {
+      "arm_id": "author-consistency-only",
+      "arm_type": "author_consistency",
+      "nominal_model_calls": 1,
+      "outputs": [
+        {
+          "artifact_id": "codex-author-consistency",
+          "stage": "reference-report-check",
+          "family": "openai",
+          "review_mode": "author_consistency",
+          "findings": [
+            {
+              "finding_id": "a1",
+              "claim_id": "C-RAW-GAP",
+              "severity": "P0",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://receipts/media-coverage.json"],
+              "text": "The delivered report remains consistent with its stated evidence limits."
+            }
+          ]
+        }
+      ],
+      "reported_differences": []
+    },
+    {
+      "arm_id": "unsupported-citation",
+      "arm_type": "stress",
+      "nominal_model_calls": 0,
+      "outputs": [
+        {
+          "artifact_id": "unsupported-citation",
+          "stage": "fault-injection",
+          "family": "synthetic",
+          "review_mode": "independent",
+          "findings": [
+            {
+              "finding_id": "u1",
+              "claim_id": "C-QUANTITIES",
+              "severity": "HIGH",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://invented/calculation.xlsx"],
+              "text": "An invented source is cited for the quantities."
+            }
+          ]
+        }
+      ],
+      "reported_differences": []
+    },
+    {
+      "arm_id": "severity-drift",
+      "arm_type": "stress",
+      "nominal_model_calls": 0,
+      "outputs": [
+        {
+          "artifact_id": "severity-drift",
+          "stage": "fault-injection",
+          "family": "synthetic",
+          "review_mode": "independent",
+          "findings": [
+            {
+              "finding_id": "s1",
+              "claim_id": "C-RAW-GAP",
+              "severity": "LOW",
+              "relation": "assertion",
+              "target_ref": null,
+              "evidence_refs": ["snapshot://documents/letter-of-protest.pdf"],
+              "text": "A P0 evidence gap is incorrectly downgraded."
+            }
+          ]
+        }
+      ],
+      "reported_differences": []
+    }
+  ],
+  "experiment_order": ["baseline-incomplete", "cross-review-novel", "author-consistency-only"],
+  "stop_policy": {
+    "baseline_min_material_recall": 0.95,
+    "baseline_min_high_risk_recall": 1.0,
+    "baseline_min_precision": 1.0,
+    "max_unsupported_findings": 0,
+    "max_severity_drifts": 0,
+    "profile_max_false_difference_ratio": 0.5,
+    "stop_profiles_without_material_novelty": true,
+    "stop_cross_review_without_material_novelty": true,
+    "stop_when_all_required_claims_supported": true
+  }
+}

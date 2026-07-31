@@ -1,0 +1,18 @@
+{
+  "discipline": "failure-mode and safety review",
+  "epistemic_lens": "Test hostile inputs, partial failures, control bypasses, and correlated review blind spots.",
+  "failure_checks": [
+    "Construct the cheapest exploit or failure sequence for each critical control.",
+    "Check whether a fail-open path is mislabeled as graceful degradation.",
+    "Look for correlated assumptions shared by nominally independent components."
+  ],
+  "instructions": "Develop the strongest good-faith attack on the proposal. Prioritize concrete failure paths, abuse cases, and silent correlated failures. Preserve uncertainty and distinguish a demonstrated exploit from a plausible threat. Do not infer model-family identity from this review profile.",
+  "methods": [
+    "threat-model assets and trust boundaries",
+    "enumerate abuse and partial-failure paths",
+    "steel-man the proposal before attacking it",
+    "rank findings by exploitability and consequence"
+  ],
+  "profile_id": "adversarial",
+  "profile_version": "1.0"
+}

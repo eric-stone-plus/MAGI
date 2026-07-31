@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eric-stone-plus/MAGI/schemas/evidence-manifest.schema.json",
+  "title": "MAGI staged evidence manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_manifest_version",
+    "original_brief_ref",
+    "original_brief_sha256",
+    "source_root",
+    "staged_root_ref",
+    "source_files",
+    "derived_frames",
+    "evidence_set_sha256",
+    "limitations"
+  ],
+  "properties": {
+    "evidence_manifest_version": {"const": "1.0"},
+    "original_brief_ref": {"type": "string", "minLength": 1},
+    "original_brief_sha256": {"$ref": "#/$defs/digest"},
+    "source_root": {"type": "string", "minLength": 1},
+    "staged_root_ref": {"const": "trial-private/evidence"},
+    "source_files": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/source"}
+    },
+    "derived_frames": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/frame"}
+    },
+    "evidence_set_sha256": {"$ref": "#/$defs/digest"},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "exposureModes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["snapshot", "multimodal_attachment"]}
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "source_path", "source_relative_path", "staged_ref", "evidence_ref",
+        "sha256", "size_bytes", "media_type", "media_class", "exposure_modes"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^source-[0-9]{4}$"},
+        "source_path": {"type": "string", "minLength": 1},
+        "source_relative_path": {"type": "string", "minLength": 1},
+        "staged_ref": {"type": "string", "pattern": "^snapshot/source/"},
+        "evidence_ref": {"type": "string", "pattern": "^snapshot://source/"},
+        "sha256": {"$ref": "#/$defs/digest"},
+        "size_bytes": {"type": "integer", "minimum": 0},
+        "media_type": {"type": "string", "minLength": 1},
+        "media_class": {"enum": ["document", "image", "video", "audio", "binary"]},
+        "exposure_modes": {"$ref": "#/$defs/exposureModes"}
+      }
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "source_id", "source_evidence_ref", "timestamp_ms", "staged_ref",
+        "evidence_ref", "sha256", "size_bytes", "media_type", "media_class",
+        "exposure_modes", "derivation_tool", "derivation_command",
+        "derivation_command_sha256"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^source-[0-9]{4}-frame-[0-9]{4}$"},
+        "source_id": {"type": "string", "pattern": "^source-[0-9]{4}$"},
+        "source_evidence_ref": {"type": "string", "pattern": "^snapshot://source/"},
+        "timestamp_ms": {"type": "integer", "minimum": 0},
+        "staged_ref": {"type": "string", "pattern": "^snapshot/derived/"},
+        "evidence_ref": {"type": "string", "pattern": "^snapshot://derived/"},
+        "sha256": {"$ref": "#/$defs/digest"},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "media_type": {"const": "image/png"},
+        "media_class": {"const": "image"},
+        "exposure_modes": {"$ref": "#/$defs/exposureModes"},
+        "derivation_tool": {"const": "ffmpeg"},
+        "derivation_command": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+        "derivation_command_sha256": {"$ref": "#/$defs/digest"}
+      }
+    }
+  }
+}

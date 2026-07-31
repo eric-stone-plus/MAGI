@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eric-stone-plus/MAGI/schemas/evidence-coverage-receipt.schema.json",
+  "title": "MAGI evidence citation-coverage receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "coverage_receipt_version", "coverage_status", "coverage_scope",
+    "original_brief_sha256", "evidence_manifest_ref", "evidence_manifest_sha256",
+    "artifacts", "exposed_evidence", "cited_evidence", "exposed_but_uncited",
+    "unknown_citations", "unreviewed_media", "declared_limitations", "limitations",
+    "receipt_binding_sha256"
+  ],
+  "properties": {
+    "coverage_receipt_version": {"const": "1.0"},
+    "coverage_status": {"enum": ["bounded", "limited"]},
+    "coverage_scope": {"type": "string", "minLength": 1},
+    "original_brief_sha256": {"$ref": "#/$defs/digest"},
+    "evidence_manifest_ref": {"const": "trial-private/evidence/evidence-manifest.json"},
+    "evidence_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "artifacts": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/artifact"}},
+    "exposed_evidence": {"type": "array", "items": {"$ref": "#/$defs/exposure"}},
+    "cited_evidence": {"type": "array", "items": {"$ref": "#/$defs/citation"}},
+    "exposed_but_uncited": {"type": "array", "items": {"$ref": "#/$defs/exposure"}},
+    "unknown_citations": {"type": "array", "items": {"$ref": "#/$defs/unknown"}},
+    "unreviewed_media": {"type": "array", "items": {"$ref": "#/$defs/unreviewed"}},
+    "declared_limitations": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "limitations": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+    "receipt_binding_sha256": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "refArray": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact_ref", "sha256", "evidence_refs"],
+      "properties": {
+        "artifact_ref": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/digest"},
+        "evidence_refs": {"$ref": "#/$defs/refArray"}
+      }
+    },
+    "exposure": {
+      "type": "object", "additionalProperties": false,
+      "required": ["evidence_ref", "staged_ref", "sha256", "size_bytes", "media_type", "media_class", "exposure_modes"],
+      "properties": {
+        "evidence_ref": {"type": "string", "pattern": "^snapshot://"},
+        "staged_ref": {"type": "string", "pattern": "^snapshot/"},
+        "sha256": {"$ref": "#/$defs/digest"},
+        "size_bytes": {"type": "integer", "minimum": 0},
+        "media_type": {"type": "string", "minLength": 1},
+        "media_class": {"enum": ["document", "image", "video", "audio", "binary"]},
+        "exposure_modes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["snapshot", "multimodal_attachment"]}}
+      }
+    },
+    "citation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["evidence_ref", "staged_ref", "sha256", "size_bytes", "media_type", "media_class", "exposure_modes", "artifact_refs"],
+      "properties": {
+        "evidence_ref": {"type": "string", "pattern": "^snapshot://"},
+        "staged_ref": {"type": "string", "pattern": "^snapshot/"},
+        "sha256": {"$ref": "#/$defs/digest"},
+        "size_bytes": {"type": "integer", "minimum": 0},
+        "media_type": {"type": "string", "minLength": 1},
+        "media_class": {"enum": ["document", "image", "video", "audio", "binary"]},
+        "exposure_modes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["snapshot", "multimodal_attachment"]}},
+        "artifact_refs": {"$ref": "#/$defs/refArray"}
+      }
+    },
+    "unknown": {
+      "type": "object", "additionalProperties": false,
+      "required": ["evidence_ref", "artifact_refs"],
+      "properties": {
+        "evidence_ref": {"type": "string", "minLength": 1},
+        "artifact_refs": {"$ref": "#/$defs/refArray"}
+      }
+    },
+    "unreviewed": {
+      "type": "object", "additionalProperties": false,
+      "required": ["evidence_ref", "media_class", "reason", "derived_frame_refs"],
+      "properties": {
+        "evidence_ref": {"type": "string", "pattern": "^snapshot://"},
+        "media_class": {"enum": ["video", "audio"]},
+        "reason": {"type": "string", "minLength": 1},
+        "derived_frame_refs": {"$ref": "#/$defs/refArray"}
+      }
+    }
+  }
+}

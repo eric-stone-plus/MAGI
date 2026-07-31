@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eric-stone-plus/MAGI/contracts/product-summary/1.0/schema.json",
+  "title": "MAGI Verified Product Summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "product_version", "product_sha256", "trial_id", "status", "runtime_sha256",
+    "agent_config_sha256", "builder_config_sha256", "assignment_plan_ref",
+    "assignment_plan_sha256", "evidence_manifest_ref", "evidence_manifest_sha256",
+    "evidence_coverage_ref", "evidence_coverage_sha256", "original_brief_sha256",
+    "action_binding_sha256", "question", "action_scope", "affected_paths",
+    "final_decision", "final_dissent", "final_verdict_ref", "final_verdict_sha256",
+    "residual_trace_ref", "residual_trace_sha256", "residual_reduction_ref",
+    "residual_reduction_sha256", "seats", "cross_reviews",
+    "final_adjudicator"
+  ],
+  "properties": {
+    "product_version": {"const": "1.0"},
+    "product_sha256": {"$ref": "#/$defs/digest"},
+    "trial_id": {"type": "string", "minLength": 1},
+    "status": {"const": "completed"},
+    "runtime_sha256": {"$ref": "#/$defs/digest"},
+    "agent_config_sha256": {"$ref": "#/$defs/digest"},
+    "builder_config_sha256": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+    "assignment_plan_ref": {"type": "string", "minLength": 1},
+    "assignment_plan_sha256": {"$ref": "#/$defs/digest"},
+    "evidence_manifest_ref": {"type": "string", "minLength": 1},
+    "evidence_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "evidence_coverage_ref": {"type": "string", "minLength": 1},
+    "evidence_coverage_sha256": {"$ref": "#/$defs/digest"},
+    "original_brief_sha256": {"$ref": "#/$defs/digest"},
+    "action_binding_sha256": {"$ref": "#/$defs/digest"},
+    "question": {"type": "string", "minLength": 1},
+    "action_scope": {"type": ["string", "null"]},
+    "affected_paths": {"type": "array", "items": {"type": "string"}},
+    "final_decision": {"enum": ["PASS", "BLOCK", "ESCALATE"]},
+    "final_dissent": {"type": "array", "items": {"type": "string"}},
+    "final_verdict_ref": {"type": "string", "minLength": 1},
+    "final_verdict_sha256": {"$ref": "#/$defs/digest"},
+    "residual_trace_ref": {"type": "string", "minLength": 1},
+    "residual_trace_sha256": {"$ref": "#/$defs/digest"},
+    "residual_reduction_ref": {"type": "string", "minLength": 1},
+    "residual_reduction_sha256": {"$ref": "#/$defs/digest"},
+    "seats": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"$ref": "#/$defs/seat"}
+    },
+    "cross_reviews": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {"$ref": "#/$defs/review"}
+    },
+    "final_adjudicator": {
+      "$ref": "#/$defs/final_adjudicator"
+    }
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "seat": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seat_id", "family", "provider", "text_model", "multimodal_model",
+        "profile_sha256", "thesis_sha256", "dossier_ref", "dossier_sha256",
+        "quinte_run_id", "quinte_manifest_sha256", "quinte_result_sha256",
+        "assigned_evidence_refs", "evidence_mapping_ref", "evidence_mapping_sha256"
+      ],
+      "properties": {
+        "seat_id": {"type": "string", "minLength": 1},
+        "family": {"type": "string", "minLength": 1},
+        "provider": {"type": "string", "minLength": 1},
+        "text_model": {"type": "string", "minLength": 1},
+        "multimodal_model": {"type": "string", "minLength": 1},
+        "profile_sha256": {"$ref": "#/$defs/digest"},
+        "thesis_sha256": {"$ref": "#/$defs/digest"},
+        "dossier_ref": {"type": "string", "minLength": 1},
+        "dossier_sha256": {"$ref": "#/$defs/digest"},
+        "assigned_evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "evidence_mapping_ref": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+        "evidence_mapping_sha256": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "quinte_run_id": {"type": "string", "minLength": 1},
+        "quinte_manifest_sha256": {"$ref": "#/$defs/digest"},
+        "quinte_result_sha256": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_ref", "sha256", "reviewer_seat_id", "reviewer_family",
+        "reviewer_provider", "reviewer_text_model", "reviewer_multimodal_model",
+        "reviewer_profile_id", "reviewer_profile_sha256",
+        "reviewer_profile_source_sha256", "reviewer_agent_config_sha256",
+        "methodology_trace_sha256", "reviewer_execution_receipt_ref",
+        "reviewer_execution_receipt_sha256"
+      ],
+      "properties": {
+        "artifact_ref": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/digest"},
+        "reviewer_seat_id": {"type": "string", "minLength": 1},
+        "reviewer_family": {"type": "string", "minLength": 1},
+        "reviewer_provider": {"type": "string", "minLength": 1},
+        "reviewer_text_model": {"type": "string", "minLength": 1},
+        "reviewer_multimodal_model": {"type": "string", "minLength": 1},
+        "reviewer_profile_id": {"type": "string", "minLength": 1},
+        "reviewer_profile_sha256": {"$ref": "#/$defs/digest"},
+        "reviewer_profile_source_sha256": {"$ref": "#/$defs/digest"},
+        "reviewer_agent_config_sha256": {"$ref": "#/$defs/digest"},
+        "methodology_trace_sha256": {"$ref": "#/$defs/digest"},
+        "reviewer_execution_receipt_ref": {"type": "string", "minLength": 1},
+        "reviewer_execution_receipt_sha256": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "final_adjudicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family", "provider", "text_model", "multimodal_model",
+        "agent_config_sha256", "execution_mode", "execution_receipt_ref",
+        "execution_receipt_sha256"
+      ],
+      "properties": {
+        "family": {"type": "string", "minLength": 1},
+        "provider": {"type": "string", "minLength": 1},
+        "text_model": {"type": "string", "minLength": 1},
+        "multimodal_model": {"type": "string", "minLength": 1},
+        "agent_config_sha256": {"$ref": "#/$defs/digest"},
+        "execution_mode": {"type": "string", "minLength": 1},
+        "execution_receipt_ref": {"type": "string", "minLength": 1},
+        "execution_receipt_sha256": {"$ref": "#/$defs/digest"}
+      }
+    }
+  }
+}

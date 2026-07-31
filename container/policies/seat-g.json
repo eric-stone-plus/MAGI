@@ -1,0 +1,35 @@
+{
+  "policy_version": "2.0",
+  "seat": {
+    "seat_id": "seat-g",
+    "family": "openai",
+    "provider": "openai-api",
+    "text_model": "gpt-5.6-sol",
+    "multimodal_model": "gpt-5.6-sol"
+  },
+  "roster": [
+    {"party_id":"Party A","route_id":"openai-formal","adapter":"codex","executable":"codex","required":true,"family":"openai","provider":"openai-api","text_model":"gpt-5.6-sol","multimodal_model":"gpt-5.6-sol","perspective":"Formal specification, invariants, and boundary-condition audit."},
+    {"party_id":"Party B","route_id":"openai-failure","adapter":"codex","executable":"codex","required":true,"family":"openai","provider":"openai-api","text_model":"gpt-5.6-sol","multimodal_model":"gpt-5.6-sol","perspective":"Failure-mode, counterexample, and adversarial assumption search."},
+    {"party_id":"Party C","route_id":"openai-evidence","adapter":"codex","executable":"codex","required":true,"family":"openai","provider":"openai-api","text_model":"gpt-5.6-sol","multimodal_model":"gpt-5.6-sol","perspective":"Evidence provenance, uncertainty, and claim-support audit."},
+    {"party_id":"Party D","route_id":"openai-operations","adapter":"codex","executable":"codex","required":true,"family":"openai","provider":"openai-api","text_model":"gpt-5.6-sol","multimodal_model":"gpt-5.6-sol","perspective":"Operational implementation, observability, recovery, and rollback audit."},
+    {"party_id":"Party E","route_id":"openai-synthesis","adapter":"codex","executable":"codex","required":true,"family":"openai","provider":"openai-api","text_model":"gpt-5.6-sol","multimodal_model":"gpt-5.6-sol","perspective":"Independent synthesis emphasizing omissions and decision boundaries."}
+  ],
+  "counterpart_arbiter": {"party_id":"Counterpart Arbiter","route_id":"openai-counterpart","adapter":"codex","executable":"codex","required":true,"family":"openai","provider":"openai-api","text_model":"gpt-5.6-sol","multimodal_model":"gpt-5.6-sol","perspective":"Steel-man the strongest lane case, then identify unresolved contradictions."},
+  "primary_arbiter": {"party_id":"Primary Arbiter","route_id":"openai-primary","adapter":"codex","executable":"codex","required":true,"family":"openai","provider":"openai-api","text_model":"gpt-5.6-sol","multimodal_model":"gpt-5.6-sol","perspective":"Issue the final same-family verdict while preserving evidence and dissent."},
+  "auto_primary_arbiter": true,
+  "text_model": "gpt-5.6-sol",
+  "multimodal_model": "gpt-5.6-sol",
+  "max_parallel_r1": 5,
+  "max_parallel_r2": 1,
+  "r2_parallel": false,
+  "max_attempts": 3,
+  "timeout_seconds": 300,
+  "retry_backoff_seconds": 15,
+  "retry_backoff_max_seconds": 120,
+  "r2_min_interval_seconds": 10,
+  "max_output_bytes": 1048576,
+  "max_snapshot_files": 2000,
+  "max_snapshot_bytes": 20971520,
+  "max_attachment_bytes": 10485760,
+  "sandbox_mode": "process"
+}

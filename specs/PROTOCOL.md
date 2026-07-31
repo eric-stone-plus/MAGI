@@ -1,164 +1,108 @@
-# MAGI Protocol Specification
+# MAGI Protocol
 
-> Hermes Agent Protocol for triadic independent inquiry.
+## Scope
 
-## 0. Scope
+MAGI is a triadic cross-verification runtime. It creates three independent seat
+products, subjects each to the other two review seats, and produces an
+actionable final adjudication. It is not a majority vote, a generic answer
+aggregator, or a substitute for direct execution evidence.
 
-MAGI is a Hermes Agent Protocol for structured review by three independent
-perspectives. It defines inquiry shape, convergence handling, and dissent
-preservation. It is not a mixture-of-agents answer aggregator: MAGI does not
-blend candidate answers into a smoother final answer. It records what
-independent perspectives converge on, what they cannot support, and what
-dissent remains material. No models, tools, delegates, providers, or fixed role
-assignments are defined here.
+## Invariants
 
-Out of scope:
+1. Exactly three distinct, immutable technical review profiles and exactly
+   three distinct declared model families participate.
+2. Every seat forms its thesis before seeing another seat's output.
+3. Every seat runs a complete QUINTE product with one family across five
+   parties, Counterpart Arbiter, and Primary Arbiter.
+4. Profile diversity and model-family diversity are separately digest-bound.
+5. Dossiers are frozen before exchange and cannot contain symlinks.
+6. Three QUINTE run IDs and result digests are unique.
+7. Review aliases hide seat, family, provider, model, and route identity.
+8. All six directed reviewer-subject pairs complete exactly once.
+9. Final adjudication cites only valid source and evidence references.
+10. Every source `HIGH`, `CRITICAL`, or `P0` finding is represented with the
+    exact highest cited source severity; final closure evidence must be
+    inherited from cited sources, never invented.
+11. `PASS` cannot coexist with open/blocked/unresolved high risk or material
+    dissent. `BLOCK` requires at least one high-risk `open` or evidence-backed
+    `blocked` finding.
+12. Stored state, configuration, artifacts, trace, and product summary remain
+    digest-bound and are revalidated on resume and status.
 
-- concrete tools
-- provider or model choices
-- command lines
-- host authorization policy
-- process supervision
-- implementation-specific fallback behavior
+## Stages
 
-## 1. Triadic Structure
+### Independent formation
 
-MAGI uses three independent perspectives:
+Each isolated Hermes runtime receives the same immutable original brief and one
+immutable profile. It returns Thesis `1.0`; tools and external actions are not
+available during this phase.
 
-- Perspective A produces its own claim set, evidence, and uncertainty.
-- Perspective B produces its own claim set, evidence, and uncertainty.
-- Perspective C produces its own claim set, evidence, and uncertainty.
+### Same-family adversarial review
 
-The perspectives are protocol slots, not fixed identities. A concrete
-implementation may bind them to people, tools, models, procedures, or other
-review mechanisms, but that binding is outside this specification.
+The thesis is incorporated into a derived QUINTE brief without changing the
+original question, action scope, affected paths, or action-binding digest.
+QUINTE produces Result `2.1` and Manifest `2.0`, including explicit seven-role
+seat bindings.
 
-## 2. Independence
+### Freeze
 
-Each perspective should be formed before reading the other perspectives'
-outputs. The framework is invalid when one perspective merely paraphrases
-another or when a coordinator silently simulates all three positions.
+Dossier `1.0` binds the original brief, profile, complete composed Hermes
+reviewer-profile tree, thesis, derived brief, QUINTE manifest, and QUINTE
+result. MAGI validates the source in a temporary tree and
+atomically freezes it. Partial or symlink-containing sources fail closed.
 
-Required evidence shape:
+### Anonymous exchange
 
-- Claim: what the perspective asserts.
-- Evidence: why the claim should be considered.
-- Uncertainty: what could make the claim wrong or incomplete.
-- Boundary: what the perspective did not inspect.
+MAGI creates an immutable alias map after all dossiers are frozen. Each seat
+reviews both other dossiers through the same complete immutable Hermes profile
+that produced its thesis, without receiving subject identity metadata. Cross
+Review `1.1` binds the reviewer profile spec/tree and thesis digests; it must
+record concrete use of at least one declared profile method and one declared
+failure check, while preserving source references, evidence references,
+uncertainty, and dissent. Bare native-model review is invalid.
 
-## 3. Convergence
+### Final adjudication
 
-MAGI treats convergence as a signal of stability, not as proof of truth.
+The Final Adjudicator receives the three anonymous dossiers and six reviews and
+returns Final Verdict `1.0`: `PASS`, `BLOCK`, or `ESCALATE`. This is a synthesis
+of the three independently profiled theses, three complete single-family
+QUINTE dossiers, and six reviews—not a vote tally or residual concatenation.
+The verdict's top-level dissent is the exact canonical union of anonymized
+QUINTE-result dissent and cross-review dissent.
 
-- If all three materially agree, adopt the shared claim with evidence and stated limits.
-- If two materially agree and one dissents, adopt only the shared portion and preserve dissent.
-- If there is no material convergence, mark unresolved and do not force closure.
+### Deterministic verification
 
-No weighted voting. No confidence-score arithmetic. No hidden majority override.
+The verifier reconstructs the source universe and rejects invented references,
+omitted high risk, severity downgrades, untyped or unsupported closure,
+suppressed dissent, and an unsafe decision. It deterministically reconstructs
+the HIGHBALL/RASHOMON-compatible Trace `1.1`.
 
-## 4. Residual Trace
+## Product
 
-MAGI's required output is a convergence/divergence residual trace. It is lighter
-than QUINTE's adversarial ledger, but it uses the same RASHOMON field meanings
-so HIGHBALL or a host runtime can reason about action boundaries.
+`magi verify-product TRIAL_DIR` revalidates the closed state and emits Product
+Summary `1.0`, binding:
 
-Minimum trace:
+- runtime, builder, agent, and original-brief digests;
+- question, action scope, affected paths, and action binding;
+- final verdict and residual trace;
+- exact final dissent;
+- three distinct family/profile/thesis/dossier/QUINTE products;
+- six distinct directed cross-reviews;
+- canonical product identity digest.
 
-```json
-{
-  "trace_version": "1.0",
-  "question": "string",
-  "instrument": "MAGI",
-  "residuals": [{
-    "id": "MAGI-001",
-    "severity": "MEDIUM",
-    "type": "evidence_gap",
-    "source": "Perspective A",
-    "finding": "string",
-    "affected_paths": ["path or glob"],
-    "error_signature": "literal string, regex, command, or null",
-    "evidence": "file:line, command output, source, or null",
-    "disposition": "unresolved",
-    "required_closure": "human_review",
-    "closure_state": "open",
-    "closure_evidence": ["file:line, command output, source, waiver, or null"],
-    "scope": "what action this closure covers"
-  }],
-  "trial_manifest": {
-    "manifest_version": "1.0",
-    "base_model_relation": "mixed",
-    "perspective_count": 3,
-    "perspectives": [{
-      "id": "Perspective A",
-      "role": "independent inquiry perspective",
-      "route": "implementation-bound route or null",
-      "artifact": "artifact path or null",
-      "prompt_hash": "hash or null",
-      "independent_first_pass": true
-    }],
-    "perturbation_axes": ["role", "evidence_boundary"],
-    "independence_controls": ["independent_first_pass", "separate_output_artifacts"],
-    "contamination_risks": ["same_model_error_correlation"],
-    "cost": {
-      "total_tokens": null,
-      "wall_time_seconds": null,
-      "tool_calls": null,
-      "human_minutes": null
-    }
-  },
-  "action_boundary": "reversible",
-  "highball_decision": "not_applicable"
-}
-```
+Only this verified product boundary may be consumed as completed MAGI evidence.
 
-The trace must validate against RASHOMON
-`schemas/residual-trace.schema.json`. MAGI may be lighter than QUINTE in
-pressure, but it must not rename or omit trace fields.
-MAGI should include enough evidence, uncertainty, and scope for host-side
-residual quality metrics to be derived. It should not self-certify trace
-quality; the consumer computes quality from the trace.
-MAGI should include `trial_manifest` when a conclusion is action-relevant. The
-manifest records perspective artifacts, prompt hashes, perturbation axes,
-independence controls, contamination risks, and cost so convergence can be
-judged as trial-conditioned stability rather than proof.
-Earlier MAGI outputs may lack this trace. Treat them as historical evidence
-and scan them for adoption; do not rewrite old outputs solely to improve
-metrics.
+## Failure Semantics
 
-MAGI should normally set `highball_decision` to `not_applicable`; HIGHBALL owns
-the runtime decision. If MAGI detects that its conclusion affects code,
-protocol, production, money movement, legal exposure, or another protected
-boundary, it should mark the relevant residual as `escalated` and leave
-`closure_state` as `open` unless direct evidence or human waiver is present.
-HIGHBALL residual routing decides when MAGI is sufficient and when the task
-must escalate to QUINTE, direct evidence, human review, or block.
-When HIGHBALL builds an Action Packet, MAGI's trace is the convergence or
-divergence trace component, not the packet's route or authorization decision.
-If later evidence confirms, contradicts, or complicates the trace, that
-follow-up belongs in a HIGHBALL outcome ledger. MAGI does not rewrite the trace
-or self-certify route success after the fact.
+Contract failure exits distinctly from agent failure and runtime I/O failure.
+Resume begins at the first missing valid artifact; it never silently accepts a
+changed configuration or runtime. `BLOCK` and `ESCALATE` are valid final MAGI
+products but are non-authorizing at the HIGHBALL boundary.
 
-When MAGI is evaluated as a future default route for a class of work, that
-evaluation belongs in HIGHBALL route experiment artifacts: a pre-run manifest
-and a post-run review against calibration, baseline, and outcome evidence. MAGI
-produces convergence and divergence residuals; it does not certify that its own
-route earned policy status.
+## Non-Claims
 
-## 5. Failure Modes
-
-- Simulated plurality: one actor writes all perspectives without independent formation.
-- Role fixation: historical tool bindings are treated as permanent protocol facts.
-- False convergence: agreement is reported while evidence or boundaries diverge.
-- Suppressed dissent: minority disagreement is omitted from synthesis.
-- Evidence collapse: claims are merged without preserving source evidence.
-- Trace collapse: final synthesis lacks residual ids, source evidence, or closure state.
-
-## 6. Invariants
-
-1. MAGI is a Hermes Agent Protocol, not a current tool route.
-2. The three perspectives are abstract slots.
-3. Concrete implementations must be specified outside this repository.
-4. Dissent remains visible.
-5. Convergence does not override missing evidence.
-6. Cultural anchors are non-runtime context.
-7. Any action-relevant output must preserve a residual trace.
+MAGI does not prove truth, statistical independence, or a universal confidence
+percentage. Containers reduce state contamination; profiles create method
+diversity; distinct foundation-model families reduce one important source of
+correlated error. Shared training data, protocol structure, original evidence,
+and the final adjudicator remain declared contamination risks.

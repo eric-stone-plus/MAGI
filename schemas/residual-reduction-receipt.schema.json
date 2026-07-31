@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eric-stone-plus/MAGI/contracts/residual-reduction-receipt/1.0/schema.json",
+  "title": "MAGI Observable Residual-Reduction Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_version", "metric_scope", "baseline_scope",
+    "seat_residual_source_refs", "cross_review_source_refs",
+    "cross_review_novel_source_refs", "cross_review_linked_source_refs",
+    "challenged_seat_source_refs", "final_represented_source_refs",
+    "final_falsified_or_discarded_source_refs", "final_finding_ids",
+    "final_unresolved_finding_ids", "counts", "limitations", "binding_sha256"
+  ],
+  "properties": {
+    "receipt_version": {"const": "1.0"},
+    "metric_scope": {"type": "string", "minLength": 1},
+    "baseline_scope": {"type": "string", "minLength": 1},
+    "seat_residual_source_refs": {"$ref": "#/$defs/strings"},
+    "cross_review_source_refs": {"$ref": "#/$defs/strings"},
+    "cross_review_novel_source_refs": {"$ref": "#/$defs/strings"},
+    "cross_review_linked_source_refs": {"$ref": "#/$defs/strings"},
+    "challenged_seat_source_refs": {"$ref": "#/$defs/strings"},
+    "final_represented_source_refs": {"$ref": "#/$defs/strings"},
+    "final_falsified_or_discarded_source_refs": {"$ref": "#/$defs/strings"},
+    "final_finding_ids": {"$ref": "#/$defs/strings"},
+    "final_unresolved_finding_ids": {"$ref": "#/$defs/strings"},
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seat_residuals", "cross_review_findings", "cross_review_novel_findings",
+        "cross_review_linked_findings", "challenged_seat_residuals",
+        "final_represented_sources", "final_falsified_or_discarded_sources",
+        "final_findings", "final_unresolved_findings"
+      ],
+      "properties": {
+        "seat_residuals": {"type": "integer", "minimum": 0},
+        "cross_review_findings": {"type": "integer", "minimum": 0},
+        "cross_review_novel_findings": {"type": "integer", "minimum": 0},
+        "cross_review_linked_findings": {"type": "integer", "minimum": 0},
+        "challenged_seat_residuals": {"type": "integer", "minimum": 0},
+        "final_represented_sources": {"type": "integer", "minimum": 0},
+        "final_falsified_or_discarded_sources": {"type": "integer", "minimum": 0},
+        "final_findings": {"type": "integer", "minimum": 0},
+        "final_unresolved_findings": {"type": "integer", "minimum": 0}
+      }
+    },
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "binding_sha256": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "strings": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  }
+}

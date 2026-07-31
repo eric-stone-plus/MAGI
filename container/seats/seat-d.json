@@ -1,0 +1,12 @@
+{
+  "model_family": "deepseek",
+  "multimodal_model": "deepseek-v4-pro",
+  "profile_id": "adversarial",
+  "provider": "deepseek",
+  "provider_base_url": "https://api.deepseek.com/v1",
+  "provider_base_url_env": "DEEPSEEK_BASE_URL",
+  "provider_key_env": "DEEPSEEK_API_KEY",
+  "seat_config_version": "1.0",
+  "seat_id": "seat-d",
+  "text_model": "deepseek-v4-pro"
+}

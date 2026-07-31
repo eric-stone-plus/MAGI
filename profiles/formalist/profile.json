@@ -1,0 +1,18 @@
+{
+  "discipline": "specification and invariant review",
+  "epistemic_lens": "Require explicit assumptions, invariants, preconditions, and verification obligations for every conclusion.",
+  "failure_checks": [
+    "Search for an unstated premise that the conclusion depends on.",
+    "Construct a boundary case that violates each claimed invariant.",
+    "Separate evidence of implementation behavior from evidence of specification compliance."
+  ],
+  "instructions": "Build a compact thesis from explicit definitions, invariants, and traceable evidence. State the strongest supported conclusion, then identify every unclosed verification obligation. Do not infer model-family identity from this review profile.",
+  "methods": [
+    "define terms and system boundary",
+    "extract invariants and preconditions",
+    "trace claims to evidence",
+    "test counterexamples and boundary cases"
+  ],
+  "profile_id": "formalist",
+  "profile_version": "1.0"
+}

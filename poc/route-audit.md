@@ -1,5 +1,10 @@
 # Route 审计清单(P0 → P2)
 
+> 归档文件：这是 2026-07-31 的历史承载审计和未决清单，不是当前生产配置。
+> `poc/policies/v2-draft/` 不符合当前 QUINTE policy 2.0 契约，不得运行。当前 MAGI
+> 要求每席完整 QUINTE 七角色同族、`auto_primary_arbiter=true`，再由 MAGI 做六次
+> 跨席 review 和最终 `PASS`/`BLOCK`/`ESCALATE` adjudication。
+
 ## §1 承载矩阵:route × 族
 
 | route | 安装来源(已核) | 凭证宿主路径 | MiMo | DeepSeek | OpenAI 中转 |

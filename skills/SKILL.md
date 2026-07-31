@@ -1,74 +1,41 @@
 ---
 name: magi
-description: "MAGI Hermes Agent Protocol - triadic independent inquiry; model/tool bindings unassigned."
-spec: "https://github.com/eric-stone-plus/MAGI/blob/main/specs/PROTOCOL.md"
-triggers:
-  - "magi"
+description: Run or verify the headless MAGI triadic cross-family technical adjudication CLI. Use for high-risk architecture, irreversible decisions, SSH-only workflows, or requests needing three isolated Hermes review profiles, three complete single-family QUINTE dossiers, six anonymous cross-reviews, and a final PASS/BLOCK/ESCALATE product.
 ---
 
-# MAGI
+# MAGI Cross-Verification
 
-## Boundary
+Use the atomic, display-independent `magi` CLI. Do not invoke seats, QUINTE
+lanes, reviewers, or the Final Adjudicator directly from this skill.
 
-MAGI is a Hermes Agent Protocol for triadic independent inquiry. This skill
-explains the structure only. It does not select models, select tools, run
-agents, assign standing roles, aggregate answers, or authorize edits.
+## Run
 
-## Frame
+1. Prepare one Brief `1.1` with an explicit action binding and scope.
+2. Initialize exactly `seat-m`, `seat-d`, and `seat-g`.
+3. Run `magi build-dossiers TRIAL_DIR --config BUILDERS.json`.
+4. Confirm all three dossiers are frozen before exchange.
+5. Run `magi run TRIAL_DIR --config AGENTS.json`; completed output is Product
+   Summary `1.0`, including exact final dissent.
+6. Run `magi verify-product TRIAL_DIR` and retain the closed product summary.
 
-Use MAGI as a protocol shape when a conclusion benefits from three
-independent perspectives:
+Resume with the same commands and byte-identical configs. Configuration,
+runtime, dossier, review, or verdict drift must fail closed.
 
-- Perspective A states its claim, evidence, and uncertainty.
-- Perspective B does the same independently.
-- Perspective C does the same independently.
-- The synthesis adopts only material convergence and preserves material dissent.
-- Action-relevant output preserves a residual trace with source, evidence,
-  disposition, closure state, and scope.
+## Boundaries
 
-The perspectives are placeholders. They are not fixed tools, providers, models,
-or people.
+- Treat each internal QUINTE run as single-family across all seven roles.
+- Require `auto_primary_arbiter=true` so every inner QUINTE product is headless.
+- Use only native production carriers: MiMo=`mimo`, DeepSeek=`reasonix`,
+  OpenAI=`codex`; never fall back to OMP or another excluded carrier.
+- Keep profile diversity separate from model-family diversity.
+- Require three distinct families, profile digests, and QUINTE run IDs.
+- Require all six anonymous directed reviews.
+- Require every reviewer to run through its frozen complete Hermes profile;
+  reject a native model wrapper, changed profile path/digest, or undeclared
+  methodology trace.
+- Accept the final conclusion only after deterministic verification.
+- Never treat a residual trace alone as a completed MAGI product.
+- Never claim MAGI proves truth or a universal confidence percentage.
+- Route external authorization and protected writes through HIGHBALL.
 
-## Convergence
-
-Material agreement means a shared claim may be used only with evidence
-attached.
-
-Material disagreement means dissent must remain visible.
-
-Missing evidence means the claim remains unresolved.
-
-No weighted voting. No confidence arithmetic. Agreement is a review signal, not
-proof.
-
-## Residual Trace
-
-MAGI does not authorize action. For action-relevant findings, emit residuals
-with ids, severity, source perspective, evidence, disposition, closure state,
-closure evidence, and scope. Leave unresolved high-risk items open or escalated
-unless direct evidence or a scoped human waiver exists.
-The trace must be compatible with RASHOMON
-`schemas/residual-trace.schema.json`.
-For action-relevant traces, include a trial manifest with perspective artifacts,
-prompt hashes, perturbation axes, independence controls, contamination risks,
-and cost.
-Include enough evidence, uncertainty, closure state, closure evidence, and
-scope for host-side residual quality metrics. Do not self-certify the trace as
-high quality.
-Treat earlier MAGI outputs as adoption evidence only; do not
-rewrite old outputs solely to improve residual-trace metrics.
-
-## Non-Goals
-
-- Do not dispatch tools from this skill.
-- Do not infer a current runtime route from historical MAGI implementations.
-- Do not treat any third-party position as fixed until an implementation repo or
-  host runtime explicitly binds it.
-- Do not decide that MAGI is sufficient near an action boundary; HIGHBALL
-  residual routing owns that decision.
-- If HIGHBALL builds an Action Packet, MAGI supplies only the trace component.
-  HIGHBALL owns route decision, validation, quality measurement, and boundary
-  decision.
-- If later evidence confirms or contradicts the MAGI trace, record that in a
-  HIGHBALL outcome ledger. Do not rewrite the trace or self-certify downstream
-  success.
+Read `../specs/PROTOCOL.md` only when contract details are needed.

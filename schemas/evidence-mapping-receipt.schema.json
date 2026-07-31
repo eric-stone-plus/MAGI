@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eric-stone-plus/MAGI/schemas/evidence-mapping-receipt.schema.json",
+  "title": "MAGI evidence mapping receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mapping_receipt_version", "seat_id", "evidence_manifest_sha256",
+    "assignment_plan_sha256", "assigned_evidence_refs", "quinte_run_id",
+    "quinte_snapshot_manifest_ref", "quinte_snapshot_manifest_sha256",
+    "mappings", "unmapped_canonical_refs", "unmapped_quinte_local_refs",
+    "limitations", "receipt_binding_sha256"
+  ],
+  "properties": {
+    "mapping_receipt_version": {"const": "1.0"},
+    "seat_id": {"type": "string", "minLength": 1},
+    "evidence_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "assignment_plan_sha256": {"$ref": "#/$defs/digest"},
+    "assigned_evidence_refs": {"$ref": "#/$defs/refArray"},
+    "quinte_run_id": {"type": "string", "minLength": 1},
+    "quinte_snapshot_manifest_ref": {"type": "string", "minLength": 1},
+    "quinte_snapshot_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "mappings": {"type": "array", "items": {"$ref": "#/$defs/mapping"}},
+    "unmapped_canonical_refs": {"$ref": "#/$defs/refArray"},
+    "unmapped_quinte_local_refs": {"$ref": "#/$defs/refArray"},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "receipt_binding_sha256": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "refArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_ref", "staged_ref", "staged_sha256", "size_bytes",
+        "media_type", "media_class", "exposure_modes", "quinte_local_refs",
+        "quinte_entries"
+      ],
+      "properties": {
+        "canonical_ref": {"type": "string", "pattern": "^snapshot://"},
+        "staged_ref": {"type": "string", "minLength": 1},
+        "staged_sha256": {"$ref": "#/$defs/digest"},
+        "size_bytes": {"type": "integer", "minimum": 0},
+        "media_type": {"type": "string", "minLength": 1},
+        "media_class": {"enum": ["document", "image", "video", "audio", "binary"]},
+        "exposure_modes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["snapshot", "multimodal_attachment"]}
+        },
+        "quinte_local_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "quinte_entries": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["local_ref", "kind", "source_name", "sha256", "bytes", "media_type"],
+            "properties": {
+              "local_ref": {"type": "string", "minLength": 1},
+              "kind": {"enum": ["snapshot", "attachment"]},
+              "source_name": {"type": "string", "minLength": 1},
+              "sha256": {"$ref": "#/$defs/digest"},
+              "bytes": {"type": "integer", "minimum": 0},
+              "media_type": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    }
+  }
+}

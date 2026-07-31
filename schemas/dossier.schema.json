@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eric-stone-plus/MAGI/contracts/dossier/1.0/schema.json",
+  "title": "MAGI Frozen Seat Dossier",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dossier_version", "seat_id", "profile_id", "profile_ref", "profile_sha256",
+    "reviewer_profile_ref", "reviewer_profile_sha256",
+    "thesis_ref", "thesis_sha256", "perspective_input_ref", "perspective_input_sha256",
+    "original_brief_sha256", "derived_quinte_brief_sha256", "quinte_run_ref",
+    "quinte_manifest_sha256", "quinte_result_sha256",
+    "assignment_plan_sha256", "assigned_evidence_refs",
+    "evidence_mapping_ref", "evidence_mapping_sha256"
+  ],
+  "properties": {
+    "dossier_version": {"const": "1.0"},
+    "seat_id": {"type": "string", "minLength": 1},
+    "profile_id": {"type": "string", "minLength": 1},
+    "profile_ref": {"type": "string", "minLength": 1},
+    "profile_sha256": {"$ref": "#/$defs/digest"},
+    "reviewer_profile_ref": {"type": "string", "minLength": 1},
+    "reviewer_profile_sha256": {"$ref": "#/$defs/digest"},
+    "thesis_ref": {"type": "string", "minLength": 1},
+    "thesis_sha256": {"$ref": "#/$defs/digest"},
+    "perspective_input_ref": {"type": "string", "minLength": 1},
+    "perspective_input_sha256": {"$ref": "#/$defs/digest"},
+    "original_brief_sha256": {"$ref": "#/$defs/digest"},
+    "derived_quinte_brief_sha256": {"$ref": "#/$defs/digest"},
+    "quinte_run_ref": {"type": "string", "minLength": 1},
+    "quinte_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "quinte_result_sha256": {"$ref": "#/$defs/digest"},
+    "assignment_plan_sha256": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+    "assigned_evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "evidence_mapping_ref": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+    "evidence_mapping_sha256": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}}
+}
