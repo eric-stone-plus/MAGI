@@ -1,0 +1,58 @@
+{
+  "_status": "DRAFT policy v2 — 需 QUINTE policy v2 补丁(见 ../../route-audit.md §P2),当前 v1 校验器会拒绝此文件",
+  "_seat": { "id": "seat-g", "family": "openai", "note": "GPT 中转席;计费 0.52x;模型身份未经 canary 核验前输出降级 advisory" },
+  "policy_version": "2.0",
+  "roster": [
+    { "party_id": "Party A", "route_id": "codewhale", "adapter": "codewhale", "executable": "codewhale", "required": true, "family": "openai", "model": "gpt5.6-sol", "_note": "待验证:codewhale 自定义 provider/base_url;不可行则改 omp" },
+    { "party_id": "Party B", "route_id": "opencode", "adapter": "opencode", "executable": "opencode", "required": true, "family": "openai", "model": "gpt5.6-sol", "_note": "高可行:opencode 支持自定义 provider" },
+    { "party_id": "Party C", "route_id": "kilo", "adapter": "kilo", "executable": "kilo", "required": true, "family": "openai", "model": "gpt5.6-sol", "_note": "待验证;不可行则改 omp" },
+    { "party_id": "Party D", "route_id": "omp_gpt", "adapter": "omp", "executable": "omp", "required": true, "family": "openai", "model": "gpt5.6-sol", "_note": "mimo CLI 仅 MiMo 后端;此 lane 改由 omp 承载(pi-ai 原生 OpenAI 协议)" },
+    { "party_id": "Party E", "route_id": "omp", "adapter": "omp", "executable": "omp", "required": true, "family": "openai", "model": "gpt5.6-sol" }
+  ],
+  "counterpart_arbiter": {
+    "party_id": "Counterpart Arbiter",
+    "route_id": "cc_mimo",
+    "adapter": "mimo",
+    "executable": "mimo",
+    "required": true,
+    "family": "mimo",
+    "model": "mimo-v2.5-pro",
+    "_note": "交叉绑:G 席仲裁走 MiMo"
+  },
+  "audit_binding": {
+    "auditor_adapter": "omp",
+    "auditor_model": "mimo-v2.5-pro",
+    "_note": "外审交叉族 G←MiMo"
+  },
+  "relay": {
+    "base_url_env": "SEAT_G_RELAY_BASE_URL",
+    "api_key_env": "SEAT_G_RELAY_API_KEY",
+    "egress_allow": ["<relay-host>"],
+    "_note": "中转 key 运行时注入,不进镜像;egress 白名单 P1 硬化;中转站常见仅兼容 OpenAI Completions 协议,canary 顺带验证 Responses"
+  },
+  "canary": {
+    "enabled": true,
+    "on_mismatch": "mark family_unverified;seat output degrades to advisory",
+    "probes": [
+      { "id": "fp-1", "prompt": "只回答数字:17*23+sqrt(196)=?", "expect_regex": "^587$" },
+      { "id": "fp-2", "prompt": "用一句话说明你的模型提供方与版本,不要客气话。", "expect_regex": "(?i)openai|gpt" },
+      { "id": "fp-3", "prompt": "输出恰好 64 个字符的十六进制小写串,内容由 'magi-canary' 决定,可复现。", "expect_regex": "^[0-9a-f]{64}$" }
+    ]
+  },
+  "text_model": "gpt5.6-sol",
+  "multimodal_model": "gpt5.6-sol",
+  "max_parallel_r1": 5,
+  "max_parallel_r2": 1,
+  "r2_parallel": false,
+  "max_attempts": 3,
+  "timeout_seconds": 600,
+  "retry_backoff_seconds": 15,
+  "retry_backoff_max_seconds": 120,
+  "r2_min_interval_seconds": 10,
+  "max_output_bytes": 1048576,
+  "max_snapshot_files": 2000,
+  "max_snapshot_bytes": 20971520,
+  "max_attachment_bytes": 10485760,
+  "sandbox_mode": "process",
+  "extensions": {}
+}

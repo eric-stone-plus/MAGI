@@ -1,0 +1,51 @@
+{
+  "manifest_version": "1.0",
+  "base_model_relation": "same_family(P0 机制与基线 trial;v2 后为 three_families)",
+  "perspective_count": 3,
+  "perspectives": [
+    {
+      "id": "seat-m",
+      "role": "independent inquiry perspective (containerized QUINTE seat)",
+      "route": "quinte + policies/v1-current/seat-m.policy.json",
+      "artifact": "vol/state/seat-m/runs/<run-id>/result.json",
+      "prompt_hash": null,
+      "independent_first_pass": true
+    },
+    {
+      "id": "seat-d",
+      "role": "independent inquiry perspective (containerized QUINTE seat)",
+      "route": "quinte + policies/v1-current/seat-m.policy.json (P0 共用 v1)",
+      "artifact": "vol/state/seat-d/runs/<run-id>/result.json",
+      "prompt_hash": null,
+      "independent_first_pass": true
+    },
+    {
+      "id": "seat-g",
+      "role": "independent inquiry perspective (containerized QUINTE seat)",
+      "route": "quinte + policies/v1-current/seat-m.policy.json (P0 共用 v1)",
+      "artifact": "vol/state/seat-g/runs/<run-id>/result.json",
+      "prompt_hash": null,
+      "independent_first_pass": true
+    }
+  ],
+  "perturbation_axes": ["seat_container", "lane_harness_roster", "r2_anonymized_review"],
+  "independence_controls": [
+    "container_isolation",
+    "per_seat_quinte_home",
+    "separate_output_artifacts",
+    "no_shared_context_between_seats"
+  ],
+  "contamination_risks": [
+    "same_family_all_seats (P0:三席均为 MiMo 族,只测机制与 ρ̂_w 基线)",
+    "pa_single_responder (R3 Primary Arbiter 由宿主同一回答者完成)",
+    "cc_same_family_as_lanes (Counterpart Arbiter 为 MiMo 后端)",
+    "shared_evidence_snapshot (三席读同一 brief/snapshot)",
+    "relay_model_identity_unverified (P2 席 G 启用后,canary 通过前输出降级 advisory)"
+  ],
+  "cost": {
+    "total_tokens": null,
+    "wall_time_seconds": null,
+    "tool_calls": null,
+    "human_minutes": null
+  }
+}

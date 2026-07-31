@@ -1,0 +1,43 @@
+{
+  "_status": "DRAFT policy v2 — 需 QUINTE policy v2 补丁(见 ../../route-audit.md §P2),当前 v1 校验器会拒绝此文件",
+  "_seat": { "id": "seat-d", "family": "deepseek", "note": "DeepSeek 席;harness 承载以 route-audit §1 验证结果为准" },
+  "policy_version": "2.0",
+  "roster": [
+    { "party_id": "Party A", "route_id": "codewhale", "adapter": "codewhale", "executable": "codewhale", "required": true, "family": "deepseek", "model": "deepseek-v4-pro", "_note": "待验证:codewhale 自定义 provider/base_url" },
+    { "party_id": "Party B", "route_id": "opencode", "adapter": "opencode", "executable": "opencode", "required": true, "family": "deepseek", "model": "deepseek-v4-pro", "_note": "高可行:opencode 支持自定义 provider" },
+    { "party_id": "Party C", "route_id": "kilo", "adapter": "kilo", "executable": "kilo", "required": true, "family": "deepseek", "model": "deepseek-v4-pro", "_note": "待验证:@kilocode/cli 自定义 provider" },
+    { "party_id": "Party D", "route_id": "omp_ds", "adapter": "omp", "executable": "omp", "required": true, "family": "deepseek", "model": "deepseek-v4-pro", "_note": "mimo CLI 仅 MiMo 后端,不可跨族;此 lane 改由 omp 承载(route_id 保持全局唯一)" },
+    { "party_id": "Party E", "route_id": "omp", "adapter": "omp", "executable": "omp", "required": true, "family": "deepseek", "model": "deepseek-v4-pro" }
+  ],
+  "counterpart_arbiter": {
+    "party_id": "Counterpart Arbiter",
+    "route_id": "cc_mimo",
+    "adapter": "mimo",
+    "executable": "mimo",
+    "required": true,
+    "family": "mimo",
+    "model": "mimo-v2.5-pro",
+    "_note": "交叉绑:D 席仲裁走 MiMo(mimo CLI 原生)"
+  },
+  "audit_binding": {
+    "auditor_adapter": "omp",
+    "auditor_model": "mimo-v2.5-pro",
+    "_note": "外审交叉族 D←MiMo;需 omp 配置 MiMo provider(route-audit §4 验证项)"
+  },
+  "text_model": "deepseek-v4-pro",
+  "multimodal_model": "deepseek-v4-pro",
+  "max_parallel_r1": 5,
+  "max_parallel_r2": 1,
+  "r2_parallel": false,
+  "max_attempts": 3,
+  "timeout_seconds": 600,
+  "retry_backoff_seconds": 15,
+  "retry_backoff_max_seconds": 120,
+  "r2_min_interval_seconds": 10,
+  "max_output_bytes": 1048576,
+  "max_snapshot_files": 2000,
+  "max_snapshot_bytes": 20971520,
+  "max_attachment_bytes": 10485760,
+  "sandbox_mode": "process",
+  "extensions": {}
+}

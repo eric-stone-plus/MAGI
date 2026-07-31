@@ -1,0 +1,43 @@
+{
+  "_status": "DRAFT policy v2 — 需 QUINTE policy v2 补丁(见 ../../route-audit.md §P2),当前 v1 校验器会拒绝此文件",
+  "_seat": { "id": "seat-m", "family": "mimo", "note": "MiMo 席;lane 与现役 roster 完全一致" },
+  "policy_version": "2.0",
+  "roster": [
+    { "party_id": "Party A", "route_id": "codewhale", "adapter": "codewhale", "executable": "codewhale", "required": true, "family": "mimo", "model": "mimo-v2.5-pro" },
+    { "party_id": "Party B", "route_id": "opencode", "adapter": "opencode", "executable": "opencode", "required": true, "family": "mimo", "model": "mimo-v2.5-pro" },
+    { "party_id": "Party C", "route_id": "kilo", "adapter": "kilo", "executable": "kilo", "required": true, "family": "mimo", "model": "mimo-v2.5-pro" },
+    { "party_id": "Party D", "route_id": "mimo", "adapter": "mimo", "executable": "mimo", "required": true, "family": "mimo", "model": "mimo-v2.5-pro" },
+    { "party_id": "Party E", "route_id": "omp", "adapter": "omp", "executable": "omp", "required": true, "family": "mimo", "model": "mimo-v2.5-pro" }
+  ],
+  "counterpart_arbiter": {
+    "party_id": "Counterpart Arbiter",
+    "route_id": "cc_ds",
+    "adapter": "omp",
+    "executable": "omp",
+    "required": true,
+    "family": "deepseek",
+    "model": "deepseek-v4-pro",
+    "_note": "交叉绑:M 席仲裁走 DeepSeek(经 omp provider);v1 固定 (cc, claude, claude) 作废"
+  },
+  "audit_binding": {
+    "auditor_adapter": "omp",
+    "auditor_model": "deepseek-v4-pro",
+    "_note": "外审交叉族 M←DeepSeek;reasonix 不进自动化,留单独使用"
+  },
+  "text_model": "mimo-v2.5-pro",
+  "multimodal_model": "mimo-v2.5",
+  "max_parallel_r1": 5,
+  "max_parallel_r2": 1,
+  "r2_parallel": false,
+  "max_attempts": 3,
+  "timeout_seconds": 600,
+  "retry_backoff_seconds": 15,
+  "retry_backoff_max_seconds": 120,
+  "r2_min_interval_seconds": 10,
+  "max_output_bytes": 1048576,
+  "max_snapshot_files": 2000,
+  "max_snapshot_bytes": 20971520,
+  "max_attachment_bytes": 10485760,
+  "sandbox_mode": "process",
+  "extensions": {}
+}

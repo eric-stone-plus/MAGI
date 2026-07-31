@@ -1,0 +1,81 @@
+# MAGI P0 三席编排。用法见 ../README.md。
+# 注意:P0 三席共用 v1-current policy(同族 MiMo);P2 换挂 v2-draft 对应文件。
+# 注意:宿主凭证路径若不存在,docker 会创建同名空目录 —— up 之前先按
+# route-audit.md §2 核对五个凭证源都存在。
+
+x-seat-common: &seat-common
+  build: .
+  restart: "no"
+  mem_limit: 4g
+  cpus: 2
+  volumes:
+    - ../vol/brief:/input:ro
+    - ../policies/v1-current/seat-m.policy.json:/config/policy.json:ro
+    - ${HOME}/.omp/agent:/cred/omp-agent:ro
+    - ${HOME}/.codewhale/config.toml:/cred/codewhale-config.toml:ro
+    - ${HOME}/.local/share/opencode/auth.json:/cred/opencode-auth.json:ro
+    - ${HOME}/.local/share/kilo/auth.json:/cred/kilo-auth.json:ro
+    - ${HOME}/.local/share/mimocode:/cred/mimocode:ro
+    - ${HOME}/.local/share/mimo:/cred/mimo-share:ro
+    - ${HOME}/.config/mimo:/cred/mimo-config:ro
+    - ${HOME}/.claude:/cred/claude:ro
+  # egress 白名单(席 G 只放中转端点、M/D 只放各自 provider)属于 P1 硬化,
+  # P0 依赖宿主网络默认行为,污染风险记入 trial_manifest。
+
+services:
+  seat-m:
+    <<: *seat-common
+    environment:
+      SEAT_ID: seat-m
+    volumes:
+      - ../vol/brief:/input:ro
+      - ../policies/v1-current/seat-m.policy.json:/config/policy.json:ro
+      - ../vol/state/seat-m:/state
+      - ../vol/artifacts/seat-m:/artifacts
+      - ${HOME}/.omp/agent:/cred/omp-agent:ro
+      - ${HOME}/.codewhale/config.toml:/cred/codewhale-config.toml:ro
+      - ${HOME}/.local/share/opencode/auth.json:/cred/opencode-auth.json:ro
+      - ${HOME}/.local/share/kilo/auth.json:/cred/kilo-auth.json:ro
+      - ${HOME}/.local/share/mimocode:/cred/mimocode:ro
+      - ${HOME}/.local/share/mimo:/cred/mimo-share:ro
+      - ${HOME}/.config/mimo:/cred/mimo-config:ro
+      - ${HOME}/.claude:/cred/claude:ro
+
+  seat-d:
+    <<: *seat-common
+    environment:
+      SEAT_ID: seat-d
+    volumes:
+      - ../vol/brief:/input:ro
+      - ../policies/v1-current/seat-m.policy.json:/config/policy.json:ro
+      - ../vol/state/seat-d:/state
+      - ../vol/artifacts/seat-d:/artifacts
+      - ${HOME}/.omp/agent:/cred/omp-agent:ro
+      - ${HOME}/.codewhale/config.toml:/cred/codewhale-config.toml:ro
+      - ${HOME}/.local/share/opencode/auth.json:/cred/opencode-auth.json:ro
+      - ${HOME}/.local/share/kilo/auth.json:/cred/kilo-auth.json:ro
+      - ${HOME}/.local/share/mimocode:/cred/mimocode:ro
+      - ${HOME}/.local/share/mimo:/cred/mimo-share:ro
+      - ${HOME}/.config/mimo:/cred/mimo-config:ro
+      - ${HOME}/.claude:/cred/claude:ro
+
+  seat-g:
+    <<: *seat-common
+    environment:
+      SEAT_ID: seat-g
+      # P2 启用:中转端点与 key 经环境注入,egress 白名单只放此端点
+      # SEAT_G_RELAY_BASE_URL: https://<relay-host>/v1
+      # SEAT_G_RELAY_API_KEY: <secret>
+    volumes:
+      - ../vol/brief:/input:ro
+      - ../policies/v1-current/seat-m.policy.json:/config/policy.json:ro
+      - ../vol/state/seat-g:/state
+      - ../vol/artifacts/seat-g:/artifacts
+      - ${HOME}/.omp/agent:/cred/omp-agent:ro
+      - ${HOME}/.codewhale/config.toml:/cred/codewhale-config.toml:ro
+      - ${HOME}/.local/share/opencode/auth.json:/cred/opencode-auth.json:ro
+      - ${HOME}/.local/share/kilo/auth.json:/cred/kilo-auth.json:ro
+      - ${HOME}/.local/share/mimocode:/cred/mimocode:ro
+      - ${HOME}/.local/share/mimo:/cred/mimo-share:ro
+      - ${HOME}/.config/mimo:/cred/mimo-config:ro
+      - ${HOME}/.claude:/cred/claude:ro

@@ -1,0 +1,61 @@
+{
+  "policy_version": "1.0",
+  "roster": [
+    {
+      "party_id": "Party A",
+      "route_id": "codewhale",
+      "adapter": "codewhale",
+      "executable": "codewhale",
+      "required": true
+    },
+    {
+      "party_id": "Party B",
+      "route_id": "opencode",
+      "adapter": "opencode",
+      "executable": "opencode",
+      "required": true
+    },
+    {
+      "party_id": "Party C",
+      "route_id": "kilo",
+      "adapter": "kilo",
+      "executable": "kilo",
+      "required": true
+    },
+    {
+      "party_id": "Party D",
+      "route_id": "mimo",
+      "adapter": "mimo",
+      "executable": "mimo",
+      "required": true
+    },
+    {
+      "party_id": "Party E",
+      "route_id": "omp",
+      "adapter": "omp",
+      "executable": "omp",
+      "required": true
+    }
+  ],
+  "auditor": {
+    "party_id": "Auditor B",
+    "route_id": "cc",
+    "adapter": "claude",
+    "executable": "claude",
+    "required": true
+  },
+  "text_model": "mimo-v2.5-pro",
+  "multimodal_model": "mimo-v2.5",
+  "max_parallel_r1": 5,
+  "max_parallel_r2": 1,
+  "max_attempts": 3,
+  "timeout_seconds": 600,
+  "retry_backoff_seconds": 15,
+  "retry_backoff_max_seconds": 120,
+  "r2_min_interval_seconds": 10,
+  "max_output_bytes": 1048576,
+  "max_snapshot_files": 2000,
+  "max_snapshot_bytes": 20971520,
+  "max_attachment_bytes": 10485760,
+  "sandbox_mode": "process"
+}

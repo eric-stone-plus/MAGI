@@ -1,0 +1,234 @@
+#!/usr/bin/env python3
+"""magi-merge — MAGI 确定性合并:三席 QUINTE result.json → 收敛/分歧 residual trace。
+
+不是模型主席、不做答案聚合:机械比对三席残差,收敛是信号不是证明,分歧保留。
+残差匹配复用 quinte-insights 的标定:CJK bigram shingle + 拉丁词 token,
+Jaccard 阈值 0.12(真匹配 ~0.16,噪声 ~0.08)。
+
+用法:
+  magi-merge --label seat-m=<run-dir|result.json> --label seat-d=... --label seat-g=... \
+             [--risk TEXT]... [--question TEXT] [--out FILE] [--json]
+
+退出码: 0 合并完成(含全分歧); 2 输入错误。
+"""
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+JACCARD_THRESHOLD = 0.12
+SEVERITY_ORDER = {"LOW": 0, "MEDIUM": 1, "HIGH": 2}
+DEFAULT_CONTROLS = [
+    "container_isolation",
+    "per_seat_quinte_home",
+    "separate_output_artifacts",
+    "no_shared_context_between_seats",
+]
+
+CJK = re.compile(r"[一-鿿]")
+LATIN = re.compile(r"[a-z0-9]+")
+
+
+def shingles(text: str) -> set:
+    text = (text or "").lower()
+    cjk = [c for c in text if CJK.match(c)]
+    grams = {"".join(cjk[i:i + 2]) for i in range(len(cjk) - 1)}
+    if len(cjk) == 1:
+        grams.add(cjk[0])
+    return grams | set(LATIN.findall(text))
+
+
+def jaccard(a: set, b: set) -> float:
+    if not a or not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
+def load_result(path_str: str, label: str) -> dict:
+    p = Path(path_str)
+    if p.is_dir():
+        p = p / "result.json"
+    if not p.is_file():
+        raise SystemExit(f"{label}: no result.json at {p}")
+    data = json.loads(p.read_text())
+    if data.get("status") != "completed":
+        print(f"WARN: {label} status={data.get('status')!r} (not completed)", file=sys.stderr)
+    data["_path"] = str(p)
+    return data
+
+
+def match_pair(res_a: list, res_b: list):
+    """贪心最佳匹配,返回 (a_idx, b_idx, score) 列表。"""
+    cand = []
+    for i, ra in enumerate(res_a):
+        for j, rb in enumerate(res_b):
+            s = jaccard(ra["_sh"], rb["_sh"])
+            if s >= JACCARD_THRESHOLD:
+                cand.append((s, i, j))
+    cand.sort(reverse=True)
+    used_a, used_b, matches = set(), set(), []
+    for s, i, j in cand:
+        if i in used_a or j in used_b:
+            continue
+        used_a.add(i)
+        used_b.add(j)
+        matches.append((i, j, s))
+    return matches
+
+
+class UnionFind:
+    def __init__(self):
+        self.parent = {}
+
+    def find(self, x):
+        self.parent.setdefault(x, x)
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
+        return x
+
+    def union(self, a, b):
+        ra, rb = self.find(a), self.find(b)
+        if ra != rb:
+            self.parent[rb] = ra
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(prog="magi-merge",
+                                 description="deterministic MAGI convergence/divergence merge of three seat verdicts")
+    ap.add_argument("--label", action="append", required=True, metavar="SEAT=PATH",
+                    help="seat id and run dir or result.json path (repeat ×3)")
+    ap.add_argument("--risk", action="append", default=[],
+                    help="contamination_risks entry for trial_manifest (repeatable)")
+    ap.add_argument("--question", default=None, help="override question text")
+    ap.add_argument("--out", default=None, help="write MAGI trace JSON here")
+    ap.add_argument("--json", action="store_true", help="print trace to stdout")
+    args = ap.parse_args()
+
+    seats = {}
+    for item in args.label:
+        if "=" not in item:
+            raise SystemExit(f"--label expects SEAT=PATH, got {item!r}")
+        label, path = item.split("=", 1)
+        seats[label] = load_result(path, label)
+    if len(seats) != 3:
+        raise SystemExit(f"need exactly 3 seats, got {len(seats)}")
+
+    # 展平残差:(seat, idx) -> residual,预计算 shingle
+    flat = {}
+    for label, result in seats.items():
+        for idx, r in enumerate(result.get("residuals", [])):
+            text = f"{r.get('finding', '')} {r.get('required_closure', '')}"
+            r = dict(r)
+            r["_sh"] = shingles(text)
+            flat[(label, idx)] = r
+
+    labels = list(seats)
+    uf = UnionFind()
+    pair_stats = {}
+    for x in range(len(labels)):
+        for y in range(x + 1, len(labels)):
+            la, lb = labels[x], labels[y]
+            ra = [(k[1], v) for k, v in flat.items() if k[0] == la]
+            rb = [(k[1], v) for k, v in flat.items() if k[0] == lb]
+            matches = match_pair([v for _, v in ra], [v for _, v in rb])
+            for i, j, _s in matches:
+                uf.union((la, ra[i][0]), (lb, rb[j][0]))
+            na, nb = len(ra), len(rb)
+            dice = 2 * len(matches) / (na + nb) if (na + nb) else 0.0
+            pair_stats[f"{la}|{lb}"] = {"matched": len(matches), "a": na, "b": nb,
+                                        "overlap_dice": round(dice, 4)}
+
+    clusters = {}
+    for key in flat:
+        clusters.setdefault(uf.find(key), []).append(key)
+
+    trace_residuals = []
+    n_all = n_pair = n_unique = 0
+    for n, (_root, members) in enumerate(
+            sorted(clusters.items(), key=lambda kv: -len(kv[1])), start=1):
+        member_seats = sorted({m[0] for m in members})
+        convergence = {3: "all", 2: "pair", 1: "unique"}[len(member_seats)]
+        n_all += convergence == "all"
+        n_pair += convergence == "pair"
+        n_unique += convergence == "unique"
+        best = max((flat[m] for m in members),
+                   key=lambda r: SEVERITY_ORDER.get(str(r.get("severity", "LOW")).upper(), 0))
+        trace_residuals.append({
+            "id": f"MAGI-{n:03d}",
+            "severity": str(best.get("severity", "MEDIUM")).upper(),
+            "type": best.get("type", "residual"),
+            "source": "+".join(member_seats),
+            "convergence": convergence,
+            "finding": best.get("finding", ""),
+            "affected_paths": best.get("affected_paths", []),
+            "error_signature": best.get("error_signature"),
+            "evidence": best.get("evidence") or best.get("evidence_refs"),
+            "disposition": "unresolved" if convergence != "all" else best.get("disposition", "unresolved"),
+            "required_closure": "human_review" if convergence == "unique" else best.get("required_closure", "human_review"),
+            "closure_state": "open",
+            "closure_evidence": [],
+            "scope": best.get("scope", ""),
+            "seat_residual_refs": [f"{m[0]}:{flat[m].get('id', m[1])}" for m in members],
+        })
+
+    total = max(len(trace_residuals), 1)
+    mean_overlap = round(sum(p["overlap_dice"] for p in pair_stats.values()) / 3, 4)
+    question = args.question or next(iter(seats.values())).get("question", "")
+    trace = {
+        "trace_version": "1.0",
+        "question": question,
+        "instrument": "MAGI",
+        "merge": {
+            "method": "deterministic (no model chair)",
+            "matcher": f"CJK-bigram+latin shingle Jaccard>={JACCARD_THRESHOLD}",
+            "converged_all": n_all,
+            "converged_pair": n_pair,
+            "unique": n_unique,
+            "mean_pairwise_overlap": mean_overlap,
+            "note": "收敛是信号不是证明;unique 残差不裁决,呈人工终裁。",
+        },
+        "residuals": trace_residuals,
+        "trial_manifest": {
+            "manifest_version": "1.0",
+            "base_model_relation": "per seat policies (see poc/route-audit.md)",
+            "perspective_count": 3,
+            "perspectives": [
+                {"id": label, "role": "independent inquiry perspective (containerized QUINTE seat)",
+                 "route": "quinte+seat-policy", "artifact": seats[label]["_path"],
+                 "prompt_hash": None, "independent_first_pass": True}
+                for label in labels
+            ],
+            "perturbation_axes": ["seat_container", "lane_harness_roster", "r2_anonymized_review"],
+            "independence_controls": DEFAULT_CONTROLS,
+            "contamination_risks": args.risk,
+            "cost": {"total_tokens": None, "wall_time_seconds": None,
+                     "tool_calls": None, "human_minutes": None},
+        },
+        "action_boundary": "reversible",
+        "highball_decision": "not_applicable",
+    }
+
+    if args.out:
+        out = Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(trace, ensure_ascii=False, indent=2))
+    if args.json or not args.out:
+        print(json.dumps(trace, ensure_ascii=False, indent=2))
+    else:
+        print(f"question:      {question[:80]}")
+        for pair, st in pair_stats.items():
+            print(f"overlap {pair}: {st['matched']}/{st['a']}+{st['b']} dice={st['overlap_dice']}")
+        print(f"convergence:   all={n_all} pair={n_pair} unique={n_unique} "
+              f"(all/total={n_all}/{total})")
+        print(f"mean overlap:  {mean_overlap}  <- P0 同族基线 ρ̂_w 代理;P2 后比 ρ̂_b")
+        print(f"written:       {args.out}")
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except BrokenPipeError:
+        pass
