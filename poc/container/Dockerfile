@@ -16,22 +16,18 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # 五个 roster harness + claude(cc 仲裁,后端走 MiMo token plan,非 Anthropic 模型)。
-# bun 是 omp 的运行时。opencode/claude/omp 的平台二进制由 postinstall 安装,
-# --ignore-scripts 装完后必须对这三个 npm rebuild 补跑,否则 CLI 报
-# "postinstall script was not run" / "native binary not installed"。
-# 版本 P0 浮动;定稿前用 npm-shrinkwrap 锁死(参考上游 pi 的供应链纪律)。
+# bun 是 omp 的运行时。opencode/claude 的平台二进制由 postinstall 安装,
+# 这两个必须正常装(不带 --ignore-scripts);omp 只需要 bun 运行时,保持
+# --ignore-scripts。版本 P0 浮动;定稿前用 npm-shrinkwrap 锁死。
 RUN npm install -g --ignore-scripts \
       bun \
       codewhale \
       @mimo-ai/cli \
-      opencode-ai \
       @oh-my-pi/pi-coding-agent \
-      @anthropic-ai/claude-code \
       @kilocode/cli \
- && npm rebuild -g --foreground-scripts \
+ && npm install -g \
       opencode-ai \
       @anthropic-ai/claude-code \
-      @oh-my-pi/pi-coding-agent \
  && npm cache clean --force
 
 COPY --from=quinte-build /src/target/release/quinte /usr/local/bin/quinte
