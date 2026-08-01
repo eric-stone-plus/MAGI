@@ -220,6 +220,26 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "execution receipt mismatch"):
             runtime.status()
 
+    def test_tampered_mapping_receipt_fails_verify_product(self) -> None:
+        """Product verification must not trust a mapping whose binding digest drifted."""
+        runtime = TrialRuntime(self.trial, FunctionRunner(self.agent))
+        runtime.run(self.config)
+        paths = list((self.trial / "dossiers").rglob("evidence-mapping-receipt.json"))
+        self.assertTrue(paths, "expected mapping receipts after product run")
+        target = paths[0]
+        # Dossier trees are frozen read-only after registration; attacker-side
+        # tamper must still be detectable when the product is re-verified.
+        target.chmod(target.stat().st_mode | 0o200)
+        target.parent.chmod(target.parent.stat().st_mode | 0o700)
+        value = json.loads(target.read_text(encoding="utf-8"))
+        value["receipt_binding_sha256"] = "sha256:" + "f" * 64
+        atomic_write_json(target, value)
+        with self.assertRaisesRegex(
+            ContractError,
+            "mapping digest does not match|binding digest does not match|mapping receipt",
+        ):
+            runtime.verify_product()
+
     def test_tampered_residual_reduction_receipt_fails_replay(self) -> None:
         runtime = TrialRuntime(self.trial, FunctionRunner(self.agent))
         runtime.run(self.config)
