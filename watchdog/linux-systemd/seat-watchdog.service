@@ -1,0 +1,7 @@
+[Unit]
+Description=MAGI seat liveness watchdog (alert-grade, no restart)
+Documentation=https://github.com/eric-stone-plus/MAGI
+
+[Service]
+Type=oneshot
+ExecStart=__HOME__/.local/bin/seat-watchdog.sh
