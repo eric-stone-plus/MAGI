@@ -1,13 +1,16 @@
-# MAGI Charter v0.1
+# MAGI Charter v0.2
 
-> Charter of the three-seat decision organ.
+> Charter of the multi-seat decision organ.
 > Baseline v0 compiled 2026-08-29; v0.1 merges ratified amendments R1–R11
-> (all approved by the human arbiter, 2026-08-29).
+> (all approved by the human arbiter, 2026-08-29); v0.2 generalizes the
+> protocol away from any fixed seat roster (arbiter-directed, 2026-09-01).
 
 ## §0 Scope
 
-The organ consists of three physical seats (`arch`, `mac`, `fedora`), a file-based
-coordination channel (a synced `chat/` folder), and a human final-arbiter layer (eric).
+The organ consists of two or more physical seats — each a separately administered
+machine with its own pinned signing identity — a file-based coordination channel
+(a synced `chat/` folder), and a human final-arbiter layer. The protocol is
+seat-count agnostic: quorum and degradation rules (§7) are stated for N seats.
 
 ## §1 Diversity axes and Non-Claims
 
@@ -24,10 +27,11 @@ coordination channel (a synced `chat/` folder), and a human final-arbiter layer 
 
 ## §2 Seat mandates
 
-- `arch` — factual groundwork (machine-sourced numbers), Linux-domain authority,
-  synthesis/assembly.
-- `mac` — campaign/training perspective, eval-domain supply.
-- `fedora` — blank-slate risk review, edge verification.
+Each seat declares its competency domains (for example: factual groundwork with
+machine-sourced numbers, authority over a specific platform domain, adversarial
+risk review, eval supply, synthesis/assembly). Mandate declarations live in the
+coordination channel (each seat's directory), not in this charter; the charter
+constrains only how mandates interact.
 
 **Local-verify principle**: another seat's description of *your* machine's state is a
 claim, not a fact. Verify locally before acting on it; reply with an erratum when the
@@ -38,8 +42,8 @@ claim deviates.
 - Seal chain v2: every post carries `prev` + `prev-sha16` over the chain, plus an
   **Ed25519 signature**. The `sig` field signs the post body per the seat-agreed
   canonicalization; `sig-alg` names the exact digest encoding used. Seat public keys
-  are mutually pinned in a fingerprint ledger. Unsigned posts after the mandatory
-  signing epoch are alert-grade.
+  are mutually pinned in a fingerprint ledger maintained in the coordination channel.
+  Unsigned posts after the mandatory signing epoch are alert-grade.
 - Three-layer distribution prototype: transfer = LAN file-level (critical assets
   never touch the cloud); coordination = seal chain carrying only paths + spec +
   sha16 fingerprints; verification = fingerprint reply posts. The synced channel
@@ -50,7 +54,7 @@ claim deviates.
 
 ## §4 Decision cycle
 
-Groundwork (machine-sourced) → three-seat research → synthesis → co-signing →
+Groundwork (machine-sourced) → all-seat research → synthesis → co-signing →
 human final ruling.
 
 Every output must carry: an as-of timestamp, a counterfactual section, an
@@ -87,10 +91,13 @@ legitimate terminal states, not authorizations.
 
 ## §7 Quorum and degradation
 
-- 3/3 = normal ruling. 2/3 = ruling permitted, but the absent-seat declaration field
+Stated for N seats (the v0.1 roster of three seats is the N=3 special case):
+
+- N/N (full attendance) = normal ruling.
+- N−1/N (a single absence) = ruling permitted, but the absent-seat declaration field
   is mandatory, and it anchors to the *time period the declaration refers to*, not
   the posting moment.
-- ≤1 seat, or channel failure = ESCALATE only.
+- ≤N−2 seats, or channel failure = ESCALATE only.
 - Channel fallback is tested (LAN direct + aggregate-hash equivalence); host-key pin
   ledger maintained.
 
@@ -114,11 +121,15 @@ concatenations; max_tokens 6000; strictly serial single-shot calls; abandon on 4
 
 ## §10 Amendments
 
-Amendment = three-seat consensus + human final ruling. Amendment posts must be
-sealed + signed and must cite the entries they revise.
+Amendment = full-quorum consensus (all seats) + human final ruling. Amendment posts
+must be sealed + signed and must cite the entries they revise.
 
 ## Amendment record
 
 - v0 (2026-08-29): ten-article baseline compiled.
-- v0.1 (2026-08-29): R1–R11 merged (2/3 quorum with absent-seat declaration,
+- v0.1 (2026-08-29): R1–R11 merged (degraded quorum with absent-seat declaration,
   cross-seat re-verified, all approved by the human arbiter).
+- v0.2 (2026-09-01): seat-agnostic generalization — named-seat references removed,
+  mandates moved to channel-side declarations, quorum/degradation and amendment
+  rules restated for N seats (arbiter-directed). Repo scope extended to include the
+  reference seat-liveness watchdog under `watchdog/` (no charter effect).
