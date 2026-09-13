@@ -28,3 +28,7 @@ MAGI produces **recommendations only** (rulings + confidence + counterfactuals).
 Execution authority lives elsewhere (downstream executor systems and the human
 arbiter). The organ never executes. The watchdog is liveness **observability only**:
 it alerts, it never restarts anything.
+
+## License
+
+GPL-3.0-or-later. This program is free software: you may redistribute and/or modify it under the terms of the GNU General Public License v3 (see `LICENSE`).
