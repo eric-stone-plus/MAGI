@@ -31,4 +31,4 @@ it alerts, it never restarts anything.
 
 ## License
 
-GPL-3.0-or-later. This program is free software: you may redistribute and/or modify it under the terms of the GNU General Public License v3 (see `LICENSE`).
+MIT. See `LICENSE`.
